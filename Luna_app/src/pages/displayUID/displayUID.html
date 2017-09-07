@@ -1,0 +1,36 @@
+﻿<!--
+Title: displayUID.html
+Author: Dillon Pulliam
+Date: 7/20/2017
+
+Purpose: This code is the html behind displayUID.ts which creates a button that can be pressed which will output the UID of the user to the screen.
+This code is not actually used in the app but is a debugging feature where this page can replace calendar or some other page
+if its suspected that the app is having issues storing and retreiving a users UID from local storage.
+
+Input:
+    None
+
+Output:
+    An alert to the user displaying their UID.
+
+    Success:
+        UID output to the screen when the button is pressed.
+
+    Failure:
+        UID is not output to the screen when the button is pressed.
+-->
+
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Display UID
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <h1>The uid stored in local storage is as follows: </h1>
+
+  <button (click)="ShowVariables()" ion-button full>uid</button>
+
+</ion-content>

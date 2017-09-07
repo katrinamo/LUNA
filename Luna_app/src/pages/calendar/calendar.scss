@@ -1,0 +1,144 @@
+﻿/*
+Title: calendar.scss
+Author: Provided by the purchased Ionic 3 Calendar feature
+      Info on the Ionic 3 Calendar can be found at the following: https://market.ionic.io/themes/ioniccalendar
+Date: 7/19/2017
+
+Purpose: Code creates the calendar events and markers within the calendar. 
+This is the stylesheet behind the calendar.
+
+Input:
+    None
+
+Output:
+    Calendar:
+        A calendar is output to the screen in month format.
+        A feature that hasn't been added yet but will be is event markers to the calendar that indicate when the user's cycle will begin and end.
+*/
+
+calendar {
+  $calBaseColor: map-get($colors,favorite);
+  $calDarkColor: map-get($colors,favoritedark);
+  $calMediumColor: map-get($colors,favoritemedium);
+  $calTextColor: map-get($colors,favoritedark);
+  $calSelectedDayColor: map-get($colors,primary);
+  $calTodayColor: map-get($colors,secondary);
+  $calMonthHeaderBgColor: $calBaseColor;
+  $calWeekHeaderBgColor: $calBaseColor;
+  $calDayColBgColor: $calMediumColor;
+  $calDayCellBgColor: $calBaseColor;
+  $markerBgColor: map-get($colors,royal);
+  $dateHolidayBgColor: $calBaseColor;
+  $dateWeekendBgColor: $calBaseColor;
+  $dateNonCurrentMonthBgColor: $calMediumColor;
+
+  .calendar {
+    margin-top: 0px;
+    padding: 5px;
+
+    ion-grid {
+      padding: 0;
+    }
+
+    ion-row {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .month-row {
+      background-color: $calMonthHeaderBgColor;
+      color: $calTextColor;
+      font-size: 25px;
+      border-bottom: solid 1px $calBaseColor;
+    }
+
+    .week-row {
+      background-color: $calWeekHeaderBgColor !important;
+      color: $calTextColor;
+      font-size: 12px;
+    }
+
+    .day-row button {
+      color: $calTextColor !important;
+      position: relative;
+    }
+
+    .month-icon {
+      font-size: 16px;
+    }
+
+    .day-col {
+      background-color: $calDayColBgColor !important;
+      /*border:solid 1px $calBaseColor;*/
+      padding: 3px !important;
+    }
+
+    .day-col:hover {
+      cursor: pointer;
+    }
+
+    .day-col:active {
+      background-color: $calSelectedDayColor;
+      cursor: pointer;
+    }
+
+
+    .day-cell {
+      background-color: $calDayCellBgColor;
+      color: $calTextColor !important;
+      padding: 5px;
+      position: relative;
+      -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.8);
+      -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.8);
+      box-shadow: 0 1px 1px rgba(0,0,0,0.8);
+    }
+
+
+
+    .selected {
+      background-color: $calSelectedDayColor !important;
+    }
+
+    .today {
+      background-color: $calTodayColor !important;
+    }
+
+    .non-current-month {
+      background-color: $dateNonCurrentMonthBgColor !important;
+      color: $calDarkColor !important;
+      box-shadow: none !important;
+    }
+
+    .marker {
+      display: inline-block;
+      position: absolute;
+      width: 4px;
+      height: 100%;
+      background-color: $markerBgColor;
+      bottom: 0;
+      left: 0;
+    }
+
+    .weekend {
+      background-color: $dateWeekendBgColor;
+      /*box-shadow:none !important;*/
+    }
+
+    .holiday {
+      background-color: $dateHolidayBgColor;
+      box-shadow: none !important;
+    }
+
+    .events {
+      position: relative;
+      margin-top: 30px;
+    }
+
+    .event-box {
+      .item {
+        color: $calTextColor !important;
+        background-color: $calBaseColor !important;
+      }
+    }
+  }
+}

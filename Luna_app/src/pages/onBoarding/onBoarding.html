@@ -1,0 +1,232 @@
+﻿<!--
+Title: onBoarding.html
+Author: Dillon Pulliam
+Date: 7/3/2017
+
+Purpose: This is the html page behind the onBoarding.ts page that allows the user to enter in their responses to the onBoarding questions in the app 
+and these responses are then sent and stored in the server.
+
+Input:
+    uid: This comes from local storage and is given to the app by the server originally. (Not in html)
+    birthday
+    cycleLength
+    periodLength
+    birthControlType
+    lastPeriod
+    status
+    time
+    pregnant
+    reproductiveDisorder
+
+Output:
+    Success:
+        onBoarding questions columns changed for user.
+        Success message sent to the app
+        App is then linked back to the main page.
+
+    Failure:
+        Failure message sent to the app. This could either be that the server didn't recieve the data or that the user failed to fill out a necessary field for
+        data to be sent.
+-->
+
+<!--Header that appears at the top.-->
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Questions
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-slides pager>
+
+    <!--Slide 1: Get the user's birthday using a date-time picker.
+        Variable: birthday: string-->
+    <ion-slide>
+      <h1>When is your Birthday?</h1>
+      <p></p>
+      <ion-item>
+        <ion-label>Birthday</ion-label>
+        <ion-datetime displayFormat="MMMM/D/YYYY" [(ngModel)]="birthday"></ion-datetime>
+      </ion-item>
+      <p></p>
+      <i>Select your birthday.</i>
+    </ion-slide>
+
+    <!--Slide 2: Get the user's cycle length using a range component.
+        Variable: cycleLength: string.-->
+      <ion-slide>
+      <h1>Cycle Length? (Days)</h1>
+      <p></p>
+      <ion-item>
+        <ion-range min="1" max="50" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="cycleLength">
+          <ion-label range-left>1</ion-label>
+          <ion-label range-right>50</ion-label>
+        </ion-range>
+      </ion-item>
+      <p></p>
+      <i>Select your cycle length.</i>
+      <p></p>
+      <i>If you do not know, that is ok. We will update your cycle length based on the data you enter.</i>
+      <p></p>
+      <i>Cyle Length is defined as the number of days from one period until the next.</i>
+    </ion-slide>
+    
+    <!--Slide 3: Get the user's period length using a range component.
+        Variable: periodLength: string-->
+    <ion-slide>
+      <h1>Period Length? (Days)</h1>
+      <p></p>
+      <ion-item>
+        <ion-range min="1" max="12" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="periodLength">
+          <ion-label range-left>1</ion-label>
+          <ion-label range-right>12</ion-label>
+        </ion-range>
+      </ion-item>
+      <p></p>
+      <i>Select your period length.</i>
+      <p></p>
+      <i>If you do not know, that is ok. We will update your period length based on the data you enter.</i>
+      <p></p>
+      <i>Period Length is defined as how long your menstrual bleeding lasts.</i>
+    </ion-slide>
+
+    <!--Slide 4: Get the user's birth control using a select feature that allows multiple things to be selected
+        Variable: birthControl
+        Stored as an array of strings and onBoarding.ts then determines whether input includes hormonal or not.-->
+    <ion-slide>
+      <h1>Birth Control?</h1>
+      <p></p>
+      <ion-list>
+        <ion-item>
+          <ion-label>Birth Control</ion-label>
+          <ion-select [(ngModel)]="birthControl" multiple="true">
+            <ion-option value="None">None</ion-option>
+            <ion-option value="The Pill">The Pill</ion-option>
+            <ion-option value="Male Condom">Male Condom</ion-option>
+            <ion-option value="Female Condom">Female Condom</ion-option>
+            <ion-option value="Diaphram">Diaphram</ion-option>
+            <ion-option value="Cervical Cap">Cervical Cap</ion-option>
+            <ion-option value="IUD (Intrauterine Device)">IUD (Intrauterine Device)</ion-option>
+            <ion-option value="IUD: (Copper-base)">IUD: Copper-base (Non-Hormonal)</ion-option>
+            <ion-option value="Contraceptive Implant">Contraceptive Implant</ion-option>
+            <ion-option value="Contraceptive Sponge">Contraceptive Sponge</ion-option>
+            <ion-option value="Spermicide (alone, without another method)">Spermicide (alone, without another method)</ion-option>
+            <ion-option value="Contraceptive Injections">Contraceptive Injections</ion-option>
+            <ion-option value="Vaginal Ring">Vaginal Ring</ion-option>
+            <ion-option value="The Patch">The Patch</ion-option>
+            <ion-option value="The Rythm Method / Natural Planning">The Rythm Method / Natural Planning</ion-option>
+            <ion-option value="Other (would include emergency contraceptive/morning after pills, sterilization)">Other (would include emergency contraceptive/morning after pills, sterilization)</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <p></p>
+      <i>Select your birth control.</i>
+      <p></p>
+      <i>Birth control type is important for us to create a more accurate perdiction of your cycle.</i>
+      <p></p>
+      <i>Reminder: Talk with your health care professional if you are unsure of the birth-control type you are using or questions concerning different types.</i>
+    </ion-slide>
+
+    <!--Slide 5: Get if the user has a reproductive disorder or not using a toggle and user input feature.
+        Variables: isToggledDisorders: boolean
+        reproductiveDisorders: string-->
+    <ion-slide>
+      <h1>Have you been diagnosed with a reproductive disorder?</h1>
+      <p></p>
+      <ion-item id="disorders">
+        <ion-label>No / Yes</ion-label>
+        <ion-toggle [(ngModel)]="isToggledDisorders" (ionChange)="ToggleDisorders()" name="disorders"></ion-toggle>
+      </ion-item>
+      <ion-item id="reproductiveDisorders" style="visibility: hidden;">
+        <ion-input type="text" placeholder="What Kind?" [(ngModel)]="reproductiveDisorders"></ion-input>
+      </ion-item>
+      <p></p>
+      <i>Knowing any reproductive disorders you may is important for us to create a more accurate prediction of your cycle.</i>
+    </ion-slide>
+
+    <!--Slide 6: Get the user's last period using date-time picker feature
+        Variables: lastPeriod: string-->
+    <ion-slide>
+      <h1>When was your last period?</h1>
+      <p></p>
+      <ion-item>
+        <ion-label>Last Period</ion-label>
+        <ion-datetime displayFormat="MMMM/D/YYYY" [(ngModel)]="lastPeriod"></ion-datetime>
+      </ion-item>
+      <p></p>
+      <i>Select the date of your last period.</i>
+      <p></p>
+      <i>If you do not know, that is ok. Select an approximation of when you think it was.</i>
+    </ion-slide>
+
+    <!--Slide 7: Get the user's relationship status using the basic select feature where only one choice can be picked
+        Variables: status: string-->
+    <ion-slide>
+      <h1>What is your relationship status?</h1>
+      <p></p>
+      <ion-list>
+        <ion-item>
+          <ion-label>Relationship Status</ion-label>
+          <ion-select [(ngModel)]="status">
+            <ion-option value="Single">Single</ion-option>
+            <ion-option value="Casual">Casual</ion-option>
+            <ion-option value="Long-Term">Long-Term</ion-option>
+            <ion-option value="Married">Married</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <p></p>
+      <i>Select your relationship status.</i>
+      <p></p>
+      <i>Relationship status is important for us to get a more accurate understanding of your behavior.</i>
+    </ion-slide>
+
+    <!--Slide 8: Time of day to input responses to daily questions using the basic select feature
+        Variable: time: string-->
+    <ion-slide>
+      <h1>What time of the day do you want to input responses to your daily questions?</h1>
+      <p></p>
+      <ion-list>
+        <ion-item>
+          <ion-label>Time of Day</ion-label>
+          <ion-select [(ngModel)]="time">
+            <ion-option value="Night of the Same Day">Night of the Same Day</ion-option>
+            <ion-option value="Morning of the Next Day">Morning of the Next Day</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <p></p>
+      <i>Select your time of day.</i>
+      <p></p>
+      <i>Time of day will allow us to send you alerts if you so choose to remind you to respond to daily questions.</i>
+    </ion-slide>
+
+    <!--Slide 9: Get whether or not the user is intending to become pregnant using the basic select feature
+        Variable: pregnant: string-->
+    <ion-slide>
+      <h1>Are you intending to become pregnant?</h1>
+      <p></p>
+      <ion-list>
+        <ion-item>
+          <ion-label>Yes / No</ion-label>
+          <ion-select [(ngModel)]="pregnant">
+            <ion-option value="Yes">Yes</ion-option>
+            <ion-option value="No">No</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <p></p>
+      <i>Select your intention.</i>
+      <p></p>
+      <i>Whether or not you are intending to become pregnant is very important for us to get a more accurate understanding of your behavior.</i>
+
+      <!--Button to press when the user is ready to submit the form.
+          Should only send the form if all the data is entered in or else returns with an error message and asks the user to complete the form.-->
+      <button (click)="SubmitForm()" ion-button full>Submit</button>
+    </ion-slide>
+
+  </ion-slides>
+</ion-content>

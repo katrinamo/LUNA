@@ -1,0 +1,61 @@
+﻿<!--
+Title: settingsLogin.ts
+Author: Dillon Pulliam
+Date: 7/16/2017
+
+Purpose: This is the HTML behind settingsLogin.ts which asks the user for their username and password in order to be able to jump to the settings page 
+where responses and updates to onBoarding questions can be made
+
+Input:
+    username: Hashed and compared to the hashed version of the username stored in local storage when the original login page was accessed
+    password: Hashed and compared to the hashed version of the password stored in local storage when the original login page was accessed
+
+Output:
+    Success:
+        Username and password hashed versions match those stored in local storage and the settings page is accessed.
+
+    Failure:
+        Error message sent to the user that the hashed version of username or password didn't match and the settings page is not accessed.
+-->
+
+<!--Make the Header-->
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Settings
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="login-content" padding color="primary">
+  <h3>In order to access and modify your settings please enter in your username and password.</h3>
+  <ion-row class="logo-row">
+    <img style="width:100%; height:100%;" src="https://luna-app.000webhostapp.com/LunaImage.png" />
+  </ion-row>
+  
+  <div class="login-box">
+    <form>
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+
+            <!--Username input field-->
+            <ion-item style="background-color: inherit;">
+              <ion-input type="text" placeholder="Luna Username" name="username"></ion-input>
+            </ion-item>
+
+            <!--Password input field-->
+            <ion-item style="background-color: inherit;">
+              <ion-input type="password" placeholder="Password" name="password"></ion-input>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <!--Button to go the actual settings page-->
+      <button (click)="GoToSettings()" ion-button full>Go to Settings</button>
+
+    </form>
+  </div>
+</ion-content>

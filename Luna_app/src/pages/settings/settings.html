@@ -1,0 +1,140 @@
+﻿<!--
+Title: settings.html
+Author: Dillon Pulliam
+Date: 7/16/2017
+
+Purpose: This is the HTML behind settings.ts which allows the user to view and/or update their responses to the onBoarding questions in the app.
+These updated responses are then sent and stored in the server.
+
+Input:
+    uid: This comes from local storage and is given to the app by the server originally.
+    birthday: same as original
+    cycleLength: same as original
+    periodLength: same as original
+    birthControlType: can be updated
+    lastPeriod: same as original
+    status: can be updated
+    time: can be updated
+    pregnant: can be updated
+    reproductiveDisorder: can be updated
+
+Output:
+    Success:
+        onBoarding questions columns and updated for user.
+        Success message sent to the app
+        App is then linked back to the main page.
+
+    Failure:
+        Failure message sent to the app. This could either be that the server didn't recieve the data or that the user failed to fill out a necessary field for
+        data to be sent.
+-->
+
+<!--Creates a basic header at the top of the page.-->
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Settings
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!--The following lines of code output the most recent settings or responses to onBoarding questions.
+      The parameters passed in from settingsLogin are used and received by our settings page and are the variables below.
+      This was a good work-around for asynchronous programming and loading stuff from local storage.-->
+  <h2 color="primary">Initial/Current Responses: </h2>
+  <i>Birthday: {{birthdayParam}}</i>
+  <p color="primary">Cycle Length: {{cycleLengthParam}}</p>
+  <i>Period Length: {{periodLengthParam}}</i>
+  <p color="primary">Birth Control: {{birthControlParam}}</p>
+  <i>Last Period: {{lastPeriodParam}}</i>
+  <p color="primary">Relationship Status: {{statusParam}}</p>
+  <i>Time of day to input responses to Daily Questions: {{timeParam}}</i>
+  <p color="primary">Intention of whether or not to become pregnant: {{pregnantParam}}</p>
+  <i>Reproductive Disorder: {{reproductiveDisorderParam}}</i>
+  <h6 color="primary">If any of the above information needs to be updated please toggle the correct field and make the update: </h6>
+  <ion-list>
+    
+    <!--For any updates to birth control-->
+    <ion-item id="birthControlUpdate">
+      <ion-label>Birth Control?</ion-label>
+      <ion-toggle [(ngModel)]="isBirthControlUpdate" (ionChange)="ToggleBirthControlUpdate()" name="birthControlUpdate"></ion-toggle>
+    </ion-item>
+    <ion-item id="birthControlUpdate1" style="visibility: hidden">
+      <ion-label color="primary">Birth Control</ion-label>
+      <ion-select [(ngModel)]="birthControlUpdateResult" multiple="true">
+        <ion-option value="None">None</ion-option>
+        <ion-option value="The Pill">The Pill</ion-option>
+        <ion-option value="Male Condom">Male Condom</ion-option>
+        <ion-option value="Female Condom">Female Condom</ion-option>
+        <ion-option value="Diaphram">Diaphram</ion-option>
+        <ion-option value="Cervical Cap">Cervical Cap</ion-option>
+        <ion-option value="IUD (Intrauterine Device)">IUD (Intrauterine Device)</ion-option>
+        <ion-option value="IUD: (Copper-base)">IUD: Copper-base (Non-Hormonal)</ion-option>
+        <ion-option value="Contraceptive Implant">Contraceptive Implant</ion-option>
+        <ion-option value="Contraceptive Sponge">Contraceptive Sponge</ion-option>
+        <ion-option value="Spermicide (alone, without another method)">Spermicide (alone, without another method)</ion-option>
+        <ion-option value="Contraceptive Injections">Contraceptive Injections</ion-option>
+        <ion-option value="Vaginal Ring">Vaginal Ring</ion-option>
+        <ion-option value="The Patch">The Patch</ion-option>
+        <ion-option value="The Rythm Method / Natural Planning">The Rythm Method / Natural Planning</ion-option>
+        <ion-option value="Other (would include emergency contraceptive/morning after pills, sterilization)">Other (would include emergency contraceptive/morning after pills, sterilization)</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <!--For any update to relationship status-->
+    <ion-item id="statusUpdate">
+      <ion-label>Relationship Status?</ion-label>
+      <ion-toggle [(ngModel)]="isToggledStatusUpdate" (ionChange)="ToggleStatusUpdate()" name="statusUpdate"></ion-toggle>
+    </ion-item>
+    <ion-item id="statusUpdate1" style="visibility: hidden">
+      <ion-label color="primary">Relationship Status</ion-label>
+      <ion-select [(ngModel)]="statusUpdateResult">
+        <ion-option value="Single">Single</ion-option>
+        <ion-option value="Casual">Casual</ion-option>
+        <ion-option value="Long-Term">Long-Term</ion-option>
+        <ion-option value="Married">Married</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <!--For any updates to the time of day to input responses to daily questions.-->
+    <ion-item id="timeUpdate">
+      <ion-label>Time to Input Daily Questions?</ion-label>
+      <ion-toggle [(ngModel)]="isToggledTimeUpdate" (ionChange)="ToggleTimeUpdate()" name="timeUpdate"></ion-toggle>
+    </ion-item>
+    <ion-item id="timeUpdate1" style="visibility: hidden">
+      <ion-label color="primary">Time of Day</ion-label>
+      <ion-select [(ngModel)]="timeUpdateResult">
+        <ion-option value="Night of the Same Day">Night of the Same Day</ion-option>
+        <ion-option value="Morning of the Next Day">Morning of the Next Day</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <!--For any updates to intention of whether or not to become pregnant-->
+    <ion-item id="pregnantUpdate">
+      <ion-label>Intention to Become Pregnant?</ion-label>
+      <ion-toggle [(ngModel)]="isToggledPregnantUpdate" (ionChange)="TogglePregnantUpdate()" name="pregnantUpdate"></ion-toggle>
+    </ion-item>
+    <ion-item id="pregnantUpdate1" style="visibility: hidden">
+      <ion-label color="primary">Yes / No</ion-label>
+      <ion-select [(ngModel)]="pregnantUpdateResult">
+        <ion-option value="Yes">Yes</ion-option>
+        <ion-option value="No">No</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <!--For any updates to reproductive disorders-->
+    <ion-item id="disorderUpdate">
+      <ion-label>Reproductive Disorder?</ion-label>
+      <ion-toggle [(ngModel)]="isToggledDisorderUpdate" (ionChange)="ToggleDisorderUpdate()" name="disorderUpdate"></ion-toggle>
+    </ion-item>
+    <ion-item id="reproductiveDisorderUpdate" style="visibility: hidden;">
+      <ion-input type="text" placeholder="What Kind?" [(ngModel)]="reproductiveDisorderUpdate"></ion-input>
+    </ion-item>
+
+    <!--Button to update the onBoarding question responses in the server.-->
+    <button (click)="UpdateForm()" ion-button full id="updateButton" style="visibility: hidden">Update</button>
+
+  </ion-list>
+
+</ion-content>

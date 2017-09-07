@@ -1,0 +1,80 @@
+﻿<!--
+Title: calendar.html
+Author: Provided by the purchased Ionic 3 Calendar feature
+    Info on the Ionic 3 Calendar can be found at the following: https://market.ionic.io/themes/ioniccalendar
+Date: 7/19/2017
+
+Purpose: Code creates the calendar used within the app. Called by launch.ts file to make the calendar.
+
+Additions that still need to be made: The calendar needs it's event markers to indicate the beginning and ending dates of a cycle but this feature
+hasn't been added yet.
+
+Input:
+    None
+
+Output:
+    Calendar:
+        A calendar is output to the screen in month format.
+        A feature that hasn't been added yet but will be is event markers to the calendar that indicate when the user's cycle will begin and end.
+-->
+
+<div class="calendar" >
+  <ion-slides #mySlider (ionSlideDidChange)="onSlideChanged($event)" [initialSlide]=1>
+    <ion-slide *ngFor="let monthObj of months">
+      <ion-row class="month-row" >
+        <ion-col width-60 class="text-center">
+          {{monthObj.selectedMonth.format("MMM YYYY")}}
+        </ion-col>
+      </ion-row>
+
+      <div class="day-grid">
+        <ion-row class="text-center week-row">
+          <ion-col *ngFor="let weekName of weekNames" style="font-weight: bold">
+            <span>{{weekName}}</span>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="text-center day-row" *ngFor="let week of monthObj.weeks; let rowIndex = index" >
+            <template [ngIf]="week.days" >
+              <ion-col class="day-col" *ngFor="let day of week.days; let colIndex = index"
+                [ngClass]="{
+                 'selected': day.isSame(monthObj.selectedDate),
+                 'today': day.isSame(today,'day')
+                }">
+                <div class="day-cell"
+                  (click)="select(monthObj,day,rowIndex)"
+                  [ngClass]="{'non-current-month': !(day.month() === monthObj.selectedMonth.month()),'weekend': ((day.days() % 6) === 0)}"
+                  >
+                  {{day.date()}}
+                  <!-- random markers -->
+                  <em class="marker"  *ngIf="day.month() === monthObj.selectedMonth.month() &&
+                                          (day.date() % 12 === 0) &&
+                                          ((day.days() % 6) !== 0)"></em>
+
+                </div>
+
+              </ion-col>
+            </template>
+
+            <template [ngIf]="((monthObj.selectedDate.month() === monthObj.selectedMonth.month()) &&
+              (!week.days) && (monthObj.selectedRowIndex === (rowIndex - 1)))">
+              <ion-col class="text-center" >
+                <button ion-button small color="favoritedark" clear class="action-button">Action Me!</button>
+              </ion-col>
+            </template>
+        </ion-row>
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+  <div class="events">
+    <h5 favoritedark class="text-center" > Events On {{selectedDate.format('YYYY-MM-DD')}}</h5>
+    <div  class="event-box text-center" >
+      <ion-list>
+        <ion-item *ngFor="let event of events">
+          {{event.name}}
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+</div>
