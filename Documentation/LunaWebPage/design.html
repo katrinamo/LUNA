@@ -1,0 +1,330 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice 4.1.3  (Unix)">
+	<META NAME="AUTHOR" CONTENT="Paul Piwowarski">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGEDBY" CONTENT="Paul Piwowarski">
+	<META NAME="CHANGED" CONTENT="20170731;15571300">
+	<META NAME="CHANGEDBY" CONTENT="Paul Piwowarski">
+	<META NAME="CHANGEDBY" CONTENT="Paul Piwowarski">
+	<META NAME="CHANGEDBY" CONTENT="Paul Piwowarski">
+	<META NAME="created" CONTENT="00:00:00">
+	<META NAME="changedby" CONTENT="Paul Piwowarski">
+	<META NAME="changed" CONTENT="2017-07-25T09:29:56.484584881">
+	<META NAME="created" CONTENT="2017-07-25T08:38:49.438907925">
+	<META NAME="changedby" CONTENT="Paul Piwowarski">
+	<META NAME="changed" CONTENT="2017-07-25T09:22:20.403750461">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 0.79in }
+		H1 { margin-bottom: 0.08in }
+		H1.western { font-family: "Liberation Sans", sans-serif; font-size: 18pt }
+		H1.cjk { font-family: "Noto Sans CJK SC Regular"; font-size: 18pt }
+		H1.ctl { font-family: "FreeSans"; font-size: 18pt }
+		P { margin-bottom: 0.1in; line-height: 120% }
+		H3.western { font-family: "Liberation Sans", sans-serif }
+		H3.cjk { font-family: "Noto Sans CJK SC Regular" }
+		H3.ctl { font-family: "FreeSans" }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<H1 CLASS="western">Luna Design</H1>
+<P><IMG SRC="LunaDesignDiagram1.jpg" NAME="graphics1" ALIGN=LEFT WIDTH=678 HEIGHT=829 BORDER=0><BR CLEAR=LEFT><BR><BR>
+</P>
+<H3 CLASS="western"><IMG SRC="LunaDesignDiagram2.jpg" NAME="graphics2" ALIGN=LEFT WIDTH=594 HEIGHT=606 BORDER=0><BR CLEAR=LEFT><BR><BR>
+</H3>
+<H3 CLASS="western"><BR><BR>
+</H3>
+<H3 CLASS="western"><BR><BR>
+</H3>
+<H3 CLASS="western"><BR><BR>
+</H3>
+<H3 CLASS="western"><BR><BR>
+</H3>
+<H3 CLASS="western"><IMG SRC="LunaDesignDiagram3.jpg" NAME="graphics3" ALIGN=LEFT WIDTH=736 HEIGHT=618 BORDER=0><BR CLEAR=LEFT>New
+User</H3>
+<P STYLE="margin-bottom: 0in; line-height: 100%">Fields in the user
+table created during the new user process:</P>
+<UL>
+	<P STYLE="margin-bottom: 0in; line-height: 100%">emailID: random
+	string sent to new user email address (done in register.php)</P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%">username/password:
+	supplied by new user in logon screen, stored in the user's row. Only
+	used when user wants to access personal data in tables.</P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%">uid: user ID,
+	random number created by register.php for new user, when new user
+	row created in user table.</P>
+</UL>
+<P STYLE="margin-bottom: 0in; line-height: 100%">The uid is
+identifier that the app sends to the server for this user to change
+data in the tables.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">1. New user uses
+browser to access Luna page: https://luna-app.000webhostapp.com</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">(executes index.php)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">2. Consent form
+displayed, new user must agree. New user enters age (must be between
+18-25)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">3. New user fills in
+email address, presses submit. If UK email adderess, continue with
+step 4.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">4. Server:
+register.php executed. User row added to user table, random emailID,</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">random uid created,
+saved in new user table row</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">5. Random ID sent to
+email address (emailID column in user table)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">6. Page displays
+instructions on how to get app</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">7. New user gets
+app, executes it on iPhone, or iPad</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">8. App checks if
+User ID (uid) has been saved in its local storage. If not, this is
+new user,</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">continue with step
+9. If saved, displays main app page.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">9. App displays
+logon page that asks for username, password, emailID</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">10. New user fills
+in emailID from email, username, password requested, presses submit</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">(sends request to
+server auth.php)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">11. auth.php
+searches user table for emailID, if found continues</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">12. auth.php saves
+username, password in this new user's entry in user table, sets
+active flag</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">true</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">13. auth.php sends
+uid to app in message field of reply to app</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">14. app saves uid in
+local storage, displays page for new user to enter onBoard questions</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">15. After onboard
+questions answered, they are sent to server (onBoard.php), main app
+page</P>
+<H3 CLASS="western">Onboard questions</H3>
+<P STYLE="margin-bottom: 0in; line-height: 100%">1. The new user is
+directed to answer the onboard questions. The user can view or change
+the answers to onboard questions via the settings tab.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">2. The user must
+supply answers to all of the onboard questions. If not, when submit
+is pressed, the an alert message is displayed with the name of the
+first answer not supplied.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">3. When all onboard
+questions answered, and submit is pressed, the answers are sent to
+changeOnboard.php.</P>
+<H3 CLASS="western">Daily questions</H3>
+<P STYLE="margin-bottom: 0in; line-height: 100%">1. When user
+executes the app, it looks up the user's uid stored in the app's
+local storage.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">2. If the local
+storage uid contains the user's uid, the main screen is displayed.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">3. When the user
+presses the tracker tab, tracker.ts is executed. The first daily
+question is displayed.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">4. The user answers
+questions d, and e (see the entry table structure in the Data Base
+Documentation below). 
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">5. If the user
+responds positively to question f, the remaining daily questions are
+displyed.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">5. f the user
+responds positively to question f, the remaining questions are
+displayed through question m. 
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">6. Another toggle
+button is then displayed asking the user if they have had sexual
+stimulation or intercourse. 
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">7. If the user
+responds to yes to this then the remaining questions are displayed
+through question p. 
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">8. Another toggle
+button is then displayed asking the user if they have had
+intercourse. 
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">9. If the user
+responds yes to this question then the remaining questions are shown.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">10. When the user
+presses submit, the tracker.ts function sends the answers to
+addDaily.php in the server.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">11. addDaily.php
+creates a new row in the entry table for this user's daily questions.
+</P>
+<H3 CLASS="western">Settings</H3>
+<P STYLE="margin-bottom: 0in; line-height: 100%">1. The user can
+display and change onboard questions and answers by pressing the
+settings</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">tab. The
+onBoarding.ts function is executed.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">2. The user is asked
+for her username and password. If they match the variables in local</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">storage, the onboard
+questions are displayed.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">3. The user can
+change any of them.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">1. The
+settingsLogin.ts page is executed. 
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">2. If username and
+password match then the settings.ts page is displayed which shows the
+responses to the onBoarding questions (saved in local storage) and
+allows a user to update their responses to some of these questions. 
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">3. Only certain
+questions can be updated.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">4. The app sends all
+the onboard questions to the server (changeOnboard.php).
+changeOnboard.php updates</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">the onboard columns
+in the user's row (identified by UID) in the user table.</P>
+<H3 CLASS="western">Calendar</H3>
+<P STYLE="margin-bottom: 0in; line-height: 100%">The calendar page is
+displayed at the end of the new user steps, and when the app is
+started for the daily questions. The user is prompted to press the
+tracker tab to answer the daily questions. Currently the calendar is
+not used to display any user information. 
+</P>
+<H1 CLASS="western">Database Documentation</H1>
+<P STYLE="margin-bottom: 0in; line-height: 100%">Only the user table,
+and entry table are used by Luna. The period table and image table
+were created for possible future use. The incident table is used by
+the Sara app. 
+</P>
+<H3 CLASS="western">1. User Table</H3>
+<P STYLE="margin-bottom: 0in; line-height: 100%">There is one row for
+each user. It is created during the &quot;new user&quot; activity. It
+is flagged active when the new user logs on for the first time. User
+rows are never deleted. The active flag can be set off, however this
+function is currently not provided.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">a. uid - user
+identifier (primary key)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">b. username - MD5
+hashed username</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">c. password - MD5
+hashed password</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">d. active - activity
+status (0 is inactive - can't log in)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">e. onboard_status -
+onboarding status (1 is completed)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">f. birthday: user's
+birthdate</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">g. cycleLength: the
+number of days from one period until the next</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">h. periodLength: the
+number of days menstruating</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">i. birthControlType:
+hormonal or non-hormonal</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">j. lastPeriod: date
+of user’s last menstruation</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">k. status: current
+relationship status, single, casual, married, and long-term</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">l. time: time of
+activity on Luna</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">m. pregnant: whether
+or not user is pregnant</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">n.
+reproductiveDisorder: Answers to onboarding questions- ‘have you
+been</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">diagnosed with a
+reproductive disorder’</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<H3 CLASS="western">2. Entry Table</H3>
+<P>The entry table contains a row for each user's daily questions.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">a. eid - entry
+identifier (primary key, auto increment)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">b. uid - user
+identifier (foreign key)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">c. entry_date - date
+of entry</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">d. onPeriod - -
+answer to daily question,menstruating status</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">e. sexualInterest -
+answer to daily question, rating of sexual desire or interest</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">f.
+sexualAcitvityNumber- answer to daily question, describe frequency of
+sexual</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">activity or
+intercourse</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">g.
+emotionalCloseness- answer to daily question, describes user
+satisfaction with</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">the amount of
+emotional closeness during sexual activity with partner</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">h.
+sexualRelationship- answer to daily question, describes user
+satisfaction with</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">their sexual
+relationship</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">i. sexualLife-
+answer to daily question, describes user’s overall satisfaction
+with their sexual life</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">j. sexualArousal-
+answer to daily question, describes how a user would rate their</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">level of sexual
+arousal</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">k.
+sexualArousalConfidence- answer to daily question, describes
+confidence in</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">sexual arousal</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">l. lubrication-
+answer to daily question, decribes how difficult it was to become</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">lubricated</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">m.
+lubricationMaintain- answer to daily question, describes difficulty
+to maintain</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">lubrication until
+completion of intimacy</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">n. difficulty -
+answer to daily question, describes difficulty reaching orgasm</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">o. satisfaction-
+answer to daily question, describes satisfaction with ability to</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">orgasm(climax)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">p. discomfort-
+answer to daily question describes comfortability during intercourse</P>
+<H3 CLASS="western">3. Period Table</H3>
+<P STYLE="margin-bottom: 0in; line-height: 100%">Period dates for a
+specific user. Not currently used.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">a. pid - period
+identifier (primary key, auto increment)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">b. uid - user
+identifier (foreign key)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">c. mens_start -
+menstrual cycle (or period) start date</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">d. mens_end -
+menstrual cycle (or period) end date</P>
+<H3 CLASS="western">4. Image Table 
+</H3>
+<P STYLE="margin-bottom: 0in; line-height: 100%">Image information
+for uploaded photos. Not currently used.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">a. iid - image
+identifier (primary key, auto increment)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">b. uid - user
+identifier (foreign key)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">c. upload_date -
+date of image upload</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">d. file_name - file
+name of image</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">e. image - image
+stored as a hex long blob</P>
+<H3 CLASS="western">5. Incident Table</H3>
+<P STYLE="margin-bottom: 0in; line-height: 100%">Basic sexual assault
+incident information. Used by the Sara app. Not used by Luna.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">a. incident_id -
+incident identifier (primary key, auto increment)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">b. user_hash - MD5
+hashed username</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">c. incident_loc -
+location of incident</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">d. incident_date -
+date of incident</P>
+</BODY>
+</HTML>

@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 5.1.6.2 (Linux)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changedby" content="Paul Piwowarski"/>
+	<meta name="changed" content="2017-08-01T12:55:33.498930863"/>
+	<meta name="CHANGEDBY" content="Paul Piwowarski">
+</head>
+<body lang="en-US" dir="ltr">
+<p><br/>
+<br/>
+
+</p>
+<h1>Installing Luna on Windows OS</h1>
+<p>Step 1: Downloaded the Microsoft Visual Studios Community. After
+it has downloaded and installed you will then see multiple programs
+within Visual Studios you may install. Select and install both the
+basic visual studios editor (note: this will be installed
+automatically!) as well as the &quot;Mobile App development
+environment with Javascript&quot;. Install this by checking its box
+and then selecting the install button at the bottom of the page. Note
+that the Visual Studios Editor is free to UK CS students and can be
+installed at the following link: <a href="https://www.cs.uky.edu/csportal">https://www.cs.uky.edu/csportal</a>.
+Once logged on, click the MSDNAA link on the left. 
+</p>
+<p>Step 2: Download and install NodeJS. NodeJS can be installed at
+the following link <a href="https://nodejs.org/en/">https://nodejs.org/en/</a>.
+Choose version v6.11.0 LTS. This is the version that is recommended
+for most users. 
+</p>
+<p>Step 3: Download and install &quot;GitBash&quot; or a similiar
+termial. Having a terminal window similiar to a Linux environment is
+crucial and GitBash appears to be recommended the most for Windows
+users as the Windows OS doesn't readily/easily have a terminal
+available as a MAC OS does. GitBash can be downloaded and installed
+at the following link: <a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a>.
+After going to this site click on the Windows link and the
+installation process should begin.</p>
+<p>Step 4: Download and install Ionic by opening up a GitBash
+terminal window and running the command &quot;npm install -g ionic
+cordova&quot;. Note that if you are asked to update anything while in
+the terminal while the installation process is going select &quot;yes&quot;.
+This should install Ionic, the Ionic 2 framework, and Cordova which
+will allow for the creation of applications. Run from the terminal
+window: &quot;npm rebuild node-sass&quot;. This command is needed
+when using an app built on Mac, on a Windows OS, to have the correct
+version of nodeJS running.</p>
+<p>Step 5: Install the Ionic templates to Visual Studios. Note that
+the templates you have to install with Visual Studios 2017 is the
+Ionic 2 Framework even though it is still in its Beta development
+stages. In order to properly install the Ionic templates to Visual
+Studios follow the process shown at the following link:
+<a href="https://taco.visualstudio.com/en-us/docs/tutorial-ionic/">https://taco.visualstudio.com/en-us/docs/tutorial-ionic/</a></p>
+<p>Step 6: Copy over the LunaShip.zip file that contains the
+directory Luna_app (the app code). Then use the GitBash terminal and
+the unzip command to unzip all the files. Note that you can't simply
+extract all the files as this won't work creating paths that are too
+long. Unzip the file by using the 'cd' Linux command to change
+directories into where the zip file is stored. Then use the command
+&quot;unzip LunaShip.zip&quot; to unzip the file. 
+</p>
+<p>Step 7. Open a GitBash terminal and use the 'cd' or change
+directory command to step into your Luna_app folder that will be
+created after unzipping LunaShip.zip. This folder contains all the
+necessary files for the LUNA app to run. Then execute the &quot;ionic
+serve&quot; command once in the correct directory to open up the LUNA
+app and get it running. Note that while doing this you may recieve
+some notifications to update/upgrade some of your environment
+features. Say yes to all updates. The app will then open up correctly
+in a browser.</p>
+<p>Note: There is a way to open apps like Luna directly from Visual
+Studios but so far I have been unable to do this as it involves
+copying over 50 folders into an Ionic Visual Studios Project in order
+to get all the dependencies correct. I am still working on a way to
+do this easily.</p>
+<p>However, by using the &quot;ionic serve&quot; command the Ionic
+app opens up in a browser. You can then open up that app's specific
+files/pages in an editor like Visual Studios and make changes to
+them. After saving these files you will see the app update itself in
+real time without having to reload it each time a change is made!</p>
+<p>Note that in order to open the app up in lab mode and see how it
+will look on different devices (iOS, Android, and Windows) instead of
+executing the &quot;ionic serve&quot; command execute the &quot;ionic
+serve -l&quot; command.</p>
+</body>
+</html>

@@ -1,0 +1,889 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice 4.1.3  (Unix)">
+	<META NAME="AUTHOR" CONTENT="Pulliam, Dillon">
+	<META NAME="CREATED" CONTENT="20170725;20300000">
+	<META NAME="CHANGEDBY" CONTENT="Paul Piwowarski">
+	<META NAME="CHANGED" CONTENT="20170731;7315600">
+	<META NAME="AppVersion" CONTENT="16.0000">
+	<META NAME="DocSecurity" CONTENT="0">
+	<META NAME="HyperlinksChanged" CONTENT="false">
+	<META NAME="LinksUpToDate" CONTENT="false">
+	<META NAME="ScaleCrop" CONTENT="false">
+	<META NAME="ShareDoc" CONTENT="false">
+	<META NAME="CHANGEDBY" CONTENT="Paul Piwowarski">
+	<META NAME="CHANGEDBY" CONTENT="Pulliam, Dillon">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 1in }
+		TD P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		H1 { color: #000000 }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" DIR="LTR">
+<H1>Luna App Testing Scenarios</H1>
+<H1><FONT FACE="Times New Roman, serif"><FONT SIZE=4><B>Testing a
+First-Time user accessing the Luna web site to sign up as a user</B></FONT></FONT></H1>
+<P STYLE="margin-bottom: 0in; widows: 0; orphans: 0; page-break-before: always">
+New user accesses from a browser:</P>
+<P STYLE="margin-bottom: 0in; widows: 0; orphans: 0">https://luna-app.000webhostapp.com/</P>
+<TABLE WIDTH=714 BORDER=2 BORDERCOLOR="#000001" CELLPADDING=8 CELLSPACING=0>
+	<COL WIDTH=69>
+	<COL WIDTH=97>
+	<COL WIDTH=159>
+	<COL WIDTH=175>
+	<COL WIDTH=130>
+	<TR VALIGN=TOP>
+		<TD WIDTH=69>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			<B>Luna web page</B></P>
+		</TD>
+		<TD WIDTH=97>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			<B>Luna System Parameter</B></P>
+		</TD>
+		<TD WIDTH=159>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			<B>Test Case</B></P>
+		</TD>
+		<TD WIDTH=175>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			<B>Pass Condition(s)</B></P>
+		</TD>
+		<TD WIDTH=130>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			<B>Fail Condition(s)</B></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=69>
+			<P ALIGN=LEFT STYLE="margin-bottom: 0in; background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			Luna consent form birth date</P>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; widows: 0; orphans: 0">
+			(fail)</P>
+		</TD>
+		<TD WIDTH=97>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			enters birth date presses consent button</P>
+		</TD>
+		<TD WIDTH=159>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			 entered birth date 1 day less than 18 years or 1 day more than 25
+			years before today's date</P>
+		</TD>
+		<TD WIDTH=175>
+			<P STYLE="widows: 0; orphans: 0">Error message shown and user
+			cannot continue “signing” consent form</P>
+		</TD>
+		<TD WIDTH=130>
+			<P STYLE="widows: 0; orphans: 0">No error shown and registration
+			process continues -- redirects to register.php</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=69>
+			<P ALIGN=LEFT STYLE="margin-bottom: 0in; background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			Luna consent form birth date</P>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			(success)</P>
+		</TD>
+		<TD WIDTH=97>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			enters birth date presses consent button</P>
+		</TD>
+		<TD WIDTH=159>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			entered birth date 1 day more than 18 years or 1 day less than 25
+			years before today's date</P>
+		</TD>
+		<TD WIDTH=175>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			User redirected to register.php for email address</P>
+		</TD>
+		<TD WIDTH=130>
+			<P STYLE="widows: 0; orphans: 0">User cannot continue registration
+			process. Display error message.</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=69>
+			<P ALIGN=LEFT STYLE="margin-bottom: 0in; background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			New user email address</P>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; widows: 0; orphans: 0">
+			(fail)</P>
+		</TD>
+		<TD WIDTH=97>
+			<P ALIGN=LEFT STYLE="margin-bottom: 0in; background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			enters email address</P>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; widows: 0; orphans: 0">
+			presses submit</P>
+		</TD>
+		<TD WIDTH=159>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			email does <B>not </B>end in @uky.edu or @g.uky.edu</P>
+		</TD>
+		<TD WIDTH=175>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			Error message shown and user cannot continue with the registration
+			process</P>
+		</TD>
+		<TD WIDTH=130>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			No error shown and registration process continues-- user row
+			created in User table in database.</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=69>
+			<P ALIGN=LEFT STYLE="margin-bottom: 0in; background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			New user email address</P>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			(success)</P>
+		</TD>
+		<TD WIDTH=97>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			enters mail address presses submit</P>
+		</TD>
+		<TD WIDTH=159>
+			<P STYLE="widows: 0; orphans: 0">email <B>does </B>end in @uky.edu
+			or @g.uky.edu</P>
+		</TD>
+		<TD WIDTH=175>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			Server sends email with instructions for User to continue
+			registration process-- user row created in User table in database.</P>
+		</TD>
+		<TD WIDTH=130>
+			<P ALIGN=LEFT STYLE="background: #ffffff; border: none; padding: 0in; page-break-inside: auto; widows: 0; orphans: 0; page-break-after: auto">
+			User cannot continue registration process. Display error.</P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><BR>
+</P>
+<H1><FONT FACE="Times New Roman, serif"><FONT SIZE=4><B>Testing
+Logging into the App as a First-Time user</B></FONT></FONT></H1>
+<TABLE WIDTH=714 BORDER=2 BORDERCOLOR="#00000a" CELLPADDING=8 CELLSPACING=0>
+	<COL WIDTH=90>
+	<COL WIDTH=109>
+	<COL WIDTH=114>
+	<COL WIDTH=211>
+	<COL WIDTH=105>
+	<TR VALIGN=TOP>
+		<TD WIDTH=90>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Luna
+			App Page</B></FONT></FONT></P>
+			<P><BR>
+			</P>
+		</TD>
+		<TD WIDTH=109>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Parameters</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=114>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Test Cases</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=211>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Pass
+			Condition(s)</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=105>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Fail
+			Condition(s)</B></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=90>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Login
+			Page</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Fail)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=109>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Username,
+			Password, Random Email Id String</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=114>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>One or more of
+			the 3 parameters are left blank</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=211>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App outputs a
+			custom alert message saying which field is blank</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=105>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>No custom
+			alert error message is output.</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=90>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Login
+			Page</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Fail)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=109>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Username,
+			Password, Random Email Id String</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=114>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Username
+			and/or Password parameter is less than 8 characters</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=211>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App outputs a
+			custom alert message saying username and/or password need to be 8
+			characters or greater.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=105>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>No custom
+			alert error message is output.</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=90>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Login
+			Page</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Fail)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=109>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Username,
+			Password, Random Email Id String</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=114>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Email ID
+			string input to the app is different from what was received in
+			email. Username and Password pass the 2 tests above.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=211>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Server returns
+			an error message to the app. App remains on login page so the user
+			can fix the random email ID input.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=105>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>No error
+			message returned by the server. App jumps to the onboarding
+			questions page.</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=90>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Login
+			Page</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Success)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=109>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Username,
+			Password, Random Email Id String</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=114>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>All 3 tests
+			above are passed.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=211>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Server returns
+			that login was successful and UID is returned to the app. UID is
+			stored in local storage of app. Login and password stored in user
+			table for this UID. Hashed version of Username and Password are
+			stored in local storage and sent and stored in the server table.
+			App jumps to the onboarding questions page.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=105>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>No successful
+			server message or UID received. App does not jump to the
+			onboarding questions page.</FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0.11in"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in"><FONT FACE="Times New Roman, serif"><FONT SIZE=4><B>Testing
+Responding to the OnBoarding Questions</B></FONT></FONT></P>
+<TABLE WIDTH=714 BORDER=1 BORDERCOLOR="#00000a" CELLPADDING=8 CELLSPACING=0>
+	<COL WIDTH=92>
+	<COL WIDTH=203>
+	<COL WIDTH=116>
+	<COL WIDTH=122>
+	<COL WIDTH=99>
+	<TR VALIGN=TOP>
+		<TD WIDTH=92>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Luna App
+			Page</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=203>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Parameters</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=116>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Test Cases</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=122>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Pass
+			Condition(s)</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=99>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Fail
+			Condition(s)</B></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=92>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>OnBoarding
+			Questions Page</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Fail)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=203>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Birthday,
+			Cycle Length, Period Length, Birth Control Type,</FONT></FONT></P>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Last
+			Period, Relationship Status,</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Time of Day to
+			Respond to Daily Questions, Intention to Become Pregnant,
+			Reproductive Disorder</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=116>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>One or more of
+			the fields to the left is left unanswered</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=122>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App outputs a
+			custom alert error message for each field left unanswered.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=99>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>No custom
+			alert error message is output by the app.</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=92>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>OnBoarding
+			Questions Page</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Fail)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=203>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Birthday,
+			Cycle Length, Period Length, Birth Control Type,</FONT></FONT></P>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Last
+			Period, Relationship Status,</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Time of Day to
+			Respond to Daily Questions, Intention to Become Pregnant,
+			Reproductive Disorder</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=116>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Reproductive
+			disorder toggle button is pressed indicating a reproductive
+			disorder but no disorder is input. All other questions are
+			properly answered.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=122>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App outputs a
+			custom alert error message stating that a reproductive disorder
+			needs to be input.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=99>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>No custom
+			alert error message is output by the app.</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=92>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>OnBoarding
+			Questions Page</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Success)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=203>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Birthday,
+			Cycle Length, Period Length, Birth Control Type,</FONT></FONT></P>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Last
+			Period, Relationship Status,</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Time of Day to
+			Respond to Daily Questions, Intention to Become Pregnant,
+			Reproductive Disorder</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=116>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Both tests
+			above are passed.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=122>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>OnBoarding
+			question answers are sent to and stored in the database user table
+			for this UID. App receives a successful submission message. App
+			jumps to the calendar page.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=99>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>No successful
+			server message and date isn’t stored in the server. App fails to
+			jump to the calendar page.</FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0.11in"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in"><FONT FACE="Times New Roman, serif"><FONT SIZE=4><B>Testing
+the Calendar Page</B></FONT></FONT></P>
+<TABLE WIDTH=714 BORDER=1 BORDERCOLOR="#00000a" CELLPADDING=8 CELLSPACING=0>
+	<COL WIDTH=72>
+	<COL WIDTH=91>
+	<COL WIDTH=138>
+	<COL WIDTH=156>
+	<COL WIDTH=175>
+	<TR VALIGN=TOP>
+		<TD WIDTH=72>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Luna App
+			Page</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=91>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Parameters</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=138>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Test Cases</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=156>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Pass
+			Condition(s)</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=175>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Fail
+			Condition(s)</B></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=72>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Calendar
+			Page</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Success)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=91>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Calendar</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=138>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Calendar
+			appears in month format and can be swiped left and right from
+			month to month.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=156>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Calendar
+			appears in month format and can be swiped left and right from
+			month to month.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=175>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Calendar does
+			not appear in month format and/or cannot be swiped left and right
+			from month to month.</FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0.11in"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in"><FONT FACE="Times New Roman, serif"><FONT SIZE=4><B>Testing
+the Tracker Page and Responding to the Daily Questions</B></FONT></FONT></P>
+<TABLE WIDTH=714 BORDER=1 BORDERCOLOR="#00000a" CELLPADDING=8 CELLSPACING=0>
+	<COL WIDTH=72>
+	<COL WIDTH=92>
+	<COL WIDTH=131>
+	<COL WIDTH=162>
+	<COL WIDTH=175>
+	<TR VALIGN=TOP>
+		<TD WIDTH=72>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Luna App
+			Page</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=92>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Parameters</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=131>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Test Cases</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=162>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Pass
+			Condition(s)</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=175>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Fail
+			Condition(s)</B></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=72>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Tracker
+			Page</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Fail)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=92>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>On Period</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=131>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>On Period
+			Question left unanswered.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=162>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App outputs a
+			custom alert error message.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=175>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App fails to
+			output a custom alert error message.</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=72>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Tracker
+			Page</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Success)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=92>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Daily
+			Questions up to the First Toggle Button (Sexual Activity)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=131>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>First toggle
+			button (Sexual Activity) is left toggled off. The On Period
+			question is answered.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=162>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App sends the
+			daily question responses to questions above the first toggle
+			button (Sexual Activity). All other responses are sent as
+			“Undefined”. Server returns a message that the submission was
+			successful. </FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=175>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App fails to
+			send the daily question responses to questions above the first
+			toggle button (Sexual Activity). All other responses are failed to
+			be sent as “Undefined”. Server fails to return a message that
+			the submission was successful.</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=72>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Tracker
+			Page</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Success)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=92>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Daily
+			Questions up to the Second Toggle Button (Sexual Stimulation)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=131>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>First toggle
+			button is toggled on (Sexual Activity). Second toggle button
+			(Sexual Stimulation) remains toggled off. The On Period question
+			is answered.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=162>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App sends the
+			daily question responses to questions above the second toggle
+			button (Sexual Stimulation). All other responses are sent as
+			“Undefined”. Server returns a message that the submission was
+			successful.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=175>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App fails to
+			send the daily question responses to questions above the second
+			toggle button (Sexual Stimulation). All other responses are failed
+			to be sent as “Undefined”. Server fails to return a message
+			that the submission was successful.</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=72>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Tracker
+			Page</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Success)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=92>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Daily
+			Questions up to the Third Toggle Button</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=131>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>First (Sexual
+			Activity) and second toggle buttons (Sexual Stimulation) are
+			toggled on. Third toggle button (Intercourse) remains toggled off.
+			The On Period question is answered.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=162>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App sends the
+			daily question responses to questions above the third toggle
+			button (Intercourse). All other responses are sent as “Undefined”.
+			Server returns a message that the submission was successful.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=175>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App fails to
+			send the daily question responses to questions above the third
+			toggle button (Intercourse). All other responses are failed to be
+			sent as “Undefined”. Server fails to return a message that the
+			submission was successful.</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=72>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Tracker
+			Page</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Success)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=92>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>All Daily
+			Questions (All Toggle Buttons Turned On)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=131>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>First (Sexual
+			Activity), second (Sexual Stimulation), and third toggle buttons
+			(Intercourse) are toggled on. The On Period question is answered.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=162>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App sends the
+			daily question responses to all questions. No responses are sent
+			as “Undefined”. Server returns a message that the submission
+			was successful.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=175>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App fails to
+			send the daily question responses to all questions. Server fails
+			to return a message that the submission was successful.</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=72>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Tracker
+			Page</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Success)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=92>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>All Daily
+			Questions</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=131>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>First (Sexual
+			Activity), second (Sexual Stimulation), and third toggle buttons
+			(Intercourse) are toggled on. The On Period question is answered.
+			Then one of the toggle buttons is switched to off.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=162>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App sends the
+			daily question responses to questions above the toggle button
+			switched to off. All other responses are sent as “Undefined”.
+			Server returns a message that the submission was successful.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=175>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App fails to
+			send the daily question responses to questions above the toggle
+			button switched to off. All other responses are failed to be sent
+			as “Undefined”. Server fails to return a message that the
+			submission was successful.</FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0.11in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>*Please
+note: Responses sent as “Undefined” for the Daily Questions are
+stored as “0” in the database entry table. *</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.11in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>*Please
+note: When responses are received by the server, the server creates a
+new row for that specific UID in the database entry table for this
+uid with all the responses received. *</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.11in"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in"><FONT FACE="Times New Roman, serif"><FONT SIZE=4><B>Testing
+the Settings Login Page</B></FONT></FONT></P>
+<TABLE WIDTH=714 BORDER=1 BORDERCOLOR="#00000a" CELLPADDING=8 CELLSPACING=0>
+	<COL WIDTH=86>
+	<COL WIDTH=108>
+	<COL WIDTH=128>
+	<COL WIDTH=163>
+	<COL WIDTH=148>
+	<TR VALIGN=TOP>
+		<TD WIDTH=86>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Luna App
+			Page</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=108>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Parameters</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=128>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Test Cases</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=163>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Pass
+			Condition(s)</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=148>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Fail
+			Condition(s)</B></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=86 HEIGHT=14>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Settings
+			Login Page </FONT></FONT>
+			</P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Fail)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=108>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Username and
+			Password</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=128>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Username
+			and/or Password field left blank</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=163>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Custom alert
+			error message output to the app</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=148>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App fails to
+			output a custom alert error message</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=86>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Settings
+			Login Page </FONT></FONT>
+			</P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Fail)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=108>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Username and
+			Password</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=128>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Username
+			and/or Password field incorrect</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=163>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Custom alert
+			error message output to the app</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=148>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App fails to
+			output a custom alert error message</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=86>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Settings
+			Login Page</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Success)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=108>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Username and
+			Password</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=128>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Username and
+			Password field correct</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=163>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App jumps to
+			the actual settings page</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=148>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App fails to
+			jump to the actual settings page</FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0.11in"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in"><FONT FACE="Times New Roman, serif"><FONT SIZE=4><B>Testing
+the Settings Page and Changing Responses to OnBoarding Questions</B></FONT></FONT></P>
+<TABLE WIDTH=714 BORDER=1 BORDERCOLOR="#00000a" CELLPADDING=8 CELLSPACING=0>
+	<COL WIDTH=72>
+	<COL WIDTH=135>
+	<COL WIDTH=172>
+	<COL WIDTH=127>
+	<COL WIDTH=126>
+	<TR VALIGN=TOP>
+		<TD WIDTH=72>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Luna App
+			Page</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=135>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Parameters</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=172>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Test Cases</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=127>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Pass
+			Condition(s)</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=126>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3><B>Fail
+			Condition(s)</B></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=72>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Settings
+			Page</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Fail)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=135>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Birth Control
+			Type, Relationship Status, Time of Day to Respond to Daily
+			Questions, Intention to Become Pregnant, Reproductive Disorder</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=172>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Toggle certain
+			button(s) to change responses to onboarding questions but leave at
+			least one update response unanswered (The field that will appear
+			beneath the toggle button when the button is turned on).</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=127>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Custom alert
+			error message output to the app</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=126>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>App fails to
+			output a custom alert error message</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=72>
+			<P STYLE="margin-bottom: 0in"><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Settings
+			Page</FONT></FONT></P>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>(Success)</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=135>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Birth Control
+			Type, Relationship Status, Time of Day to Respond to Daily
+			Questions, Intention to Become Pregnant, Reproductive Disorder</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=172>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>Toggle certain
+			button(s) to change responses to onboarding questions and fill out
+			all update responses for toggled questions (The field that will
+			appear beneath the toggle button when the button is turned on).</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=127>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>OnBoarding
+			question update(s) are sent to and stored in the database user
+			table for this UID. App receives a successful submission message.
+			App jumps back to the settings login page.</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=126>
+			<P><FONT FACE="Times New Roman, serif"><FONT SIZE=3>OnBoarding
+			question update(s) are failed to be sent to and stored in the
+			server. App fails to receive a successful submission message. App
+			fails to jump back to the settings login page.</FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0.11in"><BR><BR>
+</P>
+</BODY>
+</HTML>

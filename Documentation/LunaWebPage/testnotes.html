@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice 4.1.3  (Unix)">
+	<META NAME="AUTHOR" CONTENT="Paul Piwowarski">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGEDBY" CONTENT="Paul Piwowarski">
+	<META NAME="CHANGED" CONTENT="20170730;9505900">
+	<META NAME="CHANGEDBY" CONTENT="Paul Piwowarski">
+	<META NAME="created" CONTENT="2017-07-27T09:09:47.661945043">
+	<META NAME="changedby" CONTENT="Paul Piwowarski">
+	<META NAME="changed" CONTENT="2017-07-27T09:10:34.004482244">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 0.79in }
+		P { margin-bottom: 0.1in; line-height: 120% }
+		H3 { margin-bottom: 0.08in }
+		H3.western { font-family: "Arial", sans-serif }
+		H3.cjk { font-family: "Noto Sans CJK SC Regular" }
+		H3.ctl { font-family: "Arial Unicode MS" }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<H3 CLASS="western">Testing Notes</H3>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">When the app is running (simulator
+	or device), operation messages appear in the Xcode debug window
+	(lower right). The console.log messages appear in this window. You
+	can add messages to appear in this window by adding console.log
+	statements in the typescript code.</P>
+	<LI><P STYLE="margin-bottom: 0in">Whenever a change is made to any
+	app code, run the three steps listed in the installation for
+	building and testing the app..</P>
+	<LI><P STYLE="margin-bottom: 0in; font-weight: normal">We have found
+	that the simulators built-in to Xcode test all functions of Luna the
+	same as the physical devices tested. One exception is that the
+	simulator retains the simulated app's local storage. As explained in
+	the design, the user ID (uid) is retained in the app local storage
+	so that the user can use the app to report daily questions without
+	providing a logon user name and password. When using the simulator,
+	this means that after first use, the simulator goes to the calendar
+	page, skipping the logon screen. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in; font-weight: normal">To clear the
+	simulator local storage, execute this command from the mac terminal
+	(the simulator must be closed):</P>
+	<PRE STYLE="margin-bottom: 0.2in"><CODE><SPAN STYLE="font-weight: normal">xcrun simctl erase all</SPAN></CODE></PRE>
+</UL>
+</BODY>
+</HTML>

@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice 4.1.3  (Unix)">
+	<META NAME="AUTHOR" CONTENT="Paul Piwowarski">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGEDBY" CONTENT="Paul Piwowarski">
+	<META NAME="CHANGED" CONTENT="20170730;10121700">
+	<META NAME="created" CONTENT="2017-07-26T00:00:00.016195100">
+	<META NAME="changedby" CONTENT="Paul Piwowarski">
+	<META NAME="changed" CONTENT="2017-07-27T12:49:41.638192426">
+	<META NAME="CHANGEDBY" CONTENT="Paul Piwowarski">
+	<META NAME="CHANGEDBY" CONTENT="Paul Piwowarski">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 0.79in }
+		H1 { margin-bottom: 0.08in }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt }
+		H1.cjk { font-family: "Arial Unicode MS"; font-size: 16pt }
+		H1.ctl { font-size: 16pt }
+		P { margin-bottom: 0.08in }
+		H3 { margin-bottom: 0.08in }
+		H3.western { font-family: "Arial", sans-serif }
+		H3.cjk { font-family: "Noto Sans CJK SC Regular" }
+		H3.ctl { font-family: "Arial Unicode MS" }
+		A:link { so-language: zxx }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<H1 CLASS="western">Luna Installation on a Mac (Creating a new ionic
+project)</H1>
+<P>You can install the summer term Luna app, using the Luna ionic
+project created during that term, following the previous directions.
+These directions will create a new ionic project in a new directory.
+You may want to do this if there is an ionic upgrade, or you want to
+change the app name.</P>
+<P STYLE="margin-bottom: 0in"><B>1.</B> From the directory where you
+will create the Luna home directory, execute from a Mac terminal:</P>
+<P STYLE="margin-bottom: 0in"><B>npm install -g cordova ionic
+</B>(Installs ionic) 
+</P>
+<P STYLE="margin-bottom: 0in"><B>2.</B> From this directory execute:</P>
+<P STYLE="margin-bottom: 0in"><B>ionic start Luna tabs </B>
+</P>
+<P STYLE="margin-bottom: 0in">Do not make directory Luna. This
+command makes the directory Luna</P>
+<P STYLE="margin-bottom: 0in">You will be asked:</P>
+<P STYLE="margin-bottom: 0in">&quot;Link this app to your Ionic
+Dashboard to use tools like Ionic View?&quot; 
+</P>
+<P STYLE="margin-bottom: 0in">Ionic sells development tools (Ionic
+View) that are not needed to build and maintain Luna. Answer no.</P>
+<P STYLE="margin-bottom: 0in">The app name this will be displayed on
+the iPhone or iPad under the icon is taken from line 3 of the file
+Config.xml in the created Luna directory:</P>
+<P STYLE="margin-bottom: 0in">&lt;name&gt;MyApp&lt;/name&gt;</P>
+<P STYLE="margin-bottom: 0in">The default is MyApp. <B>Change it to
+Luna NOW</B>. Once the following steps are taken, ionic won't let you
+change it without creating errors.</P>
+<P STYLE="margin-bottom: 0in"><B>3.</B> Copy source files files for
+Luna</P>
+<P STYLE="margin-bottom: 0in"><B>pages directory:</B> Delete the
+created pages directory for the sample app, replace with the Luna
+pages directory from the directory:</P>
+<P STYLE="margin-bottom: 0in">LunaShip/Luna_app/src/pages</P>
+<P STYLE="margin-bottom: 0in"><B>app directory: </B>Ionic has two
+files that define the pages:</P>
+<P STYLE="margin-bottom: 0in">Luna/src/app/app.module.ts 
+</P>
+<P STYLE="margin-bottom: 0in">Luna/src/app.component.ts 
+</P>
+<P STYLE="margin-bottom: 0in">Replace these with the ones in
+LunaShip/Luna_app/src/app</P>
+<P STYLE="margin-bottom: 0in"><B>4.</B> Replace the <B>theme file</B>
+in the theme directory: 
+</P>
+<P STYLE="margin-bottom: 0in">Luna/src/themevariables.scss</P>
+<P STYLE="margin-bottom: 0in">with the one from
+LunaShip/Luna_app/src/theme</P>
+<P STYLE="margin-bottom: 0in"><B>5.</B> Run the following commands
+from a Mac terminal in the ionic project home directory (the Luna
+directory you created in step 2):</P>
+<P STYLE="margin-bottom: 0in"><B>ionic cordova plugin add
+cordova-plugin-http</B></P>
+<P STYLE="margin-bottom: 0in">You get the message:</P>
+<P STYLE="margin-bottom: 0in">The plugin @ionic/cli-plugin-cordova is
+not installed. Would you like to install it and continue? (Y/n)
+answer Y</P>
+<P STYLE="margin-bottom: 0in"><B>6.</B> Add local storage by running
+the following commands:</P>
+<P STYLE="margin-bottom: 0in"><B>npm install @ionic/storage@2.0.0
+--save --save-exact</B></P>
+<P STYLE="margin-bottom: 0in"><B>npm uninstall --save @ionic/storage</B></P>
+<P STYLE="margin-bottom: 0in"><B>npm install --save @ionic/storage</B></P>
+<P STYLE="margin-bottom: 0in"><B>7.</B> Install momentJS for the
+Calendar by running the following command:</P>
+<P STYLE="margin-bottom: 0in"><B>npm install --save moment</B></P>
+<P STYLE="margin-bottom: 0in"><B>8.</B> Install the md5 hashing
+protocol by running the following command:</P>
+<P STYLE="margin-bottom: 0in"><B>npm install ts-md5</B></P>
+<P STYLE="margin-bottom: 0in"><B>9.</B> Create the ios support:</P>
+<P STYLE="margin-bottom: 0in"><B>cordova platform add ios</B></P>
+<P STYLE="margin-bottom: 0in"><B>10.</B> Replace <B>app icons</B>,
+copy from:</P>
+<P STYLE="margin-bottom: 0in">LunaShip/Luna/resources/ios/icon
+directory 
+</P>
+<P STYLE="margin-bottom: 0in">to the created Luna icon directory</P>
+<P STYLE="margin-bottom: 0in">Note: Creating the ionic app icons is
+explained <A HREF="http://blog.ionic.io/automating-icons-and-splash-screens/">here</A>.</P>
+<P STYLE="margin-bottom: 0in"><B>11.</B> Install cordova HTTP
+support:</P>
+<P STYLE="margin-bottom: 0in"><B>ionic cordova plugin add
+cordova-plugin-http</B></P>
+<P STYLE="margin-bottom: 0in"><B>12.</B> Copy <B>node_modules</B>
+directories from: LunaShip/Luna/node_modules/@ionic-native/:</P>
+<P STYLE="margin-bottom: 0in">http 
+</P>
+<P STYLE="margin-bottom: 0in">keyboard 
+</P>
+<P STYLE="margin-bottom: 0in">sql-lite 
+</P>
+<H3 CLASS="western">Building and Executing Luna 
+</H3>
+<P STYLE="margin-bottom: 0in"><B>On the Xcode simulator: </B>
+</P>
+<P STYLE="margin-bottom: 0in">The three commands to execute from the
+terminal in the Luna home directory, that build, then executes Xcode
+to test:</P>
+<P STYLE="margin-bottom: 0in"><B>1.</B> <B>ionic serve</B> 
+</P>
+<P STYLE="margin-bottom: 0in">brings up a browser window with the
+Luna login screen. If syntax errors, they are displayed.</P>
+<P STYLE="margin-bottom: 0in">ctl-c in the terminal to enter next
+command.</P>
+<P STYLE="margin-bottom: 0in"><B>2. cordova build ios DO NOT HAVE
+DEVICE PLUGGED INTO MAC</B></P>
+<P STYLE="margin-bottom: 0in"><B>3.</B> <B>open
+platforms/ios/Luna.xcodeproj</B></P>
+<P STYLE="margin-bottom: 0in">Commmand 3 starts Xcode with the Luna
+Xcode project. Choose the simulator to run (upper left by Luna name,
+pull down list). Then press run icon (to its left, left &quot;arrow&quot;)</P>
+<P STYLE="margin-bottom: 0in">&quot;Build Succeeded&quot; window
+appears, simulator starts, displays Luna login page.</P>
+<P STYLE="margin-bottom: 0in"><B>These three commands are run
+whenever you modify the app code.</B></P>
+<P STYLE="margin-bottom: 0in"><B>On a device (iPhone, iPad)</B></P>
+<P STYLE="margin-bottom: 0in">1. Plug the device into the Mac. Its
+name should appear in Xcode device window (click pulldown to right of
+Luna icon). Click it.</P>
+<P STYLE="margin-bottom: 0in">2. Press Xcode start build icon.You
+should see &quot;build succeeded&quot; window, and request to update
+key chain.</P>
+<P STYLE="margin-bottom: 0in">3. On the device, from the settings
+app, press device management, and allow this app developer access.
+The Luna icon should appear on a screen.</P>
+<P STYLE="margin-bottom: 0in"><B>Note:</B></P>
+<P STYLE="margin-bottom: 0in">We got &quot;signing&quot; errors, and
+&quot;provisioning&quot; errors when we first tested devices from
+Xcode. To eliminate errors like &quot;Failed to create provisioning
+profile&quot;, or signing errors, we had to:</P>
+<P STYLE="margin-bottom: 0in">Show the project navigator on the left
+pane:</P>
+<P STYLE="margin-bottom: 0in">view--&gt;navigators--&gt;show project
+navigator</P>
+<P STYLE="margin-bottom: 0in">Click on Luna (top in navigator pane)</P>
+<P STYLE="margin-bottom: 0in">in identity: replace bundle name with
+something else (qwert)</P>
+<P STYLE="margin-bottom: 0in">in signing: click automatically manage
+signing</P>
+<P STYLE="margin-bottom: 0in">Team: should display your Apple
+developer ID</P>
+<P STYLE="margin-bottom: 0in">Your Apple developer ID can be
+displayed: Xcode--&gt;Preferences--&gt;accounts</P>
+</BODY>
+</HTML>
