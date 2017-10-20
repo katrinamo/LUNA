@@ -27,24 +27,27 @@ Output:
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Http, Headers } from '@angular/http';
-import { HTTP } from '@ionic-native/http';
+//import { HTTP } from '@ionic-native/http';
 import { Storage } from '@ionic/storage';
 import { Md5 } from 'ts-md5/dist/md5'; 
 //This will eventually be changed to our calendar!!!
 import { OnBoardingPage } from '../onBoarding/onBoarding';
 import { TabsPage } from '../tabs/tabs';
+import 'rxjs/add/operator/map';
 
 @Component({
     selector: 'page-login',
-    templateUrl: 'login.html',
-    providers: [HTTP]
+    templateUrl: 'login.html'
+   // providers: [HTTP]
 })
 export class LoginPage {
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: HTTP, private storage: Storage) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, private storage: Storage) {
         //alert("Please note: any information taken is for research purposes only.")
 
         this.customalert("Please note: any information taken is for research purposes only.", "Luna");
+
+	//this.http = http;
 
         //for debugging purposes
         //this.storage.set('uid', '');
@@ -161,33 +164,26 @@ export class LoginPage {
         var url = "https://luna-app.000webhostapp.com/api/v1/auth.php?emailID=" + emailID + "&username=" + usernameHash + "&pass=" + passwordHash;
         // this line sends to the url above
 
-        this.http.get(url, {}, {}).then(data => {
-            console.log(data.status);
-            console.log(data.data);
-            var Obj = JSON.parse(data.data);
-            console.log(Obj.error);
-            console.log(data.headers);
-            if (data.status == 200 && Obj.error == false && /*Obj.message == "User email random ID found"*/ Obj.message != undefined) {
-                //This should work to store the uid as long as it is correctly passed back from the server in the object message component
-                this.storage.set('uid', Obj.message);
+	var response;
+	this.http.get(url).map((response) => {
 
-                //after this we should get something back from the server giving us the uid which will then be stored in local storage on the app.
-                //Then we can jump to the onBoarding questions page of the app. 
+		var Obj = response.json();
+		if (response.status == 200 && Obj.error == false && /*Obj.message == "User email random ID found"*/ Obj.message != undefined) {
+			//This should work to store the uid as long as it is correctly passed back from the server in the object message component
+                	this.storage.set('uid', Obj.message);
 
-                this.customalert("Please fill out your responses to the onBoarding questions as your responses are crucial for proper app execution", "User Note");
-                this.navCtrl.setRoot(OnBoardingPage); // go to onBoarding questions page
-            } else {
-                this.customalert("User email random ID not found. Please be sure the email random ID was entered in correctly", "Error");
-            }
+                	//after this we should get something back from the server giving us the uid which will then be stored in local storage on the app.
+                	//Then we can jump to the onBoarding questions page of the app.
 
-        }).catch(error => {
-            //alert(data.status);
-            this.customalert("User email random ID not found. Please be sure the email random ID was entered in correctly", "Error"); // catches error 
-            console.log("bad");
-            console.log(error.status);
-            console.log(error.error);
-            console.log(error.headers);
-        });
+                	this.customalert("Please fill out your responses to the onBoarding questions as your responses are crucial for proper app execution", "User Note");
+                	this.navCtrl.setRoot(OnBoardingPage); // go to onBoarding questions page
+		}
+		else {
+			this.customalert("User email random ID not found. Please be sure the email random ID was entered in correctly", "Error");
+		}
+
+            }).subscribe();
+
     }
 
     // a custom alert I have made with ionic 2. 

@@ -20,6 +20,7 @@ Output:
 
 //imports needed for correct initialization
 import { NgModule, ErrorHandler } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';        //added for localStorage
 import { MyApp } from './app.component';
@@ -53,6 +54,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
       BrowserModule,
+      HttpModule,
       IonicStorageModule.forRoot(),     //added for localStorage.
       IonicModule.forRoot(MyApp, {
           monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
