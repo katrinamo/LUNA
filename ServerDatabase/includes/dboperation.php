@@ -543,4 +543,35 @@ class DbOperation
         }
     }   // end of createEntry
 
+
+    /**
+     * Function to create a new Period in Period table
+     *  $uid:  user ID
+     *  $start_date: start date of period
+     *  $end_date: end date of period
+     * @return true: new row in Period table with start/end dates
+     *.        false: error creating new row in Period table
+     */
+
+    public function createPeriod($uid, $start_date, $end_date)
+    {
+
+        $start_date = date('Y-m-d', strtotime(str_replace('-', '/', $start_date)));
+        $end_date = date('Y-m-d', strtotime(str_replace('-', '/', $end_date)));
+        $stmt = $this->conn->prepare('INSERT INTO Period (uid, mens_start, mens_end) VALUES (?, ?, ?)');
+
+        $stmt->bind_param('sss', $uid, $start_date, $end_date);
+
+        if ($stmt->execute())
+        {
+            //Entry created successfully
+            return true;
+        }
+        else
+        {
+            //Error creating Entry
+            return false;
+        }
+    }   // end of createEntry
+
 }  // end of DbOperation class
