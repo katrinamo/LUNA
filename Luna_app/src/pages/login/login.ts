@@ -27,7 +27,6 @@ Output:
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Http, Headers } from '@angular/http';
-//import { HTTP } from '@ionic-native/http';
 import { Storage } from '@ionic/storage';
 import { Md5 } from 'ts-md5/dist/md5'; 
 //This will eventually be changed to our calendar!!!
@@ -38,7 +37,6 @@ import 'rxjs/add/operator/map';
 @Component({
     selector: 'page-login',
     templateUrl: 'login.html'
-   // providers: [HTTP]
 })
 export class LoginPage {
 
@@ -46,8 +44,6 @@ export class LoginPage {
         //alert("Please note: any information taken is for research purposes only.")
 
         this.customalert("Please note: any information taken is for research purposes only.", "Luna");
-
-	//this.http = http;
 
         //for debugging purposes
         //this.storage.set('uid', '');

@@ -37,13 +37,11 @@ Output:
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Http, Headers } from '@angular/http';
-import { HTTP } from '@ionic-native/http';
 import { Storage } from '@ionic/storage';
 
 @Component({
     selector: 'page-tracker',
-    templateUrl: 'tracker.html',
-    providers: [HTTP]   
+    templateUrl: 'tracker.html'
 })
 export class TrackerPage {
     //Variables used and their corresponding type
@@ -66,7 +64,7 @@ export class TrackerPage {
     toggleStimulation: boolean = false;
     toggleIntercourse: boolean = false;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: HTTP, private storage: Storage) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, private storage: Storage) {
     }
 
     //Function used to show the 2nd set of daily questions if the first toggle button has been set to true
@@ -750,39 +748,26 @@ export class TrackerPage {
         // Server daily questions handler url (addDaily.php)
         var url = "https://luna-app.000webhostapp.com/api/v1/addDaily.php"
         console.log("in post tracker")
-        var P1 = this.http.post(url, tracker_data, {})
-            .then(function (data) {
-                // This function handles 200 HTTP return code, but
-                // addDaily may still report error (error=true)
-                var Obj = JSON.parse(data.data);  // log the response
+
+        this.http.get(url, {params: tracker_data}, {}).map((response) => {
+                var Obj = response.json();
                 console.log(Obj.error);
                 console.log(Obj.message);
-                if (Obj.error == false) {  // successful completion
-                    console.log("post tracker success");
-                    return true;
+                if (Obj.error == false) {
+                        // get request success
+                        console.log("post tracker success");
+                        this.customalert("Your daily questions have been successfully submitted", "Success");
+                        this.customalert("If birth control, relationship status, or any other settings have changed please navigate to the settings tab and update them.", "User Note");
+                        console.log(response);
+                        return true;
                 } else {
-                    console.log("post tracker failure: " + Obj.message);
-                    // user can do nothing about this. Error detected in
-                    // addDaily.php. In future report to error log 
-                    return false;
+                        // get request failed
+                        console.log("post tracker failure: " + Obj.message);
+                        this.customalert("Failure to submit your daily questions", "Failure");
+                        return false;
                 }
-            }, function (response) {
-                // this function handles server (500) errors
-                console.log("post tracker server failure");
-                return false;
-            });
-        // wait for post (then clause) to complete 
-        // Promise.all waits until response from server for post request
-        // data will be true (success) or false
-        Promise.all([P1]).then(data => {
-            if (data[0]) { // then clause reported success/failure
-                this.customalert("Your daily questions have been successfully submitted", "Success");
-                this.customalert("If birth control, relationship status, or any other settings have changed please navigate to the settings tab and update them.", "User Note");
-                console.log(data);
-            } else {
-                this.customalert("Failure to submit your daily questions", "Failure");
-            }
-        });
+        }).subscribe();
+
     }   // end post_tracker
 
     // a custom alert for ionic 2. 

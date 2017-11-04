@@ -32,14 +32,12 @@ Output:
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Http, Headers } from '@angular/http';
-import { HTTP } from '@ionic-native/http';
 import { Storage } from '@ionic/storage';
 import { TabsPage } from '../tabs/tabs';
 
 @Component({
     selector: 'page-onBoarding',
-    templateUrl: 'onBoarding.html',
-    providers: [HTTP]  
+    templateUrl: 'onBoarding.html'
 })
 export class OnBoardingPage {
     // initializing variables and their types 
@@ -57,7 +55,7 @@ export class OnBoardingPage {
     toggleDisorders: boolean = false;
 
     //just added the private storage stuff to this.
-    constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: HTTP, private storage: Storage) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, private storage: Storage) {
     }
 
     //This function is called if our toggle button is true to allow the user to enter in their reproductive disorder
@@ -284,39 +282,25 @@ export class OnBoardingPage {
         // Server chnage onBoard handler url (changeOnboard.php)
         var url = "https://luna-app.000webhostapp.com/api/v1/changeOnboard.php"
         console.log("in post onboard")
-        var P1 = this.http.post(url, onboard_data, {})
-            .then(function (data) {
-                // This function handles 200 HTTP return code, but
-                // changeOnboard may still report error (error=true)
-                var Obj = JSON.parse(data.data);  // log the response
+
+        // Submit onboarding data to server
+        this.http.get(url, {params: onboard_data}, {}).map((response) => {
+                var Obj = response.json();
                 console.log(Obj.error);
-                console.log(Obj.message);
-                if (Obj.error == false) {  // successful completion
+                console.log(Obj.message)
+                if (Obj.error == false) { // successful completion
                     console.log("post onboard success");
+                    this.customalert("Please navigate to the tracker page (the middle tab) and fill out your responses to the daily questions", "User Note");
+                    this.customalert("Your onboard data have been successfully submitted", "Success");
+                    this.navCtrl.setRoot(TabsPage); // go to tracker page
                     return true;
-                } else {
+                } else { // get request failed
                     console.log("post onboard failure: " + Obj.message);
                     // user can do nothing about this. Error detected in
-                    // changeOnboard.php. In future report to error log 
+                    // changeOnboard.php. In future report to error log
                     return false;
                 }
-            }, function (response) {
-                // this function handles server (500) error
-                console.log("post onboard server failure");
-                return false;
-            });
-        // wait for post (then clause) to complete 
-        // Promise.all waits until response from server for post request
-        // data will be true (success) or false
-        Promise.all([P1]).then(data => {
-            if (data[0]) { // then clause reported success/failure
-                this.customalert("Your onboard data have been successfully submitted", "Success");
-                this.customalert("Please navigate to the tracker page (the middle tab) and fill out your responses to the daily questions", "User Note");
-                this.navCtrl.setRoot(TabsPage); // go to tracker page
-            } else {
-                this.customalert("Failure to submit your onboard data", "Failure");
-            }
-        });
+        }).subscribe();
     } // end post_onBoarding
 
     // a custom alert for ionic 2. 

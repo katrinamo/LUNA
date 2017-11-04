@@ -32,14 +32,12 @@ Output:
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Http, Headers } from '@angular/http';
-import { HTTP } from '@ionic-native/http';
 import { Storage } from '@ionic/storage';
 import { TabsPage } from '../tabs/tabs';
 
 @Component({
   selector: 'page-settings',
-  templateUrl: 'settings.html',
-  providers: [HTTP]
+  templateUrl: 'settings.html'
 })
 export class SettingsPage {
 
@@ -56,7 +54,7 @@ export class SettingsPage {
     public pregnantParam;
     public reproductiveDisorderParam;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public http: HTTP, private storage: Storage) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public http: Http, private storage: Storage) {
         
         //Getting parameters passed in from settingsLogin.ts and saving them in the proper variables
         this.birthdayParam = navParams.get("birthdayPassed");
@@ -484,39 +482,28 @@ export class SettingsPage {
         // Server chnage onBoard handler url (changeOnboard.php)
         var url = "https://luna-app.000webhostapp.com/api/v1/changeOnboard.php"
         console.log("in post update")
-        var P1 = this.http.post(url, onboard_data, {})
-            .then(function (data) {
-                // This function handles 200 HTTP return code, but
-                // changeOnboard may still report error (error=true)
-                var Obj = JSON.parse(data.data);  // log the response
+
+        this.http.get(url, {params: onboard_data}, {}).map((response) => {
+                var Obj = response.json();
                 console.log(Obj.error);
-                console.log(Obj.message);
-                if (Obj.error == false) {  // successful completion
-                    console.log("post update success");
-                    return true;
+                console.log(Obj.message)
+                if (Obj.error == false) {
+                        // get request success
+                        console.log("post update success");
+
+                        this.customalert("Your onboard data has been successfully updated", "Success");
+                        this.navCtrl.pop(SettingsPage); // go back to the settings login page as updates have been made.
+                        //Pops the settings page off the top of the stack as it was popped on top of settingsLogin when username and password were input.
+
+                        return true;
                 } else {
-                    console.log("post update failure: " + Obj.message);
-                    // user can do nothing about this. Error detected in
-                    // changeOnboard.php. In future report to error log 
-                    return false;
+                        // get request failed
+                        console.log("post update failure: " + Obj.message);
+                        this.customalert("Failure to update your onboard data", "Failure");
+                        return false;
                 }
-            }, function (response) {
-                // this function handles server (500) error
-                console.log("post update server failure");
-                return false;
-            });
-        // wait for post (then clause) to complete 
-        // Promise.all waits until response from server for post request
-        // data will be true (success) or false
-        Promise.all([P1]).then(data => {
-            if (data[0]) { // then clause reported success/failure
-                this.customalert("Your onboard data has been successfully updated", "Success");
-                this.navCtrl.pop(SettingsPage); // go back to the settings login page as updates have been made. 
-                //Pops the settings page off the top of the stack as it was popped on top of settingsLogin when username and password were input. 
-            } else {
-                this.customalert("Failure to update your onboard data", "Failure");
-            }
-        });
+        }).subscribe();	
+
     } // end post_update
 
     // a custom alert for ionic 2. 
