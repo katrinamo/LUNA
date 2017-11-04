@@ -574,4 +574,26 @@ class DbOperation
         }
     }   // end of createEntry
 
+    /**
+     * Function to get user stats (Currently just from Period table)
+     *  $uid:  user ID
+     * @return average: the user's average cycle length. 
+     *    if -1.0, error: user has no periods entered
+     *        
+     */
+    public function getUserStats($uid)
+    {
+        $sql = "SELECT uid, AVG(TIMESTAMPDIFF(day,mens_start,mens_end)) AS average FROM Period GROUP BY uid HAVING uid = " . $uid;
+        $result = $this->conn->query($sql);
+        
+        //this should only ever return 1 record (for a user)
+        if ($result->num_rows == 1) {
+            //echo "num rows: " . $result->num_rows . "<br>";
+            $row = $result->fetch_assoc();
+            return $row["average"];
+        } else {
+            return -1.0;
+        }
+    }   // end of getUserStats
+
 }  // end of DbOperation class
