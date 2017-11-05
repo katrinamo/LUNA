@@ -583,7 +583,17 @@ class DbOperation
      */
     public function getUserStats($uid)
     {
-        $sql = "SELECT uid, AVG(TIMESTAMPDIFF(day,mens_start,mens_end)) AS average FROM Period GROUP BY uid HAVING uid = " . $uid;
+        $sql = "SELECT A.uid, AVG(TIMESTAMPDIFF(day,B.maxDate,A.mens_start)) AS average
+                FROM Period AS A
+                INNER JOIN
+                (
+                SELECT A2.uid, A2.pid, MAX(B2.mens_start) AS maxDate
+                FROM Period AS A2
+                INNER JOIN Period AS B2 ON A2.pid<>B2.pid AND A2.uid=B2.uid AND A2.mens_start>B2.mens_end
+                GROUP BY B2.uid, B2.pid
+                ) AS B ON A.uid=B.uid AND A.pid=B.pid
+                GROUP BY A.uid
+                HAVING A.uid=" . $uid;
         $result = $this->conn->query($sql);
         
         //this should only ever return 1 record (for a user)

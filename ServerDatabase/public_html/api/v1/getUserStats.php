@@ -39,13 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             // Verify that UID exists
             if($db->authenticateUid($uid)) 
             {             
-                // Create new daily questions event
+                // get average cycle length
                 $average = $db->getUserStats($uid);
                 if($average != -1.0)
                 {
                     $response['error'] = false;
                     $response['message'] = 'Successfully retrieved user stats.';
-                    $response['average'] = $average;
+                    $response['average_cycle_length'] = $average;
                 }
                 else
                 {
