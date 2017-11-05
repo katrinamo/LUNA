@@ -483,7 +483,7 @@ export class SettingsPage {
         var url = "https://luna-app.000webhostapp.com/api/v1/changeOnboard.php"
         console.log("in post update")
 
-        this.http.get(url, {params: onboard_data}, {}).map((response) => {
+        this.http.get(url, {params:onboard_data}).map((response) => {
                 var Obj = response.json();
                 console.log(Obj.error);
                 console.log(Obj.message)

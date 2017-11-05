@@ -42,6 +42,7 @@ export class LoginPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, private storage: Storage) {
         //alert("Please note: any information taken is for research purposes only.")
+	this.storage.clear();
 
         this.customalert("Please note: any information taken is for research purposes only.", "Luna");
 
@@ -159,7 +160,6 @@ export class LoginPage {
         // goes to the ReportPage is everything is okay. 
         var url = "https://luna-app.000webhostapp.com/api/v1/auth.php?emailID=" + emailID + "&username=" + usernameHash + "&pass=" + passwordHash;
         // this line sends to the url above
-
 	var response;
 	this.http.get(url).map((response) => {
 

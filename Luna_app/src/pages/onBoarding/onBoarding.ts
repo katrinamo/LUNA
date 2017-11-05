@@ -284,7 +284,7 @@ export class OnBoardingPage {
         console.log("in post onboard")
 
         // Submit onboarding data to server
-        this.http.get(url, {params: onboard_data}, {}).map((response) => {
+        this.http.get(url, {params:onboard_data}).map((response) => {
                 var Obj = response.json();
                 console.log(Obj.error);
                 console.log(Obj.message)
