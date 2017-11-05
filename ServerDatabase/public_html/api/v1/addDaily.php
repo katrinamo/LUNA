@@ -30,6 +30,9 @@ $response = [];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 {
+
+    header("Access-Control-Allow-Origin: *");
+
     // See if proper parameters were provided
     if (verifyRequiredParams(['uid', 'date', 'onPeriod','sexualInterest','sexualActivityNumber', 'emotionalCloseness', 'sexualRelationship', 'sexualLife', 'sexualArousal', 'sexualArousalConfidence', 'lubrication', 'lubricationMaintain', 'difficulty', 'satisfaction', 'discomfort']))
     {

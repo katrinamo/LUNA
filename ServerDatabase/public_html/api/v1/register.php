@@ -21,6 +21,9 @@ $response = [];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+
+    header("Access-Control-Allow-Origin: *");
+
     // See if proper parameter was provided
     if (verifyRequiredParams(['emailaddress']))
     {

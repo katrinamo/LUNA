@@ -18,6 +18,9 @@ $response = [];
 // GET used for testing
 if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 {
+
+    header("Access-Control-Allow-Origin: *");
+
     // See if proper parameters were provided
     if (verifyRequiredParams(['userHash', 'location', 'date']))
     {
