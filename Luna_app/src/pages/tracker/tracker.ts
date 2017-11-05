@@ -749,7 +749,7 @@ export class TrackerPage {
         var url = "https://luna-app.000webhostapp.com/api/v1/addDaily.php"
         console.log("in post tracker")
 
-        this.http.get(url, {params: tracker_data}, {}).map((response) => {
+        this.http.get(url, {params:tracker_data}).map((response) => {
                 var Obj = response.json();
                 console.log(Obj.error);
                 console.log(Obj.message);
