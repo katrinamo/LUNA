@@ -42,7 +42,7 @@ export class LoginPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, private storage: Storage) {
         //alert("Please note: any information taken is for research purposes only.")
-	this.storage.clear();
+	//this.storage.clear();
 
         this.customalert("Please note: any information taken is for research purposes only.", "Luna");
 

@@ -1,4 +1,4 @@
-﻿/*
+/*
 Title: tracker.ts
 Author: Dillon Pulliam
 Date: 7/3/2017
@@ -465,6 +465,7 @@ export class TrackerPage {
     //Function that is called when the user presses the submit button.
     //This function will output an error message if a certain field is missing info and has not yet been filled in.
     //If the form is completed then the function will send the data to the server.
+    //Also, send the period length for a user when they have answered yes to daily questions for their period, then no.
     public SubmitForm() { // Form submitted to the server for email deployment. 
         //Get the uid from local storage
         this.storage.get('uid').then((data) => {
@@ -633,9 +634,28 @@ export class TrackerPage {
             console.log(satisfaction);
             console.log(discomfort);
 
+            
+
+            //try to pull up the user's period start date and end date.
+            this.storage.get('period_start_date').then((start_date) => {
+                //if the period isn't set, and they report they are on their period...
+                if (onPeriod == 'Yes' && start_date == undefined) {
+                    //set the start date for the user's period to today.
+                    this.storage.set('period_start_date', date);
+                    console.log('period start date saved.');
+                //if the period is set, and they report they aren't on their period...
+                } else if (onPeriod == 'No' && start_date != undefined && start_date != date) {
+                    //store today as their end date - it looks like they have a period to report.
+                    this.storage.set('period_end_date', date);
+                    console.log('period end date saved!');
+                    this.periodAlertForm(uid, start_date, date);
+                }
+            });
+
+
             //Varaibles sent to the server.
             //Note that all variables are sent as strings.
-            var form_object = {  // this  is the form object sent to the server. json format
+            var form_object = {  // this  is the form object sent to the server.
                 uid: uid,
                 date: date,
                 onPeriod: onPeriod,
@@ -770,6 +790,11 @@ export class TrackerPage {
 
     }   // end post_tracker
 
+    
+    
+
+    
+
     // a custom alert for ionic 2. 
     public customalert(s: string, t: string) {
         console.log("alert: " + s);
@@ -780,4 +805,92 @@ export class TrackerPage {
         });
         alert.present(alert);
     }
+
+    // an alert with date fields
+    public periodAlertForm(uid: string, start_date: string, end_date: string){
+
+        let prompt = this.alertCtrl.create({
+          title: "It appears you\'ve finished your period.",
+          message: "Please verify that these fields look correct. They are important to finding your average cycle length.",
+          inputs: [
+          {
+            name: 'PeriodStartDate',
+            placeholder: 'Start Date',
+            value: start_date,
+            type: "date"
+          },
+          {
+            name: 'PeriodEndDate',
+            placeholder: 'End Date',
+            value: end_date,
+            type: "date"
+          },
+          ],
+          buttons: [
+          {
+            text: 'Cancel',
+            handler: data => {
+              console.log('Cancel clicked');
+              this.customalert("Your daily questions have not been submitted. Please try again.", "Submission Cancelled");
+            }
+          },
+          {
+            text: 'OK',
+            handler: data => {
+              var form_object = {  // this  is the form object sent to the server.
+                uid: uid,
+                mens_start: data.PeriodStartDate,
+                mens_end: data.PeriodEndDate
+              };
+              console.log(data.PeriodStartDate);
+              console.log(data.PeriodEndDate);
+              console.log(uid);
+              console.log("Saved!");
+              this.post_period(form_object);
+            }
+          }
+          ]
+        });
+
+        prompt.present(prompt);
+  }
+
+
+      // post_period
+    // send HTTP post request to the server to add 
+    // a period for this uid
+    // preconditions:
+    //   user has entered in a daily question that they were on their period, and then they entered that they were not.
+    // input:
+    //   a form object with mens_start, mens_end, and uid
+    // output:
+    //   success: obj.error field set false by server
+    //     period added to Period table.
+    //   failure: obj.error field set to true by server
+    //     alert to user, ask to report questions.
+    public post_period(period_data) {
+        // Server daily questions handler url (addDaily.php)
+        var url = "https://luna-app.000webhostapp.com/api/v1/addPeriod.php"
+        console.log("in post period")
+        
+
+        this.http.get(url, {params:period_data}).map((response) => {
+                var Obj = response.json();
+                console.log(Obj.error);
+                console.log(Obj.message);
+                if (Obj.error == false) {
+                        // get request success
+                        console.log("post period success");
+                        this.customalert("Your period has been successfully submitted.", "Success");
+                        console.log(response);
+                        return true;
+                } else {
+                        // get request failed
+                        console.log("post tracker failure: " + Obj.message);
+                        this.customalert("Failure to submit your period.", "Failure");
+                        return false;
+                }
+        }).subscribe();
+
+    }   // end post_period
 }

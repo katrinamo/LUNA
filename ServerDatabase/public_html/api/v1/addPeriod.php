@@ -37,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
     {
         // Get parameter values
         $uid = $_REQUEST['uid'];
-        $start_date = $_REQUEST['mens_date'];
-        $end_date = $_REQUEST['mens_date'];
+        $start_date = $_REQUEST['mens_start'];
+        $end_date = $_REQUEST['mens_end'];
       
         // Create db operation object
         $db = new DbOperation();
