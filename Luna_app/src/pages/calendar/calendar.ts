@@ -19,7 +19,10 @@ Output:
 */
 
 import { Component, ViewChild } from '@angular/core';
+import { NavController } from 'ionic-angular';
 import {Slides} from 'ionic-angular';
+import { LoginPage } from '../login/login';
+import { Storage } from '@ionic/storage';
 import {CalendarService} from './calendar.service';
 
 import moment from 'moment';
@@ -38,10 +41,16 @@ export class CalendarComponent {
   public today:any;
   public events:Array<any> = [];
   public months:Array<any> = [];
-  constructor(private calendarService:CalendarService) {
+  constructor(public navCtrl: NavController, private calendarService:CalendarService, private storage: Storage) {
     this.weekNames = ['S','M', 'T', 'W', 'T', 'F', 'S'];
     this.today = moment();
 
+  }
+
+  public Logout() {
+	this.storage.clear();
+	this.navCtrl.setRoot(LoginPage);
+	console.log("Logout Successful");
   }
 
   setTimeToZero(dateLocal) {

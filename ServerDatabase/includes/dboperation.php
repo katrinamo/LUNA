@@ -47,9 +47,8 @@ class DbOperation
      */
     public function authenticateUser($username, $pass)
     {
-        $hashed_pass = md5($pass);
         $stmt = $this->conn->prepare('SELECT uid FROM User WHERE username = ? AND password = ? AND active = 1');
-        $stmt->bind_param('ss', $username, $hashed_pass);
+        $stmt->bind_param('ss', $username, $pass);
         $stmt->execute();
         $stmt->store_result();
         // Return if results were found

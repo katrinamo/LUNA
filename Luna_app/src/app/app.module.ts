@@ -28,6 +28,7 @@ import { OnBoardingPage } from '../pages/onBoarding/onBoarding';
 import { SettingsPage } from '../pages/settings/settings';
 import { SettingsLoginPage } from '../pages/settingsLogin/settingsLogin';
 import { TrackerPage } from '../pages/tracker/tracker';
+import { CreateAccountPage } from '../pages/createAccount/createAccount';
 import { LoginPage } from '../pages/login/login';
 import { DisplayUIDPage } from '../pages/displayUID/displayUID';
 import { CalendarComponent } from '../pages/calendar/calendar';
@@ -45,6 +46,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
       SettingsPage,
       SettingsLoginPage,
       TrackerPage,
+      CreateAccountPage,
       LoginPage,
       DisplayUIDPage,
       Launch,
@@ -71,6 +73,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
       SettingsPage,
       SettingsLoginPage,
       TrackerPage,
+      CreateAccountPage,
       LoginPage,
       DisplayUIDPage,
       Launch,
