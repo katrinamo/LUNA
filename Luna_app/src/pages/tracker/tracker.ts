@@ -64,9 +64,26 @@ export class TrackerPage {
     toggleStimulation: boolean = false;
     toggleIntercourse: boolean = false;
 
+    //Variables used for the Statistics tab
+    avgCycleLengthString: string = "You do not currently have any completed Periods on record. Continue using the app to see your average cycle length.";
+
     constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, private storage: Storage) {
     }
 
+    //While page is loading, query the server for the user's statistics using their uid.
+    ionViewDidEnter() {
+        console.log("Page loading...");
+        this.storage.get('uid').then((data) => {
+            var uid = data;
+            var form_object = {  // this is the form object sent to the server.
+                    uid: uid,
+            }
+            console.log(uid);
+            this.get_statistics(form_object);
+        });
+
+    }
+    
     //Function used to show the 2nd set of daily questions if the first toggle button has been set to true
     public Show() {
         var sexualActivityNumber = document.getElementById('sexualActivityNumber');
@@ -882,12 +899,51 @@ export class TrackerPage {
                         // get request success
                         console.log("post period success");
                         this.customalert("Your period has been successfully submitted.", "Success");
+                        //remove the locally stored start and end dates; they'll be stored next time the user reports a period.
+                        this.storage.remove('period_start_date');
+                        this.storage.remove('period_end_date');
                         console.log(response);
                         return true;
                 } else {
                         // get request failed
                         console.log("post tracker failure: " + Obj.message);
-                        this.customalert("Failure to submit your period.", "Failure");
+                        this.customalert("Failure to submit your period. Please try again.", "Failure");
+                        return false;
+                }
+        }).subscribe();
+
+    }   // end post_period
+
+          // get_statistics
+    // send HTTP post request to the server to get statistics for the current user.
+    // preconditions:
+    //   none.
+    // input:
+    //   a form object with uid.
+    // output:
+    //   success: obj.error field set false by server
+    //     user statistics successfully returned.
+    //   failure: obj.error field set to true by server
+    //     alert to user, ask to report questions.
+    public get_statistics(statistics_data) {
+        // Server daily questions handler url (addDaily.php)
+        var url = "https://luna-app.000webhostapp.com/api/v1/getUserStats.php"
+        console.log("in get statistics")
+        
+
+        this.http.get(url, {params:statistics_data}).map((response) => {
+                var Obj = response.json();
+                console.log(Obj.error);
+                console.log(Obj.message);
+                if (Obj.error == false) {
+                        // get request success
+                        console.log("get statistics success");
+                        this.avgCycleLengthString = "User's average cycle length: "+Obj.average_cycle_length;
+                        console.log(response);
+                        return true;
+                } else {
+                        // get request failed
+                        console.log("get statistics failure: " + Obj.message);
                         return false;
                 }
         }).subscribe();
