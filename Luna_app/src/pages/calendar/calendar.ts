@@ -47,12 +47,6 @@ export class CalendarComponent {
 
   }
 
-  public Logout() {
-	this.storage.clear();
-	this.navCtrl.setRoot(LoginPage);
-	console.log("Logout Successful");
-  }
-
   setTimeToZero(dateLocal) {
     return dateLocal.day(0).hour(0).minute(0).second(0).millisecond(0);
   }

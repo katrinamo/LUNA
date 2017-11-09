@@ -1,0 +1,32 @@
+﻿<!--
+Title: logout.ts
+Author: Dillon Pulliam
+Date: 7/16/2017
+
+Purpose: This is the HTML behind logout.ts which asks the user if they would like to logout.
+
+-->
+
+<!--Make the Header-->
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Logout
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="logout-content" padding color="primary">
+  <ion-row class="logo-row">
+    <img style="width:100%; height:100%;" src="https://luna-app.000webhostapp.com/LunaImage.png" />
+  </ion-row>
+  
+  <div class="logout-box">
+    <form>
+
+      <!--Button to go the main tab page-->
+      <button (click)="Logout()" ion-button full>Logout</button>
+
+    </form>
+  </div>
+</ion-content>

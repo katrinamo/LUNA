@@ -21,6 +21,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Http, Headers } from '@angular/http';
+import { LogoutPage } from '../logout/logout';
 import { Md5 } from 'ts-md5/dist/md5';
 import { CreateAccountPage } from '../createAccount/createAccount';
 //This will eventually be changed to our calendar!!!

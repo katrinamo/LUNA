@@ -30,6 +30,7 @@ import { SettingsLoginPage } from '../pages/settingsLogin/settingsLogin';
 import { TrackerPage } from '../pages/tracker/tracker';
 import { CreateAccountPage } from '../pages/createAccount/createAccount';
 import { LoginPage } from '../pages/login/login';
+import { LogoutPage } from '../pages/logout/logout';
 import { DisplayUIDPage } from '../pages/displayUID/displayUID';
 import { CalendarComponent } from '../pages/calendar/calendar';
 import { CalendarService } from '../pages/calendar/calendar.service';
@@ -48,6 +49,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
       TrackerPage,
       CreateAccountPage,
       LoginPage,
+      LogoutPage,
       DisplayUIDPage,
       Launch,
       CalendarComponent,
@@ -75,6 +77,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
       TrackerPage,
       CreateAccountPage,
       LoginPage,
+      LogoutPage,
       DisplayUIDPage,
       Launch,
       CalendarComponent,
