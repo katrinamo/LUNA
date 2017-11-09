@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "\\.sourcemaps",
+    "\\resources",
+    "\\src",
+    "\\src\\app"
+  ],
+  "SelectedNode": "\\src\\app\\app.component.ts",
+  "PreviewInSolutionExplorer": false
+}

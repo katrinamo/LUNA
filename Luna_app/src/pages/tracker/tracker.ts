@@ -46,21 +46,32 @@ import { Storage } from '@ionic/storage';
 export class TrackerPage {
     //Variables used and their corresponding type
     onPeriod: string;
-    sexualInterest: string = '1';   
-    sexualActivityNumber: string;   
-    emotionalCloseness: string;   
-    sexualRelationship: string;   
-    sexualLife: string;   
+
+    sexualInterest: string = '1';
+
+    seek: string;
+    acquiesce: string;
+    avoid: string;
+
     sexualArousal: string;
-    sexualArousalConfidence: string;   
-    lubrication: string;   
-    lubricationMaintain: string;   
-    difficulty: string;   
-    satisfaction: string;  
-    discomfort: string;   
+    climax: string;  
+    intensity: string;   
+ 
+    discomfort: string;
+    other: string;
 
     //Boolean variables used for the toggle buttons
-    toggleSexualActivity: boolean = false;
+    kissing: boolean = false;
+    caressing: boolean = false;
+    fondling: boolean = false;
+    masturbation: boolean = false;
+    oral: boolean = false;
+    anal: boolean = false;
+    vaginal: boolean = false;
+    none: boolean = false;
+
+    toggleSexualActivity: boolean = false;  // Overall indicator of whether we should expand the questions
+                                            // Based on the values of the above.
     toggleStimulation: boolean = false;
     toggleIntercourse: boolean = false;
 
@@ -69,185 +80,32 @@ export class TrackerPage {
 
     //Function used to show the 2nd set of daily questions if the first toggle button has been set to true
     public Show() {
-        var sexualActivityNumber = document.getElementById('sexualActivityNumber');
-        var emotionalCloseness = document.getElementById('emotionalCloseness');
-        var sexualRelationship = document.getElementById('sexualRelationship');
-        var sexualLife = document.getElementById('sexualLife');
-        var sexualArousal = document.getElementById('sexualArousal');
-        var sexualArousalConfidence = document.getElementById('sexualArousalConfidence');
-        var lubrication = document.getElementById('lubrication');
-        var lubricationMaintain = document.getElementById('lubricationMaintain');
-        var stimulation = document.getElementById('stimulation');
         var Note1 = document.getElementById('Note1');
-        var Note2 = document.getElementById('Note2');
-        var Note3 = document.getElementById('Note3');
-        var Note4 = document.getElementById('Note4');
-        var Note5 = document.getElementById('Note5');
-        var Note6 = document.getElementById('Note6');
-        var Note7 = document.getElementById('Note7');
-        var Note8 = document.getElementById('Note8');
-        var Note9 = document.getElementById('Note9');
-        var Note10 = document.getElementById('Note10');
-        var Note11 = document.getElementById('Note11');
-        var Note12 = document.getElementById('Note12');
-        var Note13 = document.getElementById('Note13');
-        var Note14 = document.getElementById('Note14');
-        var Note15 = document.getElementById('Note15');
-        var Note16 = document.getElementById('Note16');
-        var Note17 = document.getElementById('Note17');
-        var Note18 = document.getElementById('Note18');
-        var Note19 = document.getElementById('Note19');
-        var Note20 = document.getElementById('Note20');
-        var Note21 = document.getElementById('Note21');
-
-        sexualActivityNumber.style.visibility = 'visible';
-        emotionalCloseness.style.visibility = 'visible';
-        sexualRelationship.style.visibility = 'visible';
-        sexualLife.style.visibility = 'visible';
-        sexualArousal.style.visibility = 'visible';
-        sexualArousalConfidence.style.visibility = 'visible';
-        lubrication.style.visibility = 'visible';
-        lubricationMaintain.style.visibility = 'visible';
-        stimulation.style.visibility = 'visible';
-        Note1.style.visibility = 'visible';
-        Note2.style.visibility = 'visible';
-        Note3.style.visibility = 'visible';
-        Note4.style.visibility = 'visible';
-        Note5.style.visibility = 'visible';
-        Note6.style.visibility = 'visible';
-        Note7.style.visibility = 'visible';
-        Note8.style.visibility = 'visible';
-        Note9.style.visibility = 'visible';
-        Note10.style.visibility = 'visible';
-        Note11.style.visibility = 'visible';
-        Note12.style.visibility = 'visible';
-        Note13.style.visibility = 'visible';
-        Note14.style.visibility = 'visible';
-        Note15.style.visibility = 'visible';
-        Note16.style.visibility = 'visible';
-        Note17.style.visibility = 'visible';
-        Note18.style.visibility = 'visible';
-        Note19.style.visibility = 'visible';
-        Note20.style.visibility = 'visible';
-        Note21.style.visibility = 'visible';
+        Note1.style.display = 'inline';
     }
 
     //Function used to show the 3rd set of daily questions if the 2nd toggle button has been set to true.
     public Show1() {
-        var difficulty = document.getElementById('difficulty');
-        var satisfaction = document.getElementById('satisfaction');
-        var intercourse = document.getElementById('intercourse');
         var Note22 = document.getElementById('Note22');
-        var Note23 = document.getElementById('Note23');
-        var Note24 = document.getElementById('Note24');
-        var Note25 = document.getElementById('Note25');
-        var Note26 = document.getElementById('Note26');
-
-        difficulty.style.visibility = 'visible';
-        satisfaction.style.visibility = 'visible';
-        intercourse.style.visibility = 'visible';
-        Note22.style.visibility = 'visible';
-        Note23.style.visibility = 'visible';
-        Note24.style.visibility = 'visible';
-        Note25.style.visibility = 'visible';
-        Note26.style.visibility = 'visible';
+        Note22.style.display = 'inline';
     }
 
     //Function used to show the 4th set of daily questions if the 3rd toggle button has been set to true.
     public Show2() {
-        var discomfort = document.getElementById('discomfort');
         var Note27 = document.getElementById('Note27');
-        var Note28 = document.getElementById('Note28');
-
-        discomfort.style.visibility = 'visible';
-        Note27.style.visibility = 'visible';
-        Note28.style.visibility = 'visible';
+        Note27.style.display = 'inline';
     }
 
     //Function used to hide the 2nd set of daily questions if the 1st toggle button is set to false
     public Hide() {
-        var sexualActivityNumber = document.getElementById('sexualActivityNumber');
-        var emotionalCloseness = document.getElementById('emotionalCloseness');
-        var sexualRelationship = document.getElementById('sexualRelationship');
-        var sexualLife = document.getElementById('sexualLife');
-        var sexualArousal = document.getElementById('sexualArousal');
-        var sexualArousalConfidence = document.getElementById('sexualArousalConfidence');
-        var lubrication = document.getElementById('lubrication');
-        var lubricationMaintain = document.getElementById('lubricationMaintain');
-        var stimulation = document.getElementById('stimulation');
         var Note1 = document.getElementById('Note1');
-        var Note2 = document.getElementById('Note2');
-        var Note3 = document.getElementById('Note3');
-        var Note4 = document.getElementById('Note4');
-        var Note5 = document.getElementById('Note5');
-        var Note6 = document.getElementById('Note6');
-        var Note7 = document.getElementById('Note7');
-        var Note8 = document.getElementById('Note8');
-        var Note9 = document.getElementById('Note9');
-        var Note10 = document.getElementById('Note10');
-        var Note11 = document.getElementById('Note11');
-        var Note12 = document.getElementById('Note12');
-        var Note13 = document.getElementById('Note13');
-        var Note14 = document.getElementById('Note14');
-        var Note15 = document.getElementById('Note15');
-        var Note16 = document.getElementById('Note16');
-        var Note17 = document.getElementById('Note17');
-        var Note18 = document.getElementById('Note18');
-        var Note19 = document.getElementById('Note19');
-        var Note20 = document.getElementById('Note20');
-        var Note21 = document.getElementById('Note21');
-
-        sexualActivityNumber.style.visibility = 'hidden';
-        emotionalCloseness.style.visibility = 'hidden';
-        sexualRelationship.style.visibility = 'hidden';
-        sexualLife.style.visibility = 'hidden';
-        sexualArousal.style.visibility = 'hidden';
-        sexualArousalConfidence.style.visibility = 'hidden';
-        lubrication.style.visibility = 'hidden';
-        lubricationMaintain.style.visibility = 'hidden';
-        stimulation.style.visibility = 'hidden';
-        Note1.style.visibility = 'hidden';
-        Note2.style.visibility = 'hidden';
-        Note3.style.visibility = 'hidden';
-        Note4.style.visibility = 'hidden';
-        Note5.style.visibility = 'hidden';
-        Note6.style.visibility = 'hidden';
-        Note7.style.visibility = 'hidden';
-        Note8.style.visibility = 'hidden';
-        Note9.style.visibility = 'hidden';
-        Note10.style.visibility = 'hidden';
-        Note11.style.visibility = 'hidden';
-        Note12.style.visibility = 'hidden';
-        Note13.style.visibility = 'hidden';
-        Note14.style.visibility = 'hidden';
-        Note15.style.visibility = 'hidden';
-        Note16.style.visibility = 'hidden';
-        Note17.style.visibility = 'hidden';
-        Note18.style.visibility = 'hidden';
-        Note19.style.visibility = 'hidden';
-        Note20.style.visibility = 'hidden';
-        Note21.style.visibility = 'hidden';
+        Note1.style.display = 'none';
     }
 
     //Function used to hide the 3rd set of daily questions if the 2nd toggle button is set to false.
     public Hide1() {
-        var difficulty = document.getElementById('difficulty');
-        var satisfaction = document.getElementById('satisfaction');
-        var intercourse = document.getElementById('intercourse');
         var Note22 = document.getElementById('Note22');
-        var Note23 = document.getElementById('Note23');
-        var Note24 = document.getElementById('Note24');
-        var Note25 = document.getElementById('Note25');
-        var Note26 = document.getElementById('Note26');
-
-        difficulty.style.visibility = 'hidden';
-        satisfaction.style.visibility = 'hidden';
-        intercourse.style.visibility = 'hidden';
-        Note22.style.visibility = 'hidden';
-        Note23.style.visibility = 'hidden';
-        Note24.style.visibility = 'hidden';
-        Note25.style.visibility = 'hidden';
-        Note26.style.visibility = 'hidden';
+        Note22.style.display = 'none';  
     }
 
     //Function used to hide the 4th set of daily questions if the 3rd toggle button is set to false.
@@ -261,61 +119,6 @@ export class TrackerPage {
         Note28.style.visibility = 'hidden';
     }
 
-    //Function used to show the correct submit button.
-    public ShowSubmit1() {
-        var Submit1 = document.getElementById('Submit1');
-
-        Submit1.style.visibility = 'visible';
-    }
-
-    //Function used to show the correct submit button.
-    public ShowSubmit2() {
-        var Submit2 = document.getElementById('Submit2');
-
-        Submit2.style.visibility = 'visible';
-    }
-
-    //Function used to show the correct submit button.
-    public ShowSubmit3() {
-        var Submit3 = document.getElementById('Submit3');
-
-        Submit3.style.visibility = 'visible';
-    }
-
-    //Function used to show the correct submit button.
-    public ShowSubmit4() {
-        var Submit4 = document.getElementById('Submit4');
-
-        Submit4.style.visibility = 'visible';
-    }
-
-    //Function used to show the correct submit button.
-    public HideSubmit1() {
-        var Submit1 = document.getElementById('Submit1');
-
-        Submit1.style.visibility = 'hidden';
-    }
-
-    //Function used to show the correct submit button.
-    public HideSubmit2() {
-        var Submit2 = document.getElementById('Submit2');
-
-        Submit2.style.visibility = 'hidden';
-    }
-
-    //Function used to show the correct submit button.
-    public HideSubmit3() {
-        var Submit3 = document.getElementById('Submit3');
-
-        Submit3.style.visibility = 'hidden';
-    }
-
-    //Function used to show the correct submit button.
-    public HideSubmit4() {
-        var Submit4 = document.getElementById('Submit4');
-
-        Submit4.style.visibility = 'hidden';
-    }
 
     //Function that allows the 3rd toggle button to be toggled on and off either showing or hiding the 4th set of daily questions.
     public ToggleIntercourse() {
@@ -328,10 +131,6 @@ export class TrackerPage {
                 //Outputting the correct info to the screen based on the toggle button being set to true.
                 //Also initializes variables correctly.
                 this.Show2();
-                this.ShowSubmit4();
-                this.HideSubmit1();
-                this.HideSubmit2();
-                this.HideSubmit3();
                 this.discomfort = '1';
             }
         } else {
@@ -341,10 +140,6 @@ export class TrackerPage {
             if (this.toggleIntercourse == false) {
                 //Hiding the correct features of the html page based on this toggle button being false.
                 this.Hide2();
-                this.ShowSubmit3();
-                this.HideSubmit1();
-                this.HideSubmit2();
-                this.HideSubmit4();
             }
         }
     }
@@ -364,18 +159,10 @@ export class TrackerPage {
                 //A check on the later toggle button so if it is still set to true the correct features will be visible or hidden
                 if (this.toggleIntercourse == true) {
                     this.Show2();
-                    this.ShowSubmit4();
-                    this.HideSubmit1();
-                    this.HideSubmit2();
-                    this.HideSubmit3();
                     this.discomfort = '1';
                 }
                 else {
                     this.Hide2();
-                    this.ShowSubmit3();
-                    this.HideSubmit1();
-                    this.HideSubmit2();
-                    this.HideSubmit4();
                 }
                 //end new
             }
@@ -387,10 +174,6 @@ export class TrackerPage {
                 //Hiding the correct features of the app based on this toggle button being false
                 this.Hide1();
                 this.Hide2();
-                this.ShowSubmit2();
-                this.HideSubmit1();
-                this.HideSubmit3();
-                this.HideSubmit4();
             }
         }
     }
@@ -417,32 +200,19 @@ export class TrackerPage {
                 //A check on the 2nd toggle button so if it was set to true or false at an earlier time and remains so its elements will be made visiible or hidden
                 if (this.toggleStimulation == true) {
                     this.Show1();
-                    this.difficulty = '1';
-                    this.satisfaction = '1';
+
                     //A check on the 3rd toggle button so if it was set to true or false at an earlier time and remains so its elements will be made visiible or hidden
                     if (this.toggleIntercourse == true) {
                         this.Show2();
-                        this.ShowSubmit4();
-                        this.HideSubmit1();
-                        this.HideSubmit2();
-                        this.HideSubmit3();
                         this.discomfort = '1';
                     }
                     else {
                         this.Hide2();
-                        this.ShowSubmit3();
-                        this.HideSubmit1();
-                        this.HideSubmit2();
-                        this.HideSubmit4();
                     }
                 }
                 else {
                     this.Hide1();
                     this.Hide2();
-                    this.ShowSubmit2();
-                    this.HideSubmit1();
-                    this.HideSubmit3();
-                    this.HideSubmit4();
                 }
             }
         } else {
@@ -454,10 +224,6 @@ export class TrackerPage {
                 this.Hide();
                 this.Hide1();
                 this.Hide2();
-                this.ShowSubmit1();
-                this.HideSubmit2();
-                this.HideSubmit3();
-                this.HideSubmit4();
             }
         }
     }
@@ -474,6 +240,7 @@ export class TrackerPage {
             //Variables used and getting the results entered in by the user.
             var onPeriod = this.onPeriod;
             var sexualInterest = this.sexualInterest;
+            var sexualAttitude = this.sexualAttitude;
 
             //Getting the date
             var today = new Date();

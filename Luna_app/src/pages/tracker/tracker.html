@@ -1,4 +1,4 @@
-﻿<!--
+<!--
 Title: tracker.html
 Author: Dillon Pulliam
 Date: 7/3/2017
@@ -57,211 +57,155 @@ Output:
   <!--Daily question portion of the page.-->
   <div [ngSwitch]="trackerButton">
     <ion-list *ngSwitchCase="'dailyQuestions'">
-     
-      <!--Info for the user listed at the very top of the page that gives info regarding some of the questions.-->
+      <div>
+        <!--Info for the user listed at the very top of the page that gives info regarding some of the questions.-->
         <h6>Please answer the following questions as honestly and clearly as possible. Your responses will be kept completely confidential. In answering these questions the following definitions apply: </h6>
         <i>Sexual activity can include caressing, foreplay, masturbation and vaginal intercourse.</i>
         <p></p>
         <i>Sexual intercourse is defined as penile penetration (entry) of the vagina.</i>
         <p></p>
         <i>Sexual stimulation includes situations like foreplay with a partner, self-stimulation (masturbation), or sexual fantasy.</i>
+        <p>Please answer the following questions as honestly as possible. Your responses will be kept completely confidential. Remember that you are answering questions based on</p>
 
-      <!--DQ number 0: should appear regardless and the user has to enter an answer for this question before the page can be submitted regardless
-          Uses the select component
-          Variable: onPeriod: string-->
-      <h6>Are you currently on your period?</h6>
-      <ion-list>
-        <ion-item>
-          <ion-label>Yes / No</ion-label>
-          <ion-select [(ngModel)]="onPeriod">
-            <ion-option value="Yes">Yes</ion-option>
-            <ion-option value="No">No</ion-option>
-          </ion-select>
-        </ion-item>
-      </ion-list>
+        <!--DQ number 0: should appear regardless and the user has to enter an answer for this question before the page can be submitted regardless
+        Uses the select component
+        Variable: onPeriod: string-->
+        <h6>Are you currently on your period?</h6>
+        <ion-list>
+          <ion-item>
+            <ion-label>Yes / No</ion-label>
+            <ion-select [(ngModel)]="onPeriod">
+              <ion-option value="Yes">Yes</ion-option>
+              <ion-option value="No">No</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
 
-      <!--DQ number 1: should appear regardless and the user has to enter an answer for this question before the page can be submitted regardless
-          Uses the range/slider component.
-          Variable: sexualInterest: string-->
-      <h6>How would you rate your level or degree of sexual desire or interest?</h6>
-      <i>1: Very low or none at all, 2: Low, 3: Moderate, 4: High, 5: Very high</i>
+        <!--DQ number 1: should appear regardless and the user has to enter an answer for this question before the page can be submitted regardless
+        Uses the range/slider component.
+        Variable: sexualInterest: string-->
+        <h6>Please rate the intensity of your sexual desire today.?</h6>
+        <i>1: very weak, 2: moderately weak, 3: moderate, 4: moderately intense, 5: very intense</i>
         <ion-item text-wrap>
           <ion-range min="1" max="5" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="sexualInterest">
             <ion-label range-left>1</ion-label>
             <ion-label range-right>5</ion-label>
           </ion-range>
-        </ion-item> 
+        </ion-item>
 
-      <!--DQ toggle button number 1. If the user toggles this button to true then a list of other questions should appear for the user to enter.
-          If the button is not toggled then these questions will not appear.
-          Variable: isToggledSexualActivity: boolean-->
-      <h6>Have you engaged in sexual activity or intercourse today?</h6>
-      <ion-item text-wrap id="sexualActivity">
-        <ion-label>No / Yes</ion-label>
-        <ion-toggle [(ngModel)]="isToggledSexualActivity" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
-      </ion-item>
+        <!-- DQ number 2: Appears regardless of what the user indicates for the first toggle question.
+        Uses radio buttons.
+        variable: sexualAttitude-->
+        <h6>Based on how you feel today, which of the following are you most likely to do?</h6>
+        <ion-list radio-group [(ngModel)]="autoManufacturers">
+          <ion-item>
+            <ion-label>Seek sex</ion-label>
+            <ion-radio value="seek"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Acquiesce to sex</ion-label>
+            <ion-radio value="acquiesce"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Avoid sex</ion-label>
+            <ion-radio value="avoid"></ion-radio>
+          </ion-item>
+        </ion-list>
 
-      <!--Button to press when the user is ready to submit the form.
-      Should only send the form if all the data is entered in or else returns with an error message and asks the user to complete the form.-->
-      <button id="Submit1" (click)="SubmitForm()" ion-button full>Submit</button>
+        <!--DQ toggle button number 3. If the user toggles anything but NONE, the next questions will appear.
+    If the button NONE button is toggled then these questions will not appear.
+    Variables: (all boolean)  kissing
+                              caressing
+                              fondling
+                              masturbation
+                              oral
+                              anal
+                              vaginal
+                              none-->
 
-      <!--DQ number 2: Should only appear if the first toggle button has been set to true.
-          Variable: sexualActivityNumber: string-->
-      <h6 id="Note1" style="visibility: hidden;">How often have you engaged in sexual activity or intercourse today? </h6>
-      <i id="Note2" style="visibility: hidden;">1: Once, 2: Twice, 3: Three times, 4: Four or more times</i>
-      <ion-item text-wrap id="sexualActivityNumber" style="visibility: hidden;">
-        <ion-range min="1" max="4" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="sexualActivityNumber">
-          <ion-label range-left>1</ion-label>
-          <ion-label range-right>4+</ion-label>
-        </ion-range>
-      </ion-item>      
-        
-      <!--DQ number 3: Should only appear if the first toggle button has been set to true.
-          Variable: emotionalCloseness: string-->
-      <h6 id="Note3" style="visibility: hidden;">How satisfied were you with the amount of emotional closeness during sexual activity with your partner?</h6>
-      <i id="Note4" style="visibility: hidden;">1: Very dissatisfied, 2: Moderately dissatisfied, 3: About equally satisfied and dissatisfied, 4: Moderately satisfied, 5: Very satisfied</i>
-      <ion-item text-wrap id="emotionalCloseness" style="visibility: hidden;">
-        <ion-range min="1" max="5" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="emotionalCloseness">
-          <ion-label range-left>1</ion-label>
-          <ion-label range-right>5</ion-label>
-        </ion-range>
-      </ion-item>
+        <h6>Based on how you feel today, which of the following are you most likely to do?</h6>
+        <ion-item>
+          <ion-label>Intense kissing</ion-label>
+          <ion-toggle [(ngModel)]="kissing" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label>Caressing</ion-label>
+          <ion-toggle [(ngModel)]="caressing" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label>Fondling</ion-label>
+          <ion-toggle [(ngModel)]="fondling" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label>Masturbation</ion-label>
+          <ion-toggle [(ngModel)]="masturbation" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label>Oral sex</ion-label>
+          <ion-toggle [(ngModel)]="oral" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label>Anal sex</ion-label>
+          <ion-toggle [(ngModel)]="anal" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label>Vaginal sex</ion-label>
+          <ion-toggle [(ngModel)]="vaginal" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label>None</ion-label>
+          <ion-toggle [(ngModel)]="none" name="sexualActivity"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label>Other:</ion-label>
+          <ion-input type="text" [(ngModel)]="other"></ion-input>
+        </ion-item>
+      </div>
 
       <!--DQ number 4: Should only appear if the first toggle button has been set to true.
-      Variable: sexualRelationship: string-->
-      <h6 id="Note5" style="visibility: hidden;">How satisfied are you with your sexual relationship with your partner?</h6>
-      <i id="Note6" style="visibility: hidden;">1: Very dissatisfied, 2: Moderately dissatisfied, 3: About equally satisfied and dissatisfied, 4: Moderately satisfied, 5: Very satisfied</i>
-      <ion-item text-wrap id="sexualRelationship" style="visibility: hidden;">
-        <ion-range min="1" max="5" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="sexualRelationship">
-          <ion-label range-left>1</ion-label>
-          <ion-label range-right>5</ion-label>
-        </ion-range>
-      </ion-item>
-
-      <!--DQ number 5: Should only appear if the first toggle button has been set to true.
-      Variable: sexualLife: string-->
-      <h6 id="Note7" style="visibility: hidden;">How satisfied are you with your overall sexual life?</h6>
-      <i id="Note8" style="visibility: hidden;">1: Very dissatisfied, 2: Moderately dissatisfied, 3: About equally satisfied and dissatisfied, 4: Moderately satisfied, 5: Very satisfied</i>
-      <ion-item text-wrap id="sexualLife" style="visibility: hidden;">
-        <ion-range min="1" max="5" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="sexualLife">
-          <ion-label range-left>1</ion-label>
-          <ion-label range-right>5</ion-label>
-        </ion-range>
-      </ion-item>
-
-      <!--DQ number 6: Should only appear if the first toggle button has been set to true.
       Variable: sexualArousal: string-->
-      <h6 id="Note9" style="visibility: hidden;">During sexual activity...</h6>
-      <h6 id="Note10" style="visibility: hidden;">How would you rate your level of sexual arousal (“turn on”)?</h6>
-      <i id="Note11" style="visibility: hidden;">1: Very low or none at all, 2: Low, 3: Moderate, 4: High, 5: Very high</i>
-      <ion-item text-wrap id="sexualArousal" style="visibility: hidden;">
-        <ion-range min="1" max="5" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="sexualArousal">
-          <ion-label range-left>1</ion-label>
-          <ion-label range-right>5</ion-label>
-        </ion-range>
-      </ion-item>
+      <div id="Note22" style="display: none;">
+        <h6>During sexual activity...</h6>
+        <h6>How would you rate your level of sexual arousal during these activities?</h6>
+        <i>1: very low, 2: moderately low, 3: moderate, 4: moderately high, 5: very high</i>
+        <ion-item text-wrap>
+          <ion-range min="1" max="5" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="sexualArousal">
+            <ion-label range-left>1</ion-label>
+            <ion-label range-right>5</ion-label>
+          </ion-range>
+        </ion-item>
 
-      <!--DQ number 7: Should only appear if the first toggle button has been set to true.
-      Variable: sexualArousalConfidence: string-->
-      <h6 id="Note12" style="visibility: hidden;">During sexual activity...</h6>
-      <h6 id="Note13" style="visibility: hidden;">How confident were you about becoming sexually aroused?</h6>
-      <i id="Note14" style="visibility: hidden;">1: Very low or none at all, 2: Low, 3: Moderate, 4: High, 5: Very high</i>
-      <ion-item text-wrap id="sexualArousalConfidence" style="visibility: hidden;">
-        <ion-range min="1" max="5" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="sexualArousalConfidence">
-          <ion-label range-left>1</ion-label>
-          <ion-label range-right>5</ion-label>
-        </ion-range>
-      </ion-item>
 
-      <!--DQ number 8: Should only appear if the first toggle button has been set to true.
-      Variable: lubrication: string-->
-      <h6 id="Note15" style="visibility: hidden;">During sexual activity...</h6>
-      <h6 id="Note16" style="visibility: hidden;">How difficult was it to become lubricated (“wet”)?</h6>
-      <i id="Note17" style="visibility: hidden;">1: Extremely difficult or impossible, 2: Very difficult, 3: Difficult, 4: Slightly difficult, 5: Not difficult</i>
-      <ion-item text-wrap id="lubrication" style="visibility: hidden;">
-        <ion-range min="1" max="5" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="lubrication">
-          <ion-label range-left>1</ion-label>
-          <ion-label range-right>5</ion-label>
-        </ion-range>
-      </ion-item>
+        <!--DQ toggle button number 5. If the user toggles this button to true then a list of other questions should appear for the user to enter.
+    If the button is not toggled then these questions will not appear.
+    Variable: isToggledStimulation: boolean-->
+        <h6>Did you acheive climax?</h6>
+        <ion-item text-wrap>
+          <ion-label>No / Yes</ion-label>
+          <ion-toggle [(ngModel)]="isToggledStimulation" (ionChange)="ToggleStimulation()" name="climax"></ion-toggle>
+        </ion-item>
+      </div>
 
-      <!--DQ number 9: Should only appear if the first toggle button has been set to true.
-      Variable: lubricationMaintain: string-->
-      <h6 id="Note18" style="visibility: hidden;">During sexual activity...</h6>
-      <h6 id="Note19" style="visibility: hidden;">How difficult was it to maintain your lubrication (“wetness”) until completion?</h6>
-      <i id="Note20" style="visibility: hidden;">1: Extremely difficult or impossible, 2: Very difficult, 3: Difficult, 4: Slightly difficult, 5: Not difficult</i>
-      <ion-item text-wrap id="lubricationMaintain" style="visibility: hidden;">
-        <ion-range min="1" max="5" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="lubricationMaintain">
-          <ion-label range-left>1</ion-label>
-          <ion-label range-right>5</ion-label>
-        </ion-range>
-      </ion-item>
-      
-      <!--DQ toggle button number 2. If the user toggles this button to true then a list of other questions should appear for the user to enter.
-          If the button is not toggled then these questions will not appear.
-          Variable: isToggledStimulation: boolean-->
-      <h6 id="Note21" style="visibility: hidden;">Did you have sexual stimulation or intercourse?</h6>
-      <ion-item text-wrap id="stimulation" style="visibility: hidden;">
-        <ion-label>No / Yes</ion-label>
-        <ion-toggle [(ngModel)]="isToggledStimulation" (ionChange)="ToggleStimulation()" name="stimulation"></ion-toggle>
-      </ion-item>
+      <!--DQ number 6: Should only appear if the first 2 toggle buttons are set to true.
+      Variable: intensity: string-->
+      <div id="Note27" style="display: none;">
+          <h6>How intense was your orgasm?</h6>
+          <i>1: very weak, 2: moderately weak, 3: moderate, 4: moderately intense, 5: very intense</i>
+          <ion-item text-wrap>
+            <ion-range min="1" max="5" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="intensity">
+              <ion-label range-left>1</ion-label>
+              <ion-label range-right>5</ion-label>
+            </ion-range>
+          </ion-item>
+        </div>
 
-      <!--Button to press when the user is ready to submit the form.
-      Should only send the form if all the data is entered in or else returns with an error message and asks the user to complete the form.-->
-      <button id="Submit2" style="visibility: hidden;" (click)="SubmitForm()" ion-button full>Submit</button>
+        <!--Button to press when the user is ready to submit the form.
+        Should only send the form if all the data is entered in or else returns with an error message and asks the user to complete the form.-->
+        <button (click)="SubmitForm()" ion-button full>Submit</button>
 
-      <!--DQ number 10: Should only appear if the first 2 toggle buttons are set to true.
-          Variable: difficulty: string-->
-      <h6 id="Note22" style="visibility: hidden;">How difficult was it to reach orgasm (climax)?</h6>
-      <i id="Note23" style="visibility: hidden;">1: Extremely difficult or impossible, 2: Very difficult, 3: Difficult, 4: Slightly difficult, 5: Not difficult</i>
-      <ion-item text-wrap id="difficulty" style="visibility: hidden;">
-        <ion-range min="1" max="5" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="difficulty">
-          <ion-label range-left>1</ion-label>
-          <ion-label range-right>5</ion-label>
-        </ion-range>
-      </ion-item>
-
-      <!--DQ number 11: Should only appear if the first 2 toggle buttons are set to true.
-          Variable: satisfaction: string-->
-      <h6 id="Note24" style="visibility: hidden;">How satisfied were you  with your ability to reach orgasm (climax)?</h6>
-      <i id="Note25" style="visibility: hidden;">1: Very dissatisfied, 2: Moderately dissatisfied, 3: About equally satisfied and dissatisfied, 4: Moderately satisfied, 5: Very satisfied</i>
-      <ion-item text-wrap id="satisfaction" style="visibility: hidden;">
-        <ion-range min="1" max="5" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="satisfaction">
-          <ion-label range-left>1</ion-label>
-          <ion-label range-right>5</ion-label>
-        </ion-range>
-      </ion-item>
-      
-      <!--DQ toggle button number 3. If the user toggles this button to true then a list of other questions should appear for the user to enter.
-          If the button is not toggled then these questions will not appear.
-          Variable: isToggledIntercourse: boolean-->
-      <h6 id="Note26" style="visibility: hidden;">Did you have intercourse?</h6>
-      <ion-item text-wrap id="intercourse" style="visibility: hidden;">
-        <ion-label>No / Yes</ion-label>
-        <ion-toggle [(ngModel)]="isToggledIntercourse" (ionChange)="ToggleIntercourse()" name="intercourse"></ion-toggle>
-      </ion-item>
-
-      <!--Button to press when the user is ready to submit the form.
-      Should only send the form if all the data is entered in or else returns with an error message and asks the user to complete the form.-->
-      <button id="Submit3" style="visibility: hidden;" (click)="SubmitForm()" ion-button full>Submit</button>
-
-      <!--DQ number 12: Should only appear if the first 3 toggle buttons are set to true.
-          Variable: discomfort: string-->
-      <h6 id="Note27" style="visibility: hidden;">Please rate your level or degree of discomfort or pain during or following intercourse.</h6>
-      <i id="Note28" style="visibility: hidden;">1: Very low or none at all, 2: Low, 3: Moderate, 4: High, 5: Very high</i>
-      <ion-item text-wrap id="discomfort" style="visibility: hidden;">
-        <ion-range min="1" max="5" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="discomfort">
-          <ion-label range-left>1</ion-label>
-          <ion-label range-right>5</ion-label>
-        </ion-range>
-      </ion-item>      
-
-      <!--Button to press when the user is ready to submit the form.
-          Should only send the form if all the data is entered in or else returns with an error message and asks the user to complete the form.-->
-      <button id="Submit4" style="visibility: hidden;" (click)="SubmitForm()" ion-button full>Submit</button>
-
-</ion-list>
+    </ion-list>
   </div>
+
 
   <!--If the tracking segment has been pressed by the user...
       As this is currently a low priority we just have a basic message output to the screen if this is the case.-->
