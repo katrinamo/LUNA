@@ -47,6 +47,9 @@ export class LoginPage {
 	var usernameHash = Md5.hashStr(username);
 	var passwordHash = Md5.hashStr(password);	
 
+	console.log(usernameHash);
+	console.log(passwordHash);
+
 	// http get requests. Gets the username and password you entered. Returns a json object with a message "User successfully logged in"^M
         // goes to the ReportPage is everything is okay. ^M
         var url = "https://luna-app.000webhostapp.com/api/v1/login.php?username=" + usernameHash + "&pass=" + passwordHash;
@@ -58,7 +61,18 @@ export class LoginPage {
                 if (Obj.error == false && Obj.message != undefined) {
                         this.storage.set('usernameHash', usernameHash);
 			this.storage.set('passwordHash', passwordHash);
+			this.storage.set('uid', Obj.uid);
 
+			// Add Onboarding Data to Local Storage
+			this.storage.set('birthday', Obj.birthday);
+			this.storage.set('cycleLength', Obj.cycleLength);
+			this.storage.set('periodLength', Obj.periodLength);
+			this.storage.set('birthControl', Obj.birthControlType);
+			this.storage.set('lastPeriod', Obj.lastPeriod);
+			this.storage.set('status', Obj.status);
+			this.storage.set('time', Obj.time);
+			this.storage.set('pregnant', Obj.pregnant);
+			this.storage.set('reproductiveDisorder', Obj.reproductiveDisorder);
 
                         this.customalert("Login Successful", "Success");
                         this.navCtrl.setRoot(TabsPage); // go to tabs page
