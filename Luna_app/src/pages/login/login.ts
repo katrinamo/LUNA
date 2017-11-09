@@ -21,10 +21,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Http, Headers } from '@angular/http';
-import { LogoutPage } from '../logout/logout';
 import { Md5 } from 'ts-md5/dist/md5';
 import { CreateAccountPage } from '../createAccount/createAccount';
-//This will eventually be changed to our calendar!!!
 import { TabsPage } from '../tabs/tabs';
 
 @Component({
@@ -51,8 +49,8 @@ export class LoginPage {
 	console.log(usernameHash);
 	console.log(passwordHash);
 
-	// http get requests. Gets the username and password you entered. Returns a json object with a message "User successfully logged in"^M
-        // goes to the ReportPage is everything is okay. ^M
+	// http get requests. Gets the username and password you entered. Returns a json object with a message "User successfully logged in"
+        // goes to the ReportPage is everything is okay.
         var url = "https://luna-app.000webhostapp.com/api/v1/login.php?username=" + usernameHash + "&pass=" + passwordHash;
         // this line sends to the url above
         var response;

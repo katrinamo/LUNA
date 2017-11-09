@@ -29,7 +29,6 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { Md5 } from 'ts-md5/dist/md5'; 
-//This will eventually be changed to our calendar!!!
 import { OnBoardingPage } from '../onBoarding/onBoarding';
 import { LoginPage } from '../login/login';
 import { TabsPage } from '../tabs/tabs';
@@ -52,7 +51,7 @@ export class CreateAccountPage {
 
         this.storage.get('uid').then((data) => {
             if ((data == '') || (data == undefined)) {
-                //Do nothing as we want the login page to execute for a first time user.
+                //Do nothing as we want the createAccount page to execute for a first time user.
             }
             else {
                 //This will be executed if a uid is already stored in local storage indicating that we do not have a first time user
