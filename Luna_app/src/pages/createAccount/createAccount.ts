@@ -174,6 +174,9 @@ export class CreateAccountPage {
                 	this.customalert("Please fill out your responses to the onBoarding questions as your responses are crucial for proper app execution", "User Note");
                 	this.navCtrl.setRoot(OnBoardingPage); // go to onBoarding questions page
 		}
+		else if (Obj.message != undefined) {
+			this.customalert(Obj.message, "Error");
+		}
 		else {
 			this.customalert("User email random ID not found. Please be sure the email random ID was entered in correctly", "Error");
 		}

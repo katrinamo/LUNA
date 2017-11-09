@@ -25,13 +25,11 @@
 require_once '../../../includes/dboperation.php';  
 require_once '../../../includes/funcs.php';
  
-$response = array(); //[];
+$response = [];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 {   
-
     header("Access-Control-Allow-Origin: *");
-
     // See if proper parameters were provided
     if (verifyRequiredParams(['username', 'pass']))
     {
@@ -54,15 +52,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 			$response['message'] = 'Login Successful';
 			$response['uid'] = $db->getUid($username, $password);
 			
-			$response['birthday'] = $db->getBirthday($username, $password);
-			$response['cycleLength'] = $db->getCycleLength($username, $password);
-			$response['periodLength'] = $db->getPeriodLength($username, $password);
-			$response['birthControlType'] = $db->getBirthControlType($username, $password);
-			$response['lastPeriod'] = $db->getLastPeriod($username, $password);
-			$response['status'] = $db->getStatus($username, $password);
-			$response['time'] = $db->getTime($username, $password);
-			$response['pregnant'] = $db->getPregnant($username, $password);
-			$response['reproductiveDisorder'] = $db->getReproductiveDisorder($username, $password);
+			// Checks to see if user has entered onboard information
+			$onboard_status = $db->getOnboardStatus($username, $password);
+			$response['onboard_status'] = $onboard_status;
+			
+			if ($onboard_status == 1) {
+			    $response['birthday'] = $db->getBirthday($username, $password);
+			    $response['cycleLength'] = $db->getCycleLength($username, $password);
+			    $response['periodLength'] = $db->getPeriodLength($username, $password);
+			    $response['birthControlType'] = $db->getBirthControlType($username, $password);
+			    $response['lastPeriod'] = $db->getLastPeriod($username, $password);
+			    $response['status'] = $db->getStatus($username, $password);
+			    $response['time'] = $db->getTime($username, $password);
+			    $response['pregnant'] = $db->getPregnant($username, $password);
+			    $response['reproductiveDisorder'] = $db->getReproductiveDisorder($username, $password);
+			}
 
 		}
 		else {
@@ -72,9 +76,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 		}	
 	    }
 	    else {
-		// Login Failed: Username Not Found
-		$response['error'] = true;
-		$response['message'] = 'Username Not Found';
+		    // Login Failed: Username Not Found
+		    $response['error'] = true;
+		    $response['message'] = 'Username Not Found';
 	    }
         }
         else
@@ -94,6 +98,6 @@ else
     $response['error'] = true;
     $response['message'] = 'Invalid request';
 }
-$response['help'] = 'help';
 // Echo json response
 echo json_encode($response);
+

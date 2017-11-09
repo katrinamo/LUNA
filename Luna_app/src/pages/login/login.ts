@@ -24,6 +24,7 @@ import { Http, Headers } from '@angular/http';
 import { Md5 } from 'ts-md5/dist/md5';
 import { CreateAccountPage } from '../createAccount/createAccount';
 import { TabsPage } from '../tabs/tabs';
+import { OnBoardingPage } from '../onBoarding/onBoarding';
 
 @Component({
     selector: 'page-login',
@@ -62,19 +63,26 @@ export class LoginPage {
 			this.storage.set('passwordHash', passwordHash);
 			this.storage.set('uid', Obj.uid);
 
-			// Add Onboarding Data to Local Storage
-			this.storage.set('birthday', Obj.birthday);
-			this.storage.set('cycleLength', Obj.cycleLength);
-			this.storage.set('periodLength', Obj.periodLength);
-			this.storage.set('birthControl', Obj.birthControlType);
-			this.storage.set('lastPeriod', Obj.lastPeriod);
-			this.storage.set('status', Obj.status);
-			this.storage.set('time', Obj.time);
-			this.storage.set('pregnant', Obj.pregnant);
-			this.storage.set('reproductiveDisorder', Obj.reproductiveDisorder);
+			this.customalert("Login Successful", "Success");
 
-                        this.customalert("Login Successful", "Success");
-                        this.navCtrl.setRoot(TabsPage); // go to tabs page
+			// Checks to see if user has already entered onBoarding information
+			if (Obj.onboard_status == 1) {
+				// Add Onboarding Data to Local Storage
+				this.storage.set('birthday', Obj.birthday);
+				this.storage.set('cycleLength', Obj.cycleLength);
+				this.storage.set('periodLength', Obj.periodLength);
+				this.storage.set('birthControl', Obj.birthControlType);
+				this.storage.set('lastPeriod', Obj.lastPeriod);
+				this.storage.set('status', Obj.status);
+				this.storage.set('time', Obj.time);
+				this.storage.set('pregnant', Obj.pregnant);
+				this.storage.set('reproductiveDisorder', Obj.reproductiveDisorder);
+				this.navCtrl.setRoot(TabsPage); // go to tabs page
+			}
+			else {
+				// User hasn't entered onboarding info yet, redirect
+                        	this.navCtrl.setRoot(OnBoardingPage); // go to onboarding page
+			}
                 }
                 else if (Obj.message != undefined) {
                 	this.customalert(Obj.message, "Error");

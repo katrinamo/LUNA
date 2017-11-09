@@ -825,4 +825,43 @@ class DbOperation
 	    }
     } // end of getUid
 
+    /**
+    * Function to get onboard status
+    *  $username: username
+    *  $password: password
+    * @return onboard_status: the user's onboard status
+    *    if -1.0, error: user has no onboard status
+    */
+    public function getOnboardStatus($username, $password) {
+	    $sql = "SELECT onboard_status
+		    FROM User WHERE username = '" . $username . "' AND password = '" . $password . "'";
+	    $result = $this->conn->query($sql);
+
+	    // this should only ever return 1 record (for a user)
+	    if ($result->num_rows == 1) {
+	       $row = $result->fetch_assoc();
+	       return $row["onboard_status"];
+	    }
+	    else {
+	       return -1.0;
+	    }
+    } // end of getOnboardStatus
+    
+    /**
+     * Function to check if emailID exists in user table and is active
+     * $emailID: user emailID to be authenticated
+     * returns: true (1): emailID exists and is active
+     *          false (0): emailID does not exist or is not active
+     */
+    public function isEmailIDActive($emailID)
+    {       
+        //does active emailID exist
+        $stmt = $this->conn->prepare('SELECT uid FROM User WHERE emailID = ? AND active = 1');
+        $stmt->bind_param('s', $emailID);
+        $stmt->execute();
+        $stmt->store_result();
+        // Return if results were found
+        return $stmt->num_rows > 0;
+    }   // end of isEmailIDActive
+
 }  // end of DbOperation class
