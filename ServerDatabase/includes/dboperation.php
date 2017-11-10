@@ -198,6 +198,7 @@ class DbOperation
         // Return if results were found
         return $stmt->num_rows > 0;
     }
+    
   /**
      * Function to determine if an emailID already exists
      * @param $emailID  to be checked
@@ -521,14 +522,13 @@ class DbOperation
      * @return true: new row in entry table with daily question data
      *.        false: error creating new row in entry table
      */
-
-    public function createEntry($uid, $date, $onPeriod, $sexualInterest, $sexualActivityNumber, $emotionalCloseness, $sexualRelationship, $sexualLife, $sexualArousal, $sexualArousalConfidence, $lubrication, $lubricationMaintain, $difficulty, $satisfaction, $discomfort)
+    public function createEntry($uid, $entry_date, $onPeriod, $sexualInterest, $sexualAttitude, $sexualArousal, $kissing, $caressing, $fondling, $masturbation, $oral, $anal, $vaginal, $none, $other, $intensity)
     {
 
         $date = date('Y-m-d', strtotime(str_replace('-', '/', $date)));
-        $stmt = $this->conn->prepare('INSERT INTO Entry (uid,entry_date, onPeriod, sexualInterest, sexualActivityNumber, emotionalCloseness, sexualRelationship, sexualLife, sexualArousal, sexualArousalConfidence, lubrication, lubricationMaintain, difficulty, satisfaction, discomfort) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt = $this->conn->prepare('INSERT INTO Entry (uid, entry_date, onPeriod, sexualInterest, sexualAttitude, sexualArousal, kissing, caressing, fondling, masturbation, oral, anal, vaginal, none, other, intensity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
 
-        $stmt->bind_param('sssssssssssssss', $uid, $date, $onPeriod, $sexualInterest,$sexualActivityNumber, $emotionalCloseness, $sexualRelationship, $sexualLife, $sexualArousal, $sexualArousalConfidence, $lubrication, $lubricationMaintain, $difficulty, $satisfaction, $discomfort);
+        $stmt->bind_param('ssssssssssssssss', $uid, $entry_date, $onPeriod, $sexualInterest, $sexualAttitude, $sexualArousal, intval($kissing), intval($caressing), intval($fondling), intval($masturbation), intval($oral), intval($anal), intval($vaginal), intval($none), $other, $intensity);
 
         if ($stmt->execute())
         {
@@ -604,7 +604,7 @@ class DbOperation
             return -1.0;
         }
     }   // end of getUserStats
-
+    
     /**
     * Function to get birthday
     *  $username: username
@@ -824,7 +824,7 @@ class DbOperation
 	       return -1.0;
 	    }
     } // end of getUid
-
+    
     /**
     * Function to get onboard status
     *  $username: username
@@ -865,3 +865,4 @@ class DbOperation
     }   // end of isEmailIDActive
 
 }  // end of DbOperation class
+

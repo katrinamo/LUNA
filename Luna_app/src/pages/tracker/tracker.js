@@ -181,14 +181,14 @@ var TrackerPage = (function () {
             var sexualInterest = _this.sexualInterest;
             var sexualAttitude = _this.sexualAttitude;
             var sexualArousal = _this.sexualArousal;
-            var noActivity = _this.none;
-            var kissingActivity = _this.kissing;
-            var caressingActivity = _this.caressing;
-            var fondlingActivity = _this.fondling;
-            var masturbationActivity = _this.masturbation;
-            var oralActivity = _this.oral;
-            var analActivity = _this.anal;
-            var vaginalActivity = _this.vaginal;
+            var noActivity = _this.none ? 1 : 0;
+            var kissingActivity = _this.kissing ? 1 : 0;
+            var caressingActivity = _this.caressing ? 1 : 0;
+            var fondlingActivity = _this.fondling ? 1 : 0;
+            var masturbationActivity = _this.masturbation ? 1 : 0;
+            var oralActivity = _this.oral ? 1 : 0;
+            var analActivity = _this.anal ? 1 : 0;
+            var vaginalActivity = _this.vaginal ? 1 : 0;
             var otherActivity = _this.other;
             var intensity = _this.intensity;
             // If the user did have sexual activity, put in the post. Otherwise, ignore.
@@ -206,6 +206,9 @@ var TrackerPage = (function () {
             else {
                 intensity = "undefined";
             }
+            // If the user inputs nothing for other, don't set "other" to undefined
+            if (otherActivity == undefined)
+                otherActivity = "undefined";
             // ** TODO ** COMBINE THIS INTO ONE LINE, CHRIST!
             console.log(uid);
             console.log(date);
@@ -272,10 +275,12 @@ var TrackerPage = (function () {
                         //The above error will never occur since variables are initialized to "1".
                     }
                     else {
+                        console.log(form_object);
                         _this.post_tracker(form_object);
                     }
                 }
                 else {
+                    console.log(form_object);
                     _this.post_tracker(form_object);
                 }
             }

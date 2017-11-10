@@ -51,7 +51,7 @@ export class TrackerPage {
 
     sexualAttitude: string;
 
-    sexualArousal: string;
+    sexualArousal: string = '1';
     climax: string;  
     intensity: string;   
     other: string;
@@ -178,7 +178,7 @@ export class TrackerPage {
 
             //Variables used and getting the results entered in by the user.
             var onPeriod = this.onPeriod;
-            var sexualInterest = this.sexualInterest;
+            //var sexualInterest = this.sexualInterest;
 
             //Getting the date
             var today = new Date();
@@ -245,7 +245,8 @@ export class TrackerPage {
                 intensity = "undefined";
             }
 
-            if (otherActivity == undefined)
+            // If the user inputs nothing for other, don't set "other" to undefined
+            if (otherActivity == undefined || otherActivity == '')
                 otherActivity = "undefined";
 
             // ** TODO ** COMBINE THIS INTO ONE LINE, CHRIST!
