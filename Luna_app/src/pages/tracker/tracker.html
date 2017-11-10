@@ -97,7 +97,7 @@ Output:
         Uses radio buttons.
         variable: sexualAttitude-->
         <h6>Based on how you feel today, which of the following are you most likely to do?</h6>
-        <ion-list radio-group [(ngModel)]="autoManufacturers">
+        <ion-list radio-group [(ngModel)]="sexualAttitude">
           <ion-item>
             <ion-label>Seek sex</ion-label>
             <ion-radio value="seek"></ion-radio>
@@ -113,15 +113,16 @@ Output:
         </ion-list>
 
         <!--DQ toggle button number 3. If the user toggles anything but NONE, the next questions will appear.
-    If the button NONE button is toggled then these questions will not appear.
-    Variables: (all boolean)  kissing
+        If the button NONE button is toggled then these questions will not appear.
+        Variables: (boolean)  kissing
                               caressing
                               fondling
                               masturbation
                               oral
                               anal
                               vaginal
-                              none-->
+                              none
+                   (string)   other-->
 
         <h6>Based on how you feel today, which of the following are you most likely to do?</h6>
         <ion-item>
@@ -158,13 +159,13 @@ Output:
         </ion-item>
         <ion-item>
           <ion-label>Other:</ion-label>
-          <ion-input type="text" [(ngModel)]="other"></ion-input>
+          <ion-input type="text"  (ionChange)="ToggleSexualActivity()" [(ngModel)]="other"></ion-input>
         </ion-item>
       </div>
 
       <!--DQ number 4: Should only appear if the first toggle button has been set to true.
       Variable: sexualArousal: string-->
-      <div id="Note22" style="display: none;">
+      <div id="sexualArousalQuestion" style="display: none;">
         <h6>During sexual activity...</h6>
         <h6>How would you rate your level of sexual arousal during these activities?</h6>
         <i>1: very low, 2: moderately low, 3: moderate, 4: moderately high, 5: very high</i>
@@ -182,13 +183,13 @@ Output:
         <h6>Did you acheive climax?</h6>
         <ion-item text-wrap>
           <ion-label>No / Yes</ion-label>
-          <ion-toggle [(ngModel)]="isToggledStimulation" (ionChange)="ToggleStimulation()" name="climax"></ion-toggle>
+          <ion-toggle [(ngModel)]="isToggledClimax" (ionChange)="ToggleClimax()" name="climax"></ion-toggle>
         </ion-item>
       </div>
 
       <!--DQ number 6: Should only appear if the first 2 toggle buttons are set to true.
       Variable: intensity: string-->
-      <div id="Note27" style="display: none;">
+      <div id="orgasmQuestion" style="display: none;">
           <h6>How intense was your orgasm?</h6>
           <i>1: very weak, 2: moderately weak, 3: moderate, 4: moderately intense, 5: very intense</i>
           <ion-item text-wrap>

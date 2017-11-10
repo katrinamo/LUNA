@@ -49,182 +49,101 @@ export class TrackerPage {
 
     sexualInterest: string = '1';
 
-    seek: string;
-    acquiesce: string;
-    avoid: string;
+    sexualAttitude: string;
 
     sexualArousal: string;
     climax: string;  
     intensity: string;   
- 
-    discomfort: string;
     other: string;
 
     //Boolean variables used for the toggle buttons
-    kissing: boolean = false;
-    caressing: boolean = false;
-    fondling: boolean = false;
-    masturbation: boolean = false;
-    oral: boolean = false;
-    anal: boolean = false;
-    vaginal: boolean = false;
-    none: boolean = false;
+    kissing: boolean;
+    caressing: boolean;
+    fondling: boolean;
+    masturbation: boolean;
+    oral: boolean;
+    anal: boolean;
+    vaginal: boolean;
+    none: boolean;
 
     toggleSexualActivity: boolean = false;  // Overall indicator of whether we should expand the questions
                                             // Based on the values of the above.
-    toggleStimulation: boolean = false;
-    toggleIntercourse: boolean = false;
+    toggleClimax: boolean = false;
+
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, private storage: Storage) {
     }
 
-    //Function used to show the 2nd set of daily questions if the first toggle button has been set to true
-    public Show() {
-        var Note1 = document.getElementById('Note1');
-        Note1.style.display = 'inline';
-    }
-
     //Function used to show the 3rd set of daily questions if the 2nd toggle button has been set to true.
-    public Show1() {
-        var Note22 = document.getElementById('Note22');
-        Note22.style.display = 'inline';
+    public Show_sexualArousalQuestion() {
+        var sexualArousalQuestion = document.getElementById('sexualArousalQuestion');
+        sexualArousalQuestion.style.display = 'inline';
     }
 
     //Function used to show the 4th set of daily questions if the 3rd toggle button has been set to true.
-    public Show2() {
-        var Note27 = document.getElementById('Note27');
-        Note27.style.display = 'inline';
-    }
-
-    //Function used to hide the 2nd set of daily questions if the 1st toggle button is set to false
-    public Hide() {
-        var Note1 = document.getElementById('Note1');
-        Note1.style.display = 'none';
+    public Show_orgasmQuestion() {
+        var orgasmQuestion = document.getElementById('orgasmQuestion');
+        orgasmQuestion.style.display = 'inline';
     }
 
     //Function used to hide the 3rd set of daily questions if the 2nd toggle button is set to false.
-    public Hide1() {
-        var Note22 = document.getElementById('Note22');
-        Note22.style.display = 'none';  
+    public Hide_sexualArousalQuestion() {
+        var sexualArousalQuestion = document.getElementById('sexualArousalQuestion');
+        sexualArousalQuestion.style.display = 'none';  
     }
 
     //Function used to hide the 4th set of daily questions if the 3rd toggle button is set to false.
-    public Hide2() {
-        var discomfort = document.getElementById('discomfort');
-        var Note27 = document.getElementById('Note27');
-        var Note28 = document.getElementById('Note28');
-
-        discomfort.style.visibility = 'hidden';
-        Note27.style.visibility = 'hidden';
-        Note28.style.visibility = 'hidden';
+    public Hide_orgasmQuestion() {
+        var orgasmQuestion = document.getElementById('orgasmQuestion');
+        orgasmQuestion.style.display = 'none';
+        
     }
 
 
-    //Function that allows the 3rd toggle button to be toggled on and off either showing or hiding the 4th set of daily questions.
-    public ToggleIntercourse() {
-        console.log("ToggleIntercourse Loading....");
-        if (this.toggleIntercourse == false) {
-            //Toggle button goes from false to true
-            this.toggleIntercourse = true;
-            console.log(this.toggleIntercourse);
-            if (this.toggleIntercourse == true) {
-                //Outputting the correct info to the screen based on the toggle button being set to true.
-                //Also initializes variables correctly.
-                this.Show2();
-                this.discomfort = '1';
-            }
-        } else {
-            this.toggleIntercourse = false;
-            //Toggle button goes from true to false
-            console.log(this.toggleIntercourse);
-            if (this.toggleIntercourse == false) {
-                //Hiding the correct features of the html page based on this toggle button being false.
-                this.Hide2();
-            }
+  
+    //Function that allows the climax toggle button to be toggled on and off either showing or hiding the climax question.
+    public ToggleClimax() {
+
+        console.log("Climax questions toggling....");
+
+        //Toggle button goes from false to true, making visible the correct portions of the html page based on this button being true
+        if (this.toggleClimax == false) {
+            this.toggleClimax = true;
+            console.log(this.toggleClimax);
+            this.Show_orgasmQuestion();            
         }
-    }
 
-    //Function that allows the 2nd toggle button to be toggled on and off either showing or hiding the 3rd set of daily questions.
-    public ToggleStimulation() {
-        console.log("ToggleStimulation Loading....");
-        if (this.toggleStimulation == false) {
-            //Toggle button goes from false to true
-            this.toggleStimulation = true;
-            console.log(this.toggleStimulation);
-            if (this.toggleStimulation == true) {
-                //Making visible the correct portions of the html page based on this button being true
-                this.Show1();
-                this.difficulty = '1';
-                this.satisfaction = '1';
-                //A check on the later toggle button so if it is still set to true the correct features will be visible or hidden
-                if (this.toggleIntercourse == true) {
-                    this.Show2();
-                    this.discomfort = '1';
-                }
-                else {
-                    this.Hide2();
-                }
-                //end new
-            }
-        } else {
-            this.toggleStimulation = false;
-            //Toggle button goes from true to false
-            console.log(this.toggleStimulation);
-            if (this.toggleStimulation == false) {
-                //Hiding the correct features of the app based on this toggle button being false
-                this.Hide1();
-                this.Hide2();
-            }
+        //Toggle button goes from true to false, hiding 
+        else {
+            this.toggleClimax = false;
+            this.Hide_orgasmQuestion();
         }
     }
 
     //Function that allows the 1st toggle button to be toggled on and off either showing or hiding the 2nd set of daily questions.
     public ToggleSexualActivity() {
-        console.log("ToggleSexualActivity Loading....");
-        if (this.toggleSexualActivity == false) {
-            //Toggle button goes from false to true
-            this.toggleSexualActivity = true;
-            console.log(this.toggleSexualActivity);
-            if (this.toggleSexualActivity == true) {
-                //Making visible the correct features of the app based on this toggle button being true
-                //Also initializes the range components to an initial value of 1.
-                this.Show();
-                this.sexualActivityNumber = '1';
-                this.emotionalCloseness = '1';
-                this.sexualRelationship = '1';
-                this.sexualLife = '1';
-                this.sexualArousal = '1';
-                this.sexualArousalConfidence = '1';
-                this.lubrication = '1';
-                this.lubricationMaintain = '1';
-                //A check on the 2nd toggle button so if it was set to true or false at an earlier time and remains so its elements will be made visiible or hidden
-                if (this.toggleStimulation == true) {
-                    this.Show1();
 
-                    //A check on the 3rd toggle button so if it was set to true or false at an earlier time and remains so its elements will be made visiible or hidden
-                    if (this.toggleIntercourse == true) {
-                        this.Show2();
-                        this.discomfort = '1';
-                    }
-                    else {
-                        this.Hide2();
-                    }
-                }
-                else {
-                    this.Hide1();
-                    this.Hide2();
-                }
-            }
-        } else {
-            this.toggleSexualActivity = false;
-            //Toggle button goes from true to false
+        console.log("Sexual activity toggling....");
+
+        // If at least one sexual activity is selected, show the next set of questions.
+        if ((this.kissing || this.caressing || this.fondling || this.masturbation || this.oral || this.anal || this.vaginal || (this.other != '' && this.other != undefined)) && !this.none) {
+            this.toggleSexualActivity == true;
             console.log(this.toggleSexualActivity);
-            if (this.toggleSexualActivity == false) {
-                //Hiding the correct elements of the html page based on this button being false
-                this.Hide();
-                this.Hide1();
-                this.Hide2();
-            }
+            this.Show_sexualArousalQuestion();
+        }
+
+        // Ensures if other is filled out that next questions will toggle regardless
+        else if ((this.other != '' && this.other != undefined)) {
+            this.toggleSexualActivity == true;
+            console.log(this.toggleSexualActivity);
+            this.Show_sexualArousalQuestion();
+        }
+
+        // Otherwise, hide the next questions. The validation function will determine if NONE is accidentally selected
+        else {
+            this.toggleSexualActivity == false;
+            console.log(this.toggleSexualActivity);
+            this.Hide_sexualArousalQuestion();
         }
     }
 
@@ -240,7 +159,6 @@ export class TrackerPage {
             //Variables used and getting the results entered in by the user.
             var onPeriod = this.onPeriod;
             var sexualInterest = this.sexualInterest;
-            var sexualAttitude = this.sexualAttitude;
 
             //Getting the date
             var today = new Date();
@@ -275,131 +193,55 @@ export class TrackerPage {
             //Note: All these variables have a check on them so that if the user checks a toggle button and fills in the form but then goes back and 
             //unchecks the toggle button the data is not stored and sent to the server but instead is replaced with the words undefined or the correct value
             //so the server doesn't get wrong data.
-            var sexualActivityNumber;
-            if (this.toggleSexualActivity == true) {
-                sexualActivityNumber = this.sexualActivityNumber;
-            }
-            else {
-                //sexualActivityNumber = undefined;
-                sexualActivityNumber = "0";
-            }
+            var sexualInterest = this.sexualInterest;
+            var sexualAttitude = this.sexualAttitude;
+            var sexualArousal = this.sexualArousal;
+            var noActivity = this.none;
+            var kissingActivity = this.kissing;
+            var caressingActivity = this.caressing;
+            var fondlingActivity = this.fondling;
+            var masturbationActivity = this.masturbation;
+            var oralActivity = this.oral;
+            var analActivity = this.anal;
+            var vaginalActivity = this.vaginal;
+            var otherActivity = this.other;
+            var intensity = this.intensity;
 
-            var emotionalCloseness;
-            if (this.toggleSexualActivity == true) {
-                emotionalCloseness = this.emotionalCloseness;
-            }
-            else {
-                emotionalCloseness = "undefined";
-            }
-
-            var sexualRelationship;
-            if (this.toggleSexualActivity == true) {
-                sexualRelationship = this.sexualRelationship;
-            }
-            else {
-                sexualRelationship = "undefined";
-            }
-
-            var sexualLife;
-            if (this.toggleSexualActivity == true) {
-                sexualLife = this.sexualLife;
-            }
-            else {
-                sexualLife = "undefined";
-            }
-
-            var sexualArousal;
+            // If the user did have sexual activity, put in the post. Otherwise, ignore.
             if (this.toggleSexualActivity == true) {
                 sexualArousal = this.sexualArousal;
             }
+            // Else if the user did not toggle, we know they ALSO can't have answers for the climax and intensity questions
             else {
                 sexualArousal = "undefined";
+                this.toggleClimax = false;
             }
 
-            var sexualArousalConfidence;
-            if (this.toggleSexualActivity == true) {
-                sexualArousalConfidence = this.sexualArousalConfidence;
+            // If the user did orgasm, put it's intensity in the post. Otherwise, ignore.
+            if (this.toggleClimax == true) {
+                intensity = this.intensity;
             }
             else {
-                sexualArousalConfidence = "undefined";
+                intensity = "undefined";
             }
 
-            var lubrication;
-            if (this.toggleSexualActivity == true) {
-                lubrication = this.lubrication;
-            }
-            else {
-                lubrication = "undefined";
-            }
-
-            var lubricationMaintain;
-            if (this.toggleSexualActivity == true) {
-                lubricationMaintain = this.lubricationMaintain;
-            }
-            else {
-                lubricationMaintain = "undefined";
-            }
-
-            var difficulty;
-            if (this.toggleSexualActivity == true) {
-                if (this.toggleStimulation == true) {
-                    difficulty = this.difficulty;
-                }
-                else {
-                    difficulty = "undefined";
-                }
-            }
-            else {
-                difficulty = "undefined";
-            }
-
-            var satisfaction;
-            if (this.toggleSexualActivity == true) {
-                if (this.toggleStimulation == true) {
-                    satisfaction = this.satisfaction;
-                }
-                else {
-                    satisfaction = "undefined";
-                }
-            }
-            else {
-                satisfaction = "undefined";
-            }
-
-            var discomfort;
-            if (this.toggleSexualActivity == true) {
-                if (this.toggleStimulation == true) {
-                    if (this.toggleIntercourse == true) {
-                        discomfort = this.discomfort;
-                    }
-                    else {
-                        discomfort = "undefined";
-                    }
-                }
-                else {
-                    discomfort = "undefined";
-                }
-            }
-            else {
-                discomfort = "undefined";
-            }
-
-            //For debugging purposes
+            // ** TODO ** COMBINE THIS INTO ONE LINE, CHRIST!
             console.log(uid);
             console.log(date);
             console.log(onPeriod);
             console.log(sexualInterest);
-            console.log(sexualActivityNumber);
-            console.log(emotionalCloseness);
-            console.log(sexualRelationship);
-            console.log(sexualLife);
+            console.log(sexualAttitude);
+            console.log(noActivity);
+            console.log(kissingActivity);
+            console.log(caressingActivity);
+            console.log(fondlingActivity);
+            console.log(masturbationActivity);
+            console.log(oralActivity);
+            console.log(analActivity);
+            console.log(vaginalActivity);
+            console.log(otherActivity);
+            console.log(intensity);
             console.log(sexualArousal);
-            console.log(sexualArousalConfidence);
-            console.log(lubrication);
-            console.log(lubricationMaintain);
-            console.log(difficulty);
-            console.log(satisfaction);
-            console.log(discomfort);
 
             
 
@@ -427,93 +269,37 @@ export class TrackerPage {
                 date: date,
                 onPeriod: onPeriod,
                 sexualInterest: sexualInterest,
-                sexualActivityNumber: sexualActivityNumber,
-                emotionalCloseness: emotionalCloseness,
-                sexualRelationship: sexualRelationship,
-                sexualLife: sexualLife,
                 sexualArousal: sexualArousal,
-                sexualArousalConfidence: sexualArousalConfidence,
-                lubrication: lubrication,
-                lubricationMaintain: lubricationMaintain,
-                difficulty: difficulty,
-                satisfaction: satisfaction,
-                discomfort: discomfort
+                kissing: kissingActivity,
+                caressing: caressingActivity,
+                fondling: fondlingActivity,
+                masturbation: masturbationActivity,
+                oral: oralActivity,
+                anal: analActivity,
+                vaginal: vaginalActivity,
+                none: noActivity,
+                other: otherActivity,
+                intensity: intensity
             };
 
             // This is how the page is submitted.
             //Note that if the user leads out specific fields that need to be filled out then the page will not submit and an error message will be sent to the user.
-            if ((sexualInterest == '' || onPeriod == '')
-                || (sexualInterest == undefined || onPeriod == undefined)) {
-                this.customalert("Please go back through the form and fill out if you are on currently on your period or not.", "Cannot Submit");
+            if ((sexualInterest == '' || onPeriod == '' || sexualAttitude == '')
+                || (sexualInterest == undefined || onPeriod == undefined || sexualAttitude == undefined)) {
+                this.customalert("Please go back through the form and fill out the first three questions.", "Cannot Submit");
             }
             else {
                 if (this.toggleSexualActivity == true) {
-                    if ((sexualActivityNumber == ''
-                        || emotionalCloseness == ''
-                        || sexualRelationship == ''
-                        || sexualLife == ''
-                        || sexualArousal == ''
-                        || sexualArousalConfidence == ''
-                        || lubrication == ''
-                        || lubricationMaintain == '')
-                        || (sexualActivityNumber == undefined
-                            || emotionalCloseness == undefined
-                            || sexualRelationship == undefined
-                            || sexualLife == undefined
-                            || sexualArousal == undefined
-                            || sexualArousalConfidence == undefined
-                            || lubrication == undefined
-                            || lubricationMaintain == undefined)) {
+                    if (sexualArousal == '') {
                         this.customalert("Please go back through the form and fill out missing fields.", "Cannot Submit");
                         //The above error will never occur since variables are initialized to "1".
                     }
                     else {
-                        if (this.toggleStimulation == true) {
-                            if ((difficulty == ''
-                                || satisfaction == '')
-                                || (difficulty == undefined
-                                    || satisfaction == undefined)) {
-                                this.customalert("Please go back through the form and fill out missing fields.", "Cannot Submit");
-                                //The above error will never occur since variables are initialized to "1".
-                            }
-                            else {
-                                if (this.toggleIntercourse == true) {
-                                    if ((discomfort == '')
-                                        || (discomfort == undefined)) {
-                                        this.customalert("Please go back through the form and fill out missing fields.", "Cannot Submit");
-                                        //The above error will never occur since variables are initialized to "1".
-                                    }
-                                    else {
-                                        this.post_tracker(form_object);
-                                        // This can be used to print out varaibles and ensure everything is storing properly.
-                                        /*this.customalert("Variables: " + onPeriod + " " + sexualInterest + " " + sexualActivityNumber + " " + emotionalCloseness + " " + sexualRelationship + " " + sexualLife + " "
-                                            + sexualArousal + " " + sexualArousalConfidence + " " + lubrication + " " + lubricationMaintain + " " + difficulty + " " + satisfaction + " " + discomfort, "Error");
-                                        */
-                                    }
-                                }
-                                else {
-                                    this.post_tracker(form_object);
-                                    // This can be used to print out varaibles and ensure everything is storing properly.
-                                    /*this.customalert("Variables: " + onPeriod + " " + sexualInterest + " " + sexualActivityNumber + " " + emotionalCloseness + " " + sexualRelationship + " " + sexualLife + " "
-                                        + sexualArousal + " " + sexualArousalConfidence + " " + lubrication + " " + lubricationMaintain + " " + difficulty + " " + satisfaction + " " + discomfort, "Error");
-                                    */
-                                }
-                            }
-                        }
-                        else {
-                            this.post_tracker(form_object);
-                            // This can be used to print out varaibles and ensure everything is storing properly.
-                            /*this.customalert("Variables: " + onPeriod + " " + sexualInterest + " " + sexualActivityNumber + " " + emotionalCloseness + " " + sexualRelationship + " " + sexualLife + " "
-                                + sexualArousal + " " + sexualArousalConfidence + " " + lubrication + " " + lubricationMaintain + " " + difficulty + " " + satisfaction + " " + discomfort, "Error");
-                            */
-                        }
+                        this.post_tracker(form_object);
                     }
                 }
                 else {
                     this.post_tracker(form_object);
-                    // This can be used to print out varaibles and ensure everything is storing properly.
-                    /*this.customalert("Variables: " + onPeriod + " " + sexualInterest + " " + sexualActivityNumber + " " + emotionalCloseness + " " + sexualRelationship + " " + sexualLife + " "
-                        + sexualArousal + " " + sexualArousalConfidence + " " + lubrication + " " + lubricationMaintain + " " + difficulty + " " + satisfaction + " " + discomfort + " " + date + " " + uid, "Error");*/
                 }
             }
         });
