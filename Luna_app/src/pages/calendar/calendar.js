@@ -27,13 +27,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, ViewChild } from '@angular/core';
+import { NavController } from 'ionic-angular';
 import { Slides } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import { CalendarService } from './calendar.service';
 import moment from 'moment';
 var NUM_OF_DAYS = 7;
 var CalendarComponent = (function () {
-    function CalendarComponent(calendarService) {
+    function CalendarComponent(navCtrl, calendarService, storage) {
+        this.navCtrl = navCtrl;
         this.calendarService = calendarService;
+        this.storage = storage;
         this.events = [];
         this.months = [];
         this.weekNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
@@ -136,7 +140,7 @@ CalendarComponent = __decorate([
         selector: 'calendar',
         templateUrl: 'calendar.html'
     }),
-    __metadata("design:paramtypes", [CalendarService])
+    __metadata("design:paramtypes", [NavController, CalendarService, Storage])
 ], CalendarComponent);
 export { CalendarComponent };
 //# sourceMappingURL=calendar.js.map

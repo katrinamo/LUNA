@@ -190,30 +190,39 @@ var OnBoardingPage = (function () {
                     || status == undefined
                     || time == undefined
                     || pregnant == undefined)) {
+                var missingDataArray = new Array();
                 if ((birthday == '') || (birthday == undefined)) {
-                    _this.customalert("Please fill out the birthday question", "Cannot Submit");
+                    missingDataArray.push("birthday question");
                 }
                 if ((cycleLength == '') || (cycleLength == undefined)) {
-                    _this.customalert("Please fill out the cycle length question", "Cannot Submit");
+                    missingDataArray.push("cycle length question");
                 }
                 if ((periodLength == '') || (periodLength == undefined)) {
-                    _this.customalert("Please fill out the period length question", "Cannot Submit");
+                    missingDataArray.push("period length question");
                 }
                 if (birthControlType == 'No Answer') {
-                    _this.customalert("Please fill out the birth control type question", "Cannot Submit");
+                    missingDataArray.push("birth control type question");
                 }
                 if ((lastPeriod == '') || (lastPeriod == undefined)) {
-                    _this.customalert("Please fill out the last period date question", "Cannot Submit");
+                    missingDataArray.push("last period date question");
                 }
                 if ((status == '') || (status == undefined)) {
-                    _this.customalert("Please fill out the relationship status question", "Cannot Submit");
+                    missingDataArray.push("relationship status question");
                 }
                 if ((time == '') || (time == undefined)) {
-                    _this.customalert("Please fill out the time of the day to respond to daily questions question", "Cannot Submit");
+                    missingDataArray.push("time of day question");
                 }
                 if ((pregnant == '') || (pregnant == undefined)) {
-                    _this.customalert("Please fill out if you are intending to become pregnant or not question", "Cannot Submit");
+                    missingDataArray.push("pregnancy question");
                 }
+                var missingDataAlert = "Please fill out the ";
+                for (var i = 0; i < missingDataArray.length; i++) {
+                    missingDataAlert = missingDataAlert.concat(missingDataArray[i]);
+                    if (i != (missingDataArray.length - 1)) {
+                        missingDataAlert = missingDataAlert.concat(", ");
+                    }
+                }
+                _this.customalert(missingDataAlert, "Cannot Submit");
             }
             else {
                 //A check to see if the toggle button has been pressed and to ensure the user has entered in some reroductive disorder before the form can be submitted.

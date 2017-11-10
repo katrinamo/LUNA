@@ -54,10 +54,36 @@ var TrackerPage = (function () {
         this.http = http;
         this.storage = storage;
         this.sexualInterest = '1';
+        //Boolean variables used for the toggle buttons
+        this.kissing = false;
+        this.caressing = false;
+        this.fondling = false;
+        this.masturbation = false;
+        this.oral = false;
+        this.anal = false;
+        this.vaginal = false;
+        // ** TODO **: start this out as true! whenever selected, make all others go to false
+        //             and don't allow user to type into other
+        this.none = false;
         this.toggleSexualActivity = false; // Overall indicator of whether we should expand the questions
         // Based on the values of the above.
         this.toggleClimax = false;
+        //Variables used for the Statistics tab
+        this.avgCycleLengthString = "You do not currently have any completed Periods on record. Continue using the app to see your average cycle length.";
     }
+    //While page is loading, query the server for the user's statistics using their uid.
+    TrackerPage.prototype.ionViewDidEnter = function () {
+        var _this = this;
+        console.log("Page loading...");
+        this.storage.get('uid').then(function (data) {
+            var uid = data;
+            var form_object = {
+                uid: uid,
+            };
+            console.log(uid);
+            _this.get_statistics(form_object);
+        });
+    };
     //Function used to show the 3rd set of daily questions if the 2nd toggle button has been set to true.
     TrackerPage.prototype.Show_sexualArousalQuestion = function () {
         var sexualArousalQuestion = document.getElementById('sexualArousalQuestion');
@@ -97,17 +123,17 @@ var TrackerPage = (function () {
         console.log("Sexual activity toggling....");
         // If at least one sexual activity is selected, show the next set of questions.
         if ((this.kissing || this.caressing || this.fondling || this.masturbation || this.oral || this.anal || this.vaginal || (this.other != '' && this.other != undefined)) && !this.none) {
-            this.toggleSexualActivity == true;
+            this.toggleSexualActivity = true;
             console.log(this.toggleSexualActivity);
             this.Show_sexualArousalQuestion();
         }
         else if ((this.other != '' && this.other != undefined)) {
-            this.toggleSexualActivity == true;
+            this.toggleSexualActivity = true;
             console.log(this.toggleSexualActivity);
             this.Show_sexualArousalQuestion();
         }
         else {
-            this.toggleSexualActivity == false;
+            this.toggleSexualActivity = false;
             console.log(this.toggleSexualActivity);
             this.Hide_sexualArousalQuestion();
         }
@@ -249,9 +275,6 @@ var TrackerPage = (function () {
                     }
                 }
                 else {
-                    console.log(form_object);
-                    console.log(_this.toggleSexualActivity);
-                    console.log(_this.toggleClimax);
                     _this.post_tracker(form_object);
                 }
             }
@@ -376,13 +399,50 @@ var TrackerPage = (function () {
                 // get request success
                 console.log("post period success");
                 _this.customalert("Your period has been successfully submitted.", "Success");
+                //remove the locally stored start and end dates; they'll be stored next time the user reports a period.
+                _this.storage.remove('period_start_date');
+                _this.storage.remove('period_end_date');
                 console.log(response);
                 return true;
             }
             else {
                 // get request failed
                 console.log("post tracker failure: " + Obj.message);
-                _this.customalert("Failure to submit your period.", "Failure");
+                _this.customalert("Failure to submit your period. Please try again.", "Failure");
+                return false;
+            }
+        }).subscribe();
+    }; // end post_period
+    // get_statistics
+    // send HTTP post request to the server to get statistics for the current user.
+    // preconditions:
+    //   none.
+    // input:
+    //   a form object with uid.
+    // output:
+    //   success: obj.error field set false by server
+    //     user statistics successfully returned.
+    //   failure: obj.error field set to true by server
+    //     alert to user, ask to report questions.
+    TrackerPage.prototype.get_statistics = function (statistics_data) {
+        var _this = this;
+        // Server daily questions handler url (addDaily.php)
+        var url = "https://luna-app.000webhostapp.com/api/v1/getUserStats.php";
+        console.log("in get statistics");
+        this.http.get(url, { params: statistics_data }).map(function (response) {
+            var Obj = response.json();
+            console.log(Obj.error);
+            console.log(Obj.message);
+            if (Obj.error == false) {
+                // get request success
+                console.log("get statistics success");
+                _this.avgCycleLengthString = "User's average cycle length: " + Obj.average_cycle_length;
+                console.log(response);
+                return true;
+            }
+            else {
+                // get request failed
+                console.log("get statistics failure: " + Obj.message);
                 return false;
             }
         }).subscribe();

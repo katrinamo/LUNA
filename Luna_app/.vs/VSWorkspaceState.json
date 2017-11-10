@@ -4,7 +4,8 @@
     "\\.sourcemaps",
     "\\resources",
     "\\src",
-    "\\src\\app"
+    "\\src\\pages",
+    "\\src\\pages\\login"
   ],
   "SelectedNode": "\\LUNA.sln",
   "PreviewInSolutionExplorer": false

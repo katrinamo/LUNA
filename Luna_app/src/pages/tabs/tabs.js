@@ -29,6 +29,7 @@ import { Storage } from '@ionic/storage';
 import { SettingsLoginPage } from '../settingsLogin/settingsLogin';
 import { TrackerPage } from '../tracker/tracker';
 import { Launch } from '../launch/launch';
+import { LogoutPage } from '../logout/logout';
 var TabsPage = (function () {
     function TabsPage(storage) {
         this.storage = storage;
@@ -39,6 +40,7 @@ var TabsPage = (function () {
         this.tab1Root = Launch;
         this.tab2Root = TrackerPage;
         this.tab3Root = SettingsLoginPage;
+        this.tab4Root = LogoutPage;
     }
     return TabsPage;
 }());

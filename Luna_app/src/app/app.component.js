@@ -29,7 +29,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 //imports needed for correct initialization
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import { LoginPage } from '../pages/login/login';
+import { CreateAccountPage } from '../pages/createAccount/createAccount';
 import { Launch } from '../pages/launch/launch';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -41,11 +41,11 @@ var MyApp = (function () {
         this.statusBar = statusBar;
         this.splashScreen = splashScreen;
         //@ViewChild(Nav) nav: Nav;
-        this.rootPage = LoginPage;
+        this.rootPage = CreateAccountPage;
         this.initializeApp();
         // set our app's pages
         this.pages = [
-            { title: 'Login Page', component: LoginPage },
+            { title: 'Create Account Page', component: CreateAccountPage },
             { title: 'Launch page', component: Launch }
         ];
     }
@@ -71,7 +71,7 @@ MyApp = __decorate([
 export { MyApp };
 /*      DEBUG
 export class MyApp {
-    rootPage = LoginPage;
+    rootPage = CreateAccountPage;
 
     //Below can be used for debugging if you want the app to initially open up in a specific page
     //rootPage = TabsPage;
