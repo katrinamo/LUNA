@@ -57,19 +57,21 @@ export class TrackerPage {
     other: string;
 
     //Boolean variables used for the toggle buttons
-    kissing: boolean;
-    caressing: boolean;
-    fondling: boolean;
-    masturbation: boolean;
-    oral: boolean;
-    anal: boolean;
-    vaginal: boolean;
-    none: boolean;
+    kissing: boolean = false;
+    caressing: boolean = false;
+    fondling: boolean = false;
+    masturbation: boolean = false;
+    oral: boolean = false;
+    anal: boolean = false;
+    vaginal: boolean = false;
+
+    // ** TODO **: start this out as true! whenever selected, make all others go to false
+    //             and don't allow user to type into other
+    none: boolean = false;
 
     toggleSexualActivity: boolean = false;  // Overall indicator of whether we should expand the questions
                                             // Based on the values of the above.
     toggleClimax: boolean = false;
-
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, private storage: Storage) {
     }
@@ -127,21 +129,21 @@ export class TrackerPage {
 
         // If at least one sexual activity is selected, show the next set of questions.
         if ((this.kissing || this.caressing || this.fondling || this.masturbation || this.oral || this.anal || this.vaginal || (this.other != '' && this.other != undefined)) && !this.none) {
-            this.toggleSexualActivity == true;
+            this.toggleSexualActivity = true;
             console.log(this.toggleSexualActivity);
             this.Show_sexualArousalQuestion();
         }
 
         // Ensures if other is filled out that next questions will toggle regardless
         else if ((this.other != '' && this.other != undefined)) {
-            this.toggleSexualActivity == true;
+            this.toggleSexualActivity = true;
             console.log(this.toggleSexualActivity);
             this.Show_sexualArousalQuestion();
         }
 
         // Otherwise, hide the next questions. The validation function will determine if NONE is accidentally selected
         else {
-            this.toggleSexualActivity == false;
+            this.toggleSexualActivity = false;
             console.log(this.toggleSexualActivity);
             this.Hide_sexualArousalQuestion();
         }
@@ -295,10 +297,16 @@ export class TrackerPage {
                         //The above error will never occur since variables are initialized to "1".
                     }
                     else {
+                        console.log(form_object);
+                        console.log(this.toggleSexualActivity);
+                        console.log(this.toggleClimax);
                         this.post_tracker(form_object);
                     }
                 }
                 else {
+                    console.log(form_object);
+                    console.log(this.toggleSexualActivity);
+                    console.log(this.toggleClimax);
                     this.post_tracker(form_object);
                 }
             }
