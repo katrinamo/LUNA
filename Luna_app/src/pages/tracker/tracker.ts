@@ -297,16 +297,10 @@ export class TrackerPage {
                         //The above error will never occur since variables are initialized to "1".
                     }
                     else {
-                        console.log(form_object);
-                        console.log(this.toggleSexualActivity);
-                        console.log(this.toggleClimax);
                         this.post_tracker(form_object);
                     }
                 }
                 else {
-                    console.log(form_object);
-                    console.log(this.toggleSexualActivity);
-                    console.log(this.toggleClimax);
                     this.post_tracker(form_object);
                 }
             }
