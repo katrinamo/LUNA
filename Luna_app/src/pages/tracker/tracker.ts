@@ -289,6 +289,7 @@ export class TrackerPage {
                 date: date,
                 onPeriod: onPeriod,
                 sexualInterest: sexualInterest,
+                sexualAttitude: sexualAttitude,
                 sexualArousal: sexualArousal,
                 kissing: kissingActivity,
                 caressing: caressingActivity,
