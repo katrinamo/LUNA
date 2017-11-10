@@ -47,9 +47,8 @@ class DbOperation
      */
     public function authenticateUser($username, $pass)
     {
-        $hashed_pass = md5($pass);
         $stmt = $this->conn->prepare('SELECT uid FROM User WHERE username = ? AND password = ? AND active = 1');
-        $stmt->bind_param('ss', $username, $hashed_pass);
+        $stmt->bind_param('ss', $username, $pass);
         $stmt->execute();
         $stmt->store_result();
         // Return if results were found
@@ -605,5 +604,264 @@ class DbOperation
             return -1.0;
         }
     }   // end of getUserStats
+
+    /**
+    * Function to get birthday
+    *  $username: username
+    *  $password: password
+    * @return birthday: the user's birthday
+    *    if -1.0, error: user has no birthday entered
+    */
+    public function getBirthday($username, $password) {
+	    $sql = "SELECT birthday
+		    FROM User WHERE username = '" . $username . "' AND password = '" . $password . "'";
+	    $result = $this->conn->query($sql);
+
+	    // this should only ever return 1 record (for a user)
+	    if ($result->num_rows == 1) {
+	       $row = $result->fetch_assoc();
+	       return $row["birthday"];
+	    }
+	    else {
+	       return -1.0;
+	    }
+    } // end of getBirthday
+    
+    /**
+    * Function to get cycle length
+    *  $username: username
+    *  $password: password
+    * @return cycle length: the user's cycle length
+    *    if -1.0, error: user has no cycle length entered
+    */
+    public function getCycleLength($username, $password) {
+	    $sql = "SELECT cycleLength
+		    FROM User WHERE username = '" . $username . "' AND password = '" . $password . "'";
+	    $result = $this->conn->query($sql);
+
+	    // this should only ever return 1 record (for a user)
+	    if ($result->num_rows == 1) {
+	       $row = $result->fetch_assoc();
+	       return $row["cycleLength"];
+	    }
+	    else {
+	       return -1.0;
+	    }
+    } // end of getCycleLength
+    
+    /**
+    * Function to get period length
+    *  $username: username
+    *  $password: password
+    * @return period length: the user's period length
+    *    if -1.0, error: user has no period length entered
+    */
+    public function getPeriodLength($username, $password) {
+	    $sql = "SELECT periodLength
+		    FROM User WHERE username = '" . $username . "' AND password = '" . $password . "'";
+	    $result = $this->conn->query($sql);
+
+	    // this should only ever return 1 record (for a user)
+	    if ($result->num_rows == 1) {
+	       $row = $result->fetch_assoc();
+	       return $row["periodLength"];
+	    }
+	    else {
+	       return -1.0;
+	    }
+    } // end of getPeriodLength
+    
+    /**
+    * Function to get birth control types
+    *  $username: username
+    *  $password: password
+    * @return birth control types: the user's birth control types
+    *    if -1.0, error: user has no birth control types entered
+    */
+    public function getBirthControlType($username, $password) {
+	    $sql = "SELECT birthControlType
+		    FROM User WHERE username = '" . $username . "' AND password = '" . $password . "'";
+	    $result = $this->conn->query($sql);
+
+	    // this should only ever return 1 record (for a user)
+	    if ($result->num_rows == 1) {
+	       $row = $result->fetch_assoc();
+	       return $row["birthControlType"];
+	    }
+	    else {
+	       return -1.0;
+	    }
+    } // end of getBirthControlType   
+    
+    /**
+    * Function to get last period
+    *  $username: username
+    *  $password: password
+    * @return last period: the user's last period
+    *    if -1.0, error: user has no last period entered
+    */
+    public function getLastPeriod($username, $password) {
+	    $sql = "SELECT lastPeriod
+		    FROM User WHERE username = '" . $username . "' AND password = '" . $password . "'";
+	    $result = $this->conn->query($sql);
+
+	    // this should only ever return 1 record (for a user)
+	    if ($result->num_rows == 1) {
+	       $row = $result->fetch_assoc();
+	       return $row["lastPeriod"];
+	    }
+	    else {
+	       return -1.0;
+	    }
+    } // end of getLastPeriod
+    
+    /**
+    * Function to get status
+    *  $username: username
+    *  $password: password
+    * @return status: the user's relationship status
+    *    if -1.0, error: user has no status entered
+    */
+    public function getStatus($username, $password) {
+	    $sql = "SELECT status
+		    FROM User WHERE username = '" . $username . "' AND password = '" . $password . "'";
+	    $result = $this->conn->query($sql);
+
+	    // this should only ever return 1 record (for a user)
+	    if ($result->num_rows == 1) {
+	       $row = $result->fetch_assoc();
+	       return $row["status"];
+	    }
+	    else {
+	       return -1.0;
+	    }
+    } // end of getStatus
+    
+    /**
+    * Function to get time
+    *  $username: username
+    *  $password: password
+    * @return time: the user's preferred time
+    *    if -1.0, error: user has no time entered
+    */
+    public function getTime($username, $password) {
+	    $sql = "SELECT time
+		    FROM User WHERE username = '" . $username . "' AND password = '" . $password . "'";
+	    $result = $this->conn->query($sql);
+
+	    // this should only ever return 1 record (for a user)
+	    if ($result->num_rows == 1) {
+	       $row = $result->fetch_assoc();
+	       return $row["time"];
+	    }
+	    else {
+	       return -1.0;
+	    }
+    } // end of getTime
+    
+    /**
+    * Function to get pregnant
+    *  $username: username
+    *  $password: password
+    * @return pregnant: the user's desire to get pregnant
+    *    if -1.0, error: user has no pregnancy desire entered
+    */
+    public function getPregnant($username, $password) {
+	    $sql = "SELECT pregnant
+		    FROM User WHERE username = '" . $username . "' AND password = '" . $password . "'";
+	    $result = $this->conn->query($sql);
+
+	    // this should only ever return 1 record (for a user)
+	    if ($result->num_rows == 1) {
+	       $row = $result->fetch_assoc();
+	       return $row["pregnant"];
+	    }
+	    else {
+	       return -1.0;
+	    }
+    } // end of getPregnant
+    
+    /**
+    * Function to get reproductive disorders
+    *  $username: username
+    *  $password: password
+    * @return reproductiveDisorders: the user's reproductive disorders
+    *    if -1.0, error: user has no reproductive disorders entered
+    */
+    public function getReproductiveDisorder($username, $password) {
+	    $sql = "SELECT reproductiveDisorder
+		    FROM User WHERE username = '" . $username . "' AND password = '" . $password . "'";
+	    $result = $this->conn->query($sql);
+
+	    // this should only ever return 1 record (for a user)
+	    if ($result->num_rows == 1) {
+	       $row = $result->fetch_assoc();
+	       return $row["reproductiveDisorder"];
+	    }
+	    else {
+	       return -1.0;
+	    }
+    } // end of getReproductiveDisorder
+    
+    /**
+    * Function to get uid
+    *  $username: username
+    *  $password: password
+    * @return uid: the user's uid
+    *    if -1.0, error: user has no uid
+    */
+    public function getUid($username, $password) {
+	    $sql = "SELECT uid
+		    FROM User WHERE username = '" . $username . "' AND password = '" . $password . "'";
+	    $result = $this->conn->query($sql);
+
+	    // this should only ever return 1 record (for a user)
+	    if ($result->num_rows == 1) {
+	       $row = $result->fetch_assoc();
+	       return $row["uid"];
+	    }
+	    else {
+	       return -1.0;
+	    }
+    } // end of getUid
+
+    /**
+    * Function to get onboard status
+    *  $username: username
+    *  $password: password
+    * @return onboard_status: the user's onboard status
+    *    if -1.0, error: user has no onboard status
+    */
+    public function getOnboardStatus($username, $password) {
+	    $sql = "SELECT onboard_status
+		    FROM User WHERE username = '" . $username . "' AND password = '" . $password . "'";
+	    $result = $this->conn->query($sql);
+
+	    // this should only ever return 1 record (for a user)
+	    if ($result->num_rows == 1) {
+	       $row = $result->fetch_assoc();
+	       return $row["onboard_status"];
+	    }
+	    else {
+	       return -1.0;
+	    }
+    } // end of getOnboardStatus
+    
+    /**
+     * Function to check if emailID exists in user table and is active
+     * $emailID: user emailID to be authenticated
+     * returns: true (1): emailID exists and is active
+     *          false (0): emailID does not exist or is not active
+     */
+    public function isEmailIDActive($emailID)
+    {       
+        //does active emailID exist
+        $stmt = $this->conn->prepare('SELECT uid FROM User WHERE emailID = ? AND active = 1');
+        $stmt->bind_param('s', $emailID);
+        $stmt->execute();
+        $stmt->store_result();
+        // Return if results were found
+        return $stmt->num_rows > 0;
+    }   // end of isEmailIDActive
 
 }  // end of DbOperation class

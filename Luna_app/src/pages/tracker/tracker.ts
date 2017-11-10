@@ -76,6 +76,88 @@ export class TrackerPage {
     constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, private storage: Storage) {
     }
 
+<<<<<<< HEAD
+=======
+    //While page is loading, query the server for the user's statistics using their uid.
+    ionViewDidEnter() {
+        console.log("Page loading...");
+        this.storage.get('uid').then((data) => {
+            var uid = data;
+            var form_object = {  // this is the form object sent to the server.
+                    uid: uid,
+            }
+            console.log(uid);
+            this.get_statistics(form_object);
+        });
+
+    }
+    
+    //Function used to show the 2nd set of daily questions if the first toggle button has been set to true
+    public Show() {
+        var sexualActivityNumber = document.getElementById('sexualActivityNumber');
+        var emotionalCloseness = document.getElementById('emotionalCloseness');
+        var sexualRelationship = document.getElementById('sexualRelationship');
+        var sexualLife = document.getElementById('sexualLife');
+        var sexualArousal = document.getElementById('sexualArousal');
+        var sexualArousalConfidence = document.getElementById('sexualArousalConfidence');
+        var lubrication = document.getElementById('lubrication');
+        var lubricationMaintain = document.getElementById('lubricationMaintain');
+        var stimulation = document.getElementById('stimulation');
+        var Note1 = document.getElementById('Note1');
+        var Note2 = document.getElementById('Note2');
+        var Note3 = document.getElementById('Note3');
+        var Note4 = document.getElementById('Note4');
+        var Note5 = document.getElementById('Note5');
+        var Note6 = document.getElementById('Note6');
+        var Note7 = document.getElementById('Note7');
+        var Note8 = document.getElementById('Note8');
+        var Note9 = document.getElementById('Note9');
+        var Note10 = document.getElementById('Note10');
+        var Note11 = document.getElementById('Note11');
+        var Note12 = document.getElementById('Note12');
+        var Note13 = document.getElementById('Note13');
+        var Note14 = document.getElementById('Note14');
+        var Note15 = document.getElementById('Note15');
+        var Note16 = document.getElementById('Note16');
+        var Note17 = document.getElementById('Note17');
+        var Note18 = document.getElementById('Note18');
+        var Note19 = document.getElementById('Note19');
+        var Note20 = document.getElementById('Note20');
+        var Note21 = document.getElementById('Note21');
+
+        sexualActivityNumber.style.visibility = 'visible';
+        emotionalCloseness.style.visibility = 'visible';
+        sexualRelationship.style.visibility = 'visible';
+        sexualLife.style.visibility = 'visible';
+        sexualArousal.style.visibility = 'visible';
+        sexualArousalConfidence.style.visibility = 'visible';
+        lubrication.style.visibility = 'visible';
+        lubricationMaintain.style.visibility = 'visible';
+        stimulation.style.visibility = 'visible';
+        Note1.style.visibility = 'visible';
+        Note2.style.visibility = 'visible';
+        Note3.style.visibility = 'visible';
+        Note4.style.visibility = 'visible';
+        Note5.style.visibility = 'visible';
+        Note6.style.visibility = 'visible';
+        Note7.style.visibility = 'visible';
+        Note8.style.visibility = 'visible';
+        Note9.style.visibility = 'visible';
+        Note10.style.visibility = 'visible';
+        Note11.style.visibility = 'visible';
+        Note12.style.visibility = 'visible';
+        Note13.style.visibility = 'visible';
+        Note14.style.visibility = 'visible';
+        Note15.style.visibility = 'visible';
+        Note16.style.visibility = 'visible';
+        Note17.style.visibility = 'visible';
+        Note18.style.visibility = 'visible';
+        Note19.style.visibility = 'visible';
+        Note20.style.visibility = 'visible';
+        Note21.style.visibility = 'visible';
+    }
+
+>>>>>>> 13982b72e4c6dfccd4cc23123fdb4b6400a47b21
     //Function used to show the 3rd set of daily questions if the 2nd toggle button has been set to true.
     public Show_sexualArousalQuestion() {
         var sexualArousalQuestion = document.getElementById('sexualArousalQuestion');
@@ -437,12 +519,51 @@ export class TrackerPage {
                         // get request success
                         console.log("post period success");
                         this.customalert("Your period has been successfully submitted.", "Success");
+                        //remove the locally stored start and end dates; they'll be stored next time the user reports a period.
+                        this.storage.remove('period_start_date');
+                        this.storage.remove('period_end_date');
                         console.log(response);
                         return true;
                 } else {
                         // get request failed
                         console.log("post tracker failure: " + Obj.message);
-                        this.customalert("Failure to submit your period.", "Failure");
+                        this.customalert("Failure to submit your period. Please try again.", "Failure");
+                        return false;
+                }
+        }).subscribe();
+
+    }   // end post_period
+
+          // get_statistics
+    // send HTTP post request to the server to get statistics for the current user.
+    // preconditions:
+    //   none.
+    // input:
+    //   a form object with uid.
+    // output:
+    //   success: obj.error field set false by server
+    //     user statistics successfully returned.
+    //   failure: obj.error field set to true by server
+    //     alert to user, ask to report questions.
+    public get_statistics(statistics_data) {
+        // Server daily questions handler url (addDaily.php)
+        var url = "https://luna-app.000webhostapp.com/api/v1/getUserStats.php"
+        console.log("in get statistics")
+        
+
+        this.http.get(url, {params:statistics_data}).map((response) => {
+                var Obj = response.json();
+                console.log(Obj.error);
+                console.log(Obj.message);
+                if (Obj.error == false) {
+                        // get request success
+                        console.log("get statistics success");
+                        this.avgCycleLengthString = "User's average cycle length: "+Obj.average_cycle_length;
+                        console.log(response);
+                        return true;
+                } else {
+                        // get request failed
+                        console.log("get statistics failure: " + Obj.message);
                         return false;
                 }
         }).subscribe();

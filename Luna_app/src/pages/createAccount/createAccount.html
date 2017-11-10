@@ -1,0 +1,77 @@
+
+<meta http-equiv="Context-Type" content="text/html; charset=UTF-8">
+﻿<!--
+Title: createAccount.html
+Author: Dillon Pulliam
+Date: 7/7/2017
+
+Purpose: This code is for the html page behind the initial create account screen that is only accessed the very first time the user accesses the app. This page will ask 
+the user to enter their random ID sent to their uky email to verify that they are a UK student. It will also ask the user to create a username and password which 
+must be entered in to change any app settings. The app will send all this data to the server and the server will send back a uid to store within the local 
+storage component of the app. Note that this page should only be accessed the very first time the user opens the app and is bypassed all other times.
+
+Input:
+    emailID: This is the random string sent to the user's UKY email address to verify they are a UK student.
+    username: a random username created by the user. A hashed version is then sent to the server.
+    password: a random password created by the user. A hashed version is then sent to the server.
+
+Output:
+    Success:
+        New user added to the database and hashed username and password are stored.
+        Success message sent to the app along with a uid.
+        App is then linked back to onBoarding questions page.
+
+    Failure:
+        Failure message sent to the app. This could either be that the server didn't recieve the data or that the user failed to fill out a necessary field for
+        data to be sent.
+-->
+
+<!--Create header.-->
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Luna
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="login-content" padding color="primary">
+  <h3 color="primary">Welcome New Luna User!</h3>
+  <ion-row class="logo-row">
+      <img style="width:100%; height:100%;" src= "https://luna-app.000webhostapp.com/LunaImage.png"/>
+  </ion-row>
+  
+  <i>Please create a login username and password. Note: Login username and password will only be used to access your history within the app.</i>
+  <p></p>
+  <i>Also, please enter in the random string sent to your UKY email address.</i>
+  
+  <div class="login-box">
+    <form>
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+
+            <ion-item style="background-color: inherit;">
+              <ion-input type="text" placeholder="Luna Username" name="username"></ion-input>
+            </ion-item>
+
+            <ion-item style="background-color: inherit;">
+              <ion-input type="password" placeholder="Password" name="password"></ion-input>
+            </ion-item>
+
+            <ion-item style="background-color: inherit;">
+              <ion-input type="text" placeholder="Random Email ID" name="emailID"></ion-input>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <button (click)="CreateAccount()" ion-button full>CREATE ACCOUNT</button>
+
+    </form>
+  </div>
+  Or <a (click)="GoToLogin()">Log In Here</a>
+
+
+</ion-content><html><head></head><body></body></html>

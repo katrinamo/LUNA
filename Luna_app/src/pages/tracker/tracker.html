@@ -51,6 +51,9 @@ Output:
       <ion-segment-button value="tracking" color="secondary">
         Progress Tracker
       </ion-segment-button>
+      <ion-segment-button value="statistics" color="secondary">
+        Statistics
+      </ion-segment-button>
     </ion-segment>
   </div>
 
@@ -213,6 +216,14 @@ Output:
   <div [ngSwitch]="trackerButton">
     <ion-list *ngSwitchCase="'tracking'">
       <p>List of progress report here...</p>
+    </ion-list>
+  </div>
+
+  <!--If the statistics segment has been pressed by the user...
+      Display a page with all of the user's current statistics. -->
+  <div [ngSwitch]="trackerButton">
+    <ion-list *ngSwitchCase="'statistics'">
+      <p>{{avgCycleLengthString}}</p>
     </ion-list>
   </div>
 </ion-content>

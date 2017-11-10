@@ -21,6 +21,7 @@ import { Storage } from '@ionic/storage';
 import { SettingsLoginPage } from '../settingsLogin/settingsLogin';
 import { TrackerPage } from '../tracker/tracker';
 import { Launch } from '../launch/launch';
+import { LogoutPage } from '../logout/logout';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -35,7 +36,8 @@ export class TabsPage {
     tab1Root: any = Launch;
     tab2Root: any = TrackerPage;
     tab3Root: any = SettingsLoginPage;
+    tab4Root: any = LogoutPage;
 
     constructor(private storage: Storage) {
-  }
+    }
 }

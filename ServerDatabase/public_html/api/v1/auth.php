@@ -27,9 +27,7 @@ $response = [];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 {   
-
     header("Access-Control-Allow-Origin: *");
-
     // See if proper parameters were provided
     if (verifyRequiredParams(['username', 'pass','emailID']))
     {
@@ -41,31 +39,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
         $db = new DbOperation();
         if (is_null($db->errMessage))
         {
-            // Find emailID in user table
-            $result = $db->findEmailID($emailID,$username,$password);
-            if ($result> 0)
-            {
-                // EmailID found in user table, 
-                // put username and password in the user row columns
-                // uid in user entry returned in message field
-                $response['error'] = false;
-                $response['message'] = $result; // uid from user table
-            }
-            else
-            {
-                if ($result == 0)  // 0 = emailID not found
-                {
-                    $response['error'] = true;
-                    $response['message'] = 'random emailID not found';
-                }            
-                else {  
-                    // error searching for email ID   (negative number)
-                    // when error log available, log to it
-                    // user cannot do anything
-                    $response['error'] = $result;
-                    $response['message']='DB error searching for emailID';
+            // Check to see if EmailID is already in use
+            $isEmailIDActive = $db->isEmailIDActive($emailID);
+            if (!$isEmailIDActive) {
+                // Check to see if username is unique
+                $doesUserExist = $db->doesUserExist($username);
+                if (!$doesUserExist) {
+                    // Find emailID in user table
+                    $result = $db->findEmailID($emailID,$username,$password);
+                    if ($result> 0)
+                    {
+                        // EmailID found in user table,
+                        // Username is unique
+                        // put username and password in the user row columns
+                        // uid in user entry returned in message field
+                        $response['error'] = false;
+                        $response['message'] = $result; // uid from user table
+                   }
+                    else
+                    {
+                        if ($result == 0)  // 0 = emailID not found
+                        {
+                            $response['error'] = true;
+                            $response['message'] = 'random emailID not found';
+                        }            
+                        else {  
+                            // error searching for email ID   (negative number)
+                            // when error log available, log to it
+                            // user cannot do anything
+                            $response['error'] = $result;
+                            $response['message']='DB error searching for emailID';
+                        }
+                    }
                 }
-             }
+                else {
+                    $response['error'] = true;
+                    $response['message'] = "Username already exists";
+                }
+            }
+            else {
+                $response['error'] = true;
+                $response['message'] = "EmailID is already in use. Try logging in instead.";
+            }
         }
         else
         {
