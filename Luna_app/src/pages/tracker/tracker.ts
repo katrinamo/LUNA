@@ -216,14 +216,14 @@ export class TrackerPage {
             var sexualInterest = this.sexualInterest;
             var sexualAttitude = this.sexualAttitude;
             var sexualArousal = this.sexualArousal;
-            var noActivity = this.none;
-            var kissingActivity = this.kissing;
-            var caressingActivity = this.caressing;
-            var fondlingActivity = this.fondling;
-            var masturbationActivity = this.masturbation;
-            var oralActivity = this.oral;
-            var analActivity = this.anal;
-            var vaginalActivity = this.vaginal;
+            var noActivity = this.none ? 1 : 0;
+            var kissingActivity = this.kissing ? 1 : 0;
+            var caressingActivity = this.caressing ? 1 : 0;
+            var fondlingActivity = this.fondling ? 1 : 0;
+            var masturbationActivity = this.masturbation ? 1 : 0;
+            var oralActivity = this.oral ? 1 : 0;
+            var analActivity = this.anal ? 1 : 0;
+            var vaginalActivity = this.vaginal ? 1 : 0;
             var otherActivity = this.other;
             var intensity = this.intensity;
 
@@ -244,6 +244,9 @@ export class TrackerPage {
             else {
                 intensity = "undefined";
             }
+
+            if (otherActivity == undefined)
+                otherActivity = "undefined";
 
             // ** TODO ** COMBINE THIS INTO ONE LINE, CHRIST!
             console.log(uid);
@@ -316,10 +319,13 @@ export class TrackerPage {
                         //The above error will never occur since variables are initialized to "1".
                     }
                     else {
+                        console.log(form_object);
                         this.post_tracker(form_object);
                     }
                 }
                 else {
+                    console.log(form_object);
+
                     this.post_tracker(form_object);
                 }
             }
