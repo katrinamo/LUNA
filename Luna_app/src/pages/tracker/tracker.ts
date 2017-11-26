@@ -347,7 +347,7 @@ export class TrackerPage {
     //     alert to user 
     public post_tracker(tracker_data) {
         // Server daily questions handler url (addDaily.php)
-        var url = "https://luna-app.000webhostapp.com/api/v1/addDaily.php"
+        var url = "http://myluna.org/api/v1/addDaily.php"
         console.log("in post tracker")
 
         this.http.get(url, {params:tracker_data}).map((response) => {
@@ -451,7 +451,7 @@ export class TrackerPage {
     //     alert to user, ask to report questions.
     public post_period(period_data) {
         // Server daily questions handler url (addDaily.php)
-        var url = "https://luna-app.000webhostapp.com/api/v1/addPeriod.php"
+        var url = "http://myluna.org/api/v1/addPeriod.php"
         console.log("in post period")
         
 
@@ -491,7 +491,7 @@ export class TrackerPage {
     //     alert to user, ask to report questions.
     public get_statistics(statistics_data) {
         // Server daily questions handler url (addDaily.php)
-        var url = "https://luna-app.000webhostapp.com/api/v1/getUserStats.php"
+        var url = "http://myluna.org/api/v1/getUserStats.php"
         console.log("in get statistics")
         
 

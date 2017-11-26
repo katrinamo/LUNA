@@ -301,7 +301,7 @@ var TrackerPage = (function () {
     TrackerPage.prototype.post_tracker = function (tracker_data) {
         var _this = this;
         // Server daily questions handler url (addDaily.php)
-        var url = "https://luna-app.000webhostapp.com/api/v1/addDaily.php";
+        var url = "http://myluna.org/api/v1/addDaily.php";
         console.log("in post tracker");
         this.http.get(url, { params: tracker_data }).map(function (response) {
             var Obj = response.json();
@@ -395,7 +395,7 @@ var TrackerPage = (function () {
     TrackerPage.prototype.post_period = function (period_data) {
         var _this = this;
         // Server daily questions handler url (addDaily.php)
-        var url = "https://luna-app.000webhostapp.com/api/v1/addPeriod.php";
+        var url = "http://myluna.org/api/v1/addPeriod.php";
         console.log("in post period");
         this.http.get(url, { params: period_data }).map(function (response) {
             var Obj = response.json();
@@ -433,7 +433,7 @@ var TrackerPage = (function () {
     TrackerPage.prototype.get_statistics = function (statistics_data) {
         var _this = this;
         // Server daily questions handler url (addDaily.php)
-        var url = "https://luna-app.000webhostapp.com/api/v1/getUserStats.php";
+        var url = "http://myluna.org/api/v1/getUserStats.php";
         console.log("in get statistics");
         this.http.get(url, { params: statistics_data }).map(function (response) {
             var Obj = response.json();

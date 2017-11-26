@@ -480,7 +480,7 @@ export class SettingsPage {
     //     alert to user 
     public post_update(onboard_data) {
         // Server chnage onBoard handler url (changeOnboard.php)
-        var url = "https://luna-app.000webhostapp.com/api/v1/changeOnboard.php"
+        var url = "http://myluna.org/api/v1/changeOnboard.php"
         console.log("in post update")
 
         this.http.get(url, {params:onboard_data}).map((response) => {

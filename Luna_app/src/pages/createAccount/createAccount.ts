@@ -158,7 +158,7 @@ export class CreateAccountPage {
     {
         // http get requests. Gets the username and password you entered. Returns a json object with a message "User successfully logged in"
         // goes to the ReportPage is everything is okay. 
-        var url = "https://luna-app.000webhostapp.com/api/v1/auth.php?emailID=" + emailID + "&username=" + usernameHash + "&pass=" + passwordHash;
+        var url = "http://myluna.org/api/v1/auth.php?emailID=" + emailID + "&username=" + usernameHash + "&pass=" + passwordHash;
         // this line sends to the url above
 	var response;
 	this.http.get(url).map((response) => {

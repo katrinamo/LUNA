@@ -10,7 +10,7 @@
 //   modified from https://www.simplifiedios.net/swift-php-mysql-tutorial/
 //   by Belal Khan
 
-define('DB_USERNAME', 'id1209469_jsco224');
-define('DB_PASSWORD', 'luna-app2017');
+define('DB_USERNAME', 'mylunaor_WP5GR');
+define('DB_PASSWORD', 'Luna2017!');
 define('DB_HOSTNAME', 'localhost');
-define('DB_NAME', 'id1209469_luna_app_mysql');
+define('DB_NAME', 'mylunaor_WP5GR');

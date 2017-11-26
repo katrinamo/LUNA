@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         if ($age >=18 && $age <=25)
         {
             // Redirect browser
-            header("Location: https://luna-app.000webhostapp.com/api/v1/register.php");
+            header("Location: http://myluna.org/api/v1/register.php");
             exit();
         }
         // Invalid dob for research

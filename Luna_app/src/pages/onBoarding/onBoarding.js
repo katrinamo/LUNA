@@ -285,8 +285,8 @@ var OnBoardingPage = (function () {
     //     alert to user 
     OnBoardingPage.prototype.post_onBoarding = function (onboard_data) {
         var _this = this;
-        // Server chnage onBoard handler url (changeOnboard.php)
-        var url = "https://luna-app.000webhostapp.com/api/v1/changeOnboard.php";
+        // Server change onBoard handler url (changeOnboard.php)
+        var url = "http://myluna.org/api/v1/changeOnboard.php";
         console.log("in post onboard");
         // Submit onboarding data to server
         this.http.get(url, { params: onboard_data }).map(function (response) {

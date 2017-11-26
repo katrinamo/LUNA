@@ -290,7 +290,7 @@ export class OnBoardingPage {
     //     alert to user 
     public post_onBoarding(onboard_data) {
         // Server chnage onBoard handler url (changeOnboard.php)
-        var url = "https://luna-app.000webhostapp.com/api/v1/changeOnboard.php"
+        var url = "http://myluna.org/api/v1/changeOnboard.php"
         console.log("in post onboard")
 
         // Submit onboarding data to server
