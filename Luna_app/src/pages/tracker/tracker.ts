@@ -3,24 +3,29 @@ Title: tracker.ts
 Author: Dillon Pulliam
 Date: 7/3/2017
 
+EDITED BY: Katie Long
+Date: 11/28/17
+
 Purpose: This code allows the user to enter in their responses to the daily questions in the app and these responses are then sent and stored in the server.
 
 Input:
     uid: This comes from local storage and is given to the app by the server originally.
     date: Today's date
-    onPeriod
-    sexualInterest 
-    sexualActivityNumber
-    emotionalCloseness
-    sexualRelationship
-    sexualLife
-    sexualArousal
-    sexualArousalConfidence
-    lubrication
-    lubricationMaintain
-    difficulty
-    satisfaction
-    discomfort
+    onPeriod,
+    sexualInterest,
+    sexualAttitude,
+    sexualArousal,
+    kissingActivity,
+    caressingActivity,
+    fondlingActivity,
+    masturbationActivity,
+    oralActivity,
+    analActivity,
+    vaginalActivity,
+    noActivity,
+    otherActivity,
+    intensity
+
 
 Output:
     Success:
@@ -47,14 +52,12 @@ export class TrackerPage {
     //Variables used and their corresponding type
     onPeriod: string;
 
+    //Slider values coded as strings. All default to '1' so that the slider shows each of the possible selections
     sexualInterest: string = '1';
-
-    sexualAttitude: string;
-
+    sexualAttitude: string = '1';
     sexualArousal: string = '1';
-    climax: string;  
-    intensity: string;   
-    other: string;
+    climax: string = '1';  
+    intensity: string = '1';
 
     //Boolean variables used for the toggle buttons
     kissing: boolean = false;
@@ -64,14 +67,18 @@ export class TrackerPage {
     oral: boolean = false;
     anal: boolean = false;
     vaginal: boolean = false;
-
-    // ** TODO **: start this out as true! whenever selected, make all others go to false
-    //             and don't allow user to type into other
     none: boolean = false;
 
-    toggleSexualActivity: boolean = false;  // Overall indicator of whether we should expand the questions
-                                            // Based on the values of the above.
-    toggleClimax: boolean = false;
+
+    //String input for any other sexual activity
+    other: string;
+
+    // Overall indicator of whether we should expand the questions
+    // Based on the values of the above.
+    toggleSexualActivity: boolean = false;
+
+    //If true, the html will expand to show the climax intesity question
+    toggleClimax: boolean = false;          
 
     //Variables used for the Statistics tab
     avgCycleLengthString: string = "You do not currently have any completed Periods on record. Continue using the app to see your average cycle length.";
@@ -94,25 +101,25 @@ export class TrackerPage {
 
     }
 
-    //Function used to show the 3rd set of daily questions if the 2nd toggle button has been set to true.
+    //Function used to show the question about sexual arousal during the indicated activities.
     public Show_sexualArousalQuestion() {
         var sexualArousalQuestion = document.getElementById('sexualArousalQuestion');
         sexualArousalQuestion.style.display = 'inline';
     }
 
-    //Function used to show the 4th set of daily questions if the 3rd toggle button has been set to true.
+    //Function used to show the question about orgasm intesity (climax intensity).
     public Show_orgasmQuestion() {
         var orgasmQuestion = document.getElementById('orgasmQuestion');
         orgasmQuestion.style.display = 'inline';
     }
 
-    //Function used to hide the 3rd set of daily questions if the 2nd toggle button is set to false.
+    //Function used to hide the question about sexual arousal during activities.
     public Hide_sexualArousalQuestion() {
         var sexualArousalQuestion = document.getElementById('sexualArousalQuestion');
         sexualArousalQuestion.style.display = 'none';  
     }
 
-    //Function used to hide the 4th set of daily questions if the 3rd toggle button is set to false.
+    //Function used to hide the question on orgasm intensity (climax intesity)
     public Hide_orgasmQuestion() {
         var orgasmQuestion = document.getElementById('orgasmQuestion');
         orgasmQuestion.style.display = 'none';
@@ -124,6 +131,7 @@ export class TrackerPage {
     //Function that allows the climax toggle button to be toggled on and off either showing or hiding the climax question.
     public ToggleClimax() {
 
+        //For debugging purposes
         console.log("Climax questions toggling....");
 
         //Toggle button goes from false to true, making visible the correct portions of the html page based on this button being true
@@ -133,14 +141,14 @@ export class TrackerPage {
             this.Show_orgasmQuestion();            
         }
 
-        //Toggle button goes from true to false, hiding 
+        //Toggle button goes from true to false, hiding the question about climax intensity
         else {
             this.toggleClimax = false;
             this.Hide_orgasmQuestion();
         }
     }
 
-    //Function that allows the 1st toggle button to be toggled on and off either showing or hiding the 2nd set of daily questions.
+    //Function that toggles whether the expanded questions about sexual activity are shown.
     public ToggleSexualActivity() {
 
         console.log("Sexual activity toggling....");
@@ -152,19 +160,43 @@ export class TrackerPage {
             this.Show_sexualArousalQuestion();
         }
 
-        // Ensures if other is filled out that next questions will toggle regardless
+        // If 'none' is toggled, hide ALL questions and also make all other values false.
+        // CASE NOT CAUGHT: if someone toggles None and then types a response in 'OTHER'.                   
+        else if (this.none) {
+            //if other has an answer and someone toggles none, make it disappear
+            if (this.other != '' || this.other != undefined) {
+                this.other = '';
+            }
+            this.kissing = false;
+            this.caressing = false;
+            this.fondling = false;
+            this.masturbation = false;
+            this.oral = false;
+            this.anal = false;
+            this.vaginal = false;
+            this.toggleSexualActivity = false;
+            console.log(this.toggleSexualActivity);
+            this.Hide_sexualArousalQuestion();
+        }
+
+        // Ensures if 'other' is filled out that next questions will toggle
         else if ((this.other != '' && this.other != undefined)) {
+            //If someone toggles none and then types in other, make 'NONE' false because they have activity to report
+            if (this.none) {
+                this.none = false;
+            }
             this.toggleSexualActivity = true;
             console.log(this.toggleSexualActivity);
             this.Show_sexualArousalQuestion();
         }
 
-        // Otherwise, hide the next questions. The validation function will determine if NONE is accidentally selected
-        else {
-            this.toggleSexualActivity = false;
-            console.log(this.toggleSexualActivity);
-            this.Hide_sexualArousalQuestion();
+       // Otherwise, hide the next questions. The validation function will determine if NONE is accidentally selected
+        else{
+             this.toggleSexualActivity = false;
+             console.log(this.toggleSexualActivity);
+             this.Hide_sexualArousalQuestion();
         }
+
     }
 
     //Function that is called when the user presses the submit button.
@@ -249,26 +281,9 @@ export class TrackerPage {
             if (otherActivity == undefined || otherActivity == '')
                 otherActivity = "undefined";
 
-            // ** TODO ** COMBINE THIS INTO ONE LINE, CHRIST!
-            console.log(uid);
-            console.log(date);
-            console.log(onPeriod);
-            console.log(sexualInterest);
-            console.log(sexualAttitude);
-            console.log(noActivity);
-            console.log(kissingActivity);
-            console.log(caressingActivity);
-            console.log(fondlingActivity);
-            console.log(masturbationActivity);
-            console.log(oralActivity);
-            console.log(analActivity);
-            console.log(vaginalActivity);
-            console.log(otherActivity);
-            console.log(intensity);
-            console.log(sexualArousal);
-
-            
-
+            //For debugging:
+            //console.log(uid, date, onPeriod, sexualInterest, sexualAttitude, noActivity, kissingActivity, caressingActivity, fondlingActivity, masturbationActivity, oralActivity, analActivity, vaginalActivity, otherActivity, intensity, sexualArousal);
+          
             //try to pull up the user's period start date and end date.
             this.storage.get('period_start_date').then((start_date) => {
                 //if the period isn't set, and they report they are on their period...

@@ -3,24 +3,30 @@ Title: tracker.html
 Author: Dillon Pulliam
 Date: 7/3/2017
 
+EDITED BY: Katie Long
+Date: 11/28/17
+
 Purpose: This code allows is the html layout of our tracker page daily questions. The user enters the daily questions and then the responses are sent to and 
 stored in the server.
 
 Input:
     uid: This comes from local storage and is given to the app by the server originally. (Not in html)
     date: Today's date (Not in html)
-    sexualInterest
-    sexualActivityNumber
-    emotionalCloseness
-    sexualRelationship
-    sexualLife
-    sexualArousal
-    sexualArousalConfidence
-    lubrication
-    lubricationMaintain
-    difficulty
-    satisfaction
-    discomfort
+    onPeriod,
+    sexualInterest,
+    sexualAttitude,
+    sexualArousal,
+    kissingActivity,
+    caressingActivity,
+    fondlingActivity,
+    masturbationActivity,
+    oralActivity,
+    analActivity,
+    vaginalActivity,
+    noActivity,
+    otherActivity,
+    intensity
+
 
 Output:
     Success:
@@ -47,9 +53,6 @@ Output:
     <ion-segment [(ngModel)]="trackerButton">
       <ion-segment-button value="dailyQuestions">
         Daily Questions
-      </ion-segment-button>
-      <ion-segment-button value="tracking" color="secondary">
-        Progress Tracker
       </ion-segment-button>
       <ion-segment-button value="statistics" color="secondary">
         Statistics
@@ -109,7 +112,7 @@ Output:
           </ion-item>
         </ion-list>
 
-        <!--DQ toggle button number 3. If the user toggles anything but NONE, the next questions will appear.
+        <!--DQ multiple toggles. If the user toggles anything but NONE, the next questions will appear.
         If the button NONE button is toggled then these questions will not appear.
         Variables: (boolean)  kissing
                               caressing
@@ -152,7 +155,7 @@ Output:
         </ion-item>
         <ion-item>
           <ion-label>None</ion-label>
-          <ion-toggle [(ngModel)]="none" name="sexualActivity"></ion-toggle>
+          <ion-toggle [(ngModel)]="none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
         </ion-item>
         <ion-item>
           <ion-label>Other:</ion-label>
@@ -173,9 +176,9 @@ Output:
           </ion-range>
         </ion-item>
 
-        <!--DQ toggle button number 5. If the user toggles this button to true then a list of other questions should appear for the user to enter.
-    If the button is not toggled then these questions will not appear.
-    Variable: isToggledStimulation: boolean-->
+      <!--DQ toggle button. If the user toggles this button to true then a list of other questions should appear for the user to enter.
+      If the button is not toggled then these questions will not appear.
+      Variable: isToggledStimulation: boolean-->
         <h6>Did you acheive climax?</h6>
         <ion-item text-wrap>
           <ion-label>No / Yes</ion-label>
@@ -183,7 +186,7 @@ Output:
         </ion-item>
       </div>
 
-      <!--DQ number 6: Should only appear if the first 2 toggle buttons are set to true.
+      <!--DQ number 6: Should only appear DQ toggle button about acheiving climax is true.
       Variable: intensity: string-->
       <div id="orgasmQuestion" style="display: none;">
           <h6>How intense was your orgasm?</h6>
@@ -205,12 +208,12 @@ Output:
 
 
   <!--If the tracking segment has been pressed by the user...
-      As this is currently a low priority we just have a basic message output to the screen if this is the case.-->
+  As this is currently a low priority we just have a basic message output to the screen if this is the case.
   <div [ngSwitch]="trackerButton">
     <ion-list *ngSwitchCase="'tracking'">
       <p>List of progress report here...</p>
     </ion-list>
-  </div>
+  </div> --!?
 
   <!--If the statistics segment has been pressed by the user...
       Display a page with all of the user's current statistics. -->
