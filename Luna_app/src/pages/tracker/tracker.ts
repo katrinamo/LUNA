@@ -177,7 +177,6 @@ export class TrackerPage {
         }
 
         // If 'none' is toggled, hide ALL questions and also make all other values false.
-        // CASE NOT CAUGHT: if someone toggles None and then types a response in 'OTHER'.                   
         else if (this.none) {
             //if other has an answer and someone toggles none, make it disappear
             if (this.other != '' || this.other != undefined) {
@@ -194,6 +193,10 @@ export class TrackerPage {
             this.toggleSexualActivity = false;
             console.log(this.toggleSexualActivity);
             this.Hide_sexualArousalQuestion();
+        }
+
+        else if (this.none && (this.kissing || this.caressing || this.fondling || this.masturbation || this.oral || this.anal || this.vaginal)) {
+
         }
 
        // Otherwise, hide the next questions. The validation function will determine if NONE is accidentally selected
@@ -284,7 +287,7 @@ export class TrackerPage {
                 intensity = "undefined";
             }
 
-            // If the user inputs nothing for other, don't set "other" to undefined
+            // If the user inputs nothing for other, set "other" to "undefined"
             if (otherActivity == undefined || otherActivity == '')
                 otherActivity = "undefined";
 
@@ -338,7 +341,7 @@ export class TrackerPage {
             };
 
             // This is how the page is submitted.
-            //Note that if the user leads out specific fields that need to be filled out then the page will not submit and an error message will be sent to the user.
+            //Note that if the user leaves out specific fields that need to be filled out then the page will not submit and an error message will be sent to the user.
             if ((sexualInterest == '' || onPeriod == '' || sexualAttitude == '')
                 || (sexualInterest == undefined || onPeriod == undefined || sexualAttitude == undefined)) {
                 this.customalert("Please go back through the form and fill out the first three questions.", "Cannot Submit");

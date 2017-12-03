@@ -127,31 +127,31 @@ Output:
         <h6>Based on how you feel today, which of the following are you most likely to do?</h6>
         <ion-item>
           <ion-label>Intense kissing</ion-label>
-          <ion-toggle [(ngModel)]="kissing" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+          <ion-toggle [(ngModel)]="kissing" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
         </ion-item>
         <ion-item>
           <ion-label>Caressing</ion-label>
-          <ion-toggle [(ngModel)]="caressing" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+          <ion-toggle [(ngModel)]="caressing" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
         </ion-item>
         <ion-item>
           <ion-label>Fondling</ion-label>
-          <ion-toggle [(ngModel)]="fondling" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+          <ion-toggle [(ngModel)]="fondling" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
         </ion-item>
         <ion-item>
           <ion-label>Masturbation</ion-label>
-          <ion-toggle [(ngModel)]="masturbation" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+          <ion-toggle [(ngModel)]="masturbation" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
         </ion-item>
         <ion-item>
           <ion-label>Oral sex</ion-label>
-          <ion-toggle [(ngModel)]="oral" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+          <ion-toggle [(ngModel)]="oral" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
         </ion-item>
         <ion-item>
           <ion-label>Anal sex</ion-label>
-          <ion-toggle [(ngModel)]="anal" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+          <ion-toggle [(ngModel)]="anal" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
         </ion-item>
         <ion-item>
           <ion-label>Vaginal sex</ion-label>
-          <ion-toggle [(ngModel)]="vaginal" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+          <ion-toggle [(ngModel)]="vaginal" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
         </ion-item>
         <ion-item>
           <ion-label>None</ion-label>
