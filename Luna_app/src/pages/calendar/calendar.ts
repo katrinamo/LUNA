@@ -1,4 +1,4 @@
-﻿/*
+/*
 Title: calendar.ts
 Author: Provided by the purchased Ionic 3 Calendar feature
     Info on the Ionic 3 Calendar can be found at the following: https://market.ionic.io/themes/ioniccalendar
