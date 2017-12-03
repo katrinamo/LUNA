@@ -864,5 +864,26 @@ class DbOperation
         return $stmt->num_rows > 0;
     }   // end of isEmailIDActive
 
+     /**
+     * Function to check if user has already entered daily question
+     * $uid: User ID to check
+     * $entry_date: Current date
+     * returns: true (1): daily questions have been completed
+     *          false (0): daily questions have not been completed
+     */
+     public function areDailyQuestionsSubmitted($uid, $entry_date) {
+         
+         $date = date('Y-m-d', strtotime(str_replace('-', '/', $entry_date)));
+         
+         // Check if there is already a daily questions submission for the day
+         $stmt = $this->conn->prepare('SELECT eid FROM Entry WHERE uid = ? AND entry_date = ?');
+         $stmt->bind_param('ss', $uid, $date);
+         $stmt->execute();
+         $stmt->store_result();
+         
+         // Return if results were found
+         return $stmt->num_rows > 0;
+     }  // end of areDailyQuestionsSubmitted
+
 }  // end of DbOperation class
 

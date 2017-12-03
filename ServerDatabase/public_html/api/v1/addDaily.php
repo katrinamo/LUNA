@@ -63,16 +63,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             // Verify that UID exists
             if($db->authenticateUid($uid))
             {
-                // Create new daily questions event
-                if($db->createEntry($uid, $entry_date, $onPeriod, $sexualInterest, $sexualAttitude, $sexualArousal,  $kissing, $caressing, $fondling, $masturbation, $oral, $anal, $vaginal, $none, $other, $intensity))
-                {
-                    $response['error'] = false;
-                    $response['message'] = 'Successfully added daily activity';
-                }
-                else
-                {
-                    $response['error'] = true;
-                    $response['message'] = 'Error adding daily activity';
+		if (!($db->areDailyQuestionsSubmitted($uid, $entry_date))) { 
+                	// Create new daily questions event
+                	if($db->createEntry($uid, $entry_date, $onPeriod, $sexualInterest, $sexualAttitude, $sexualArousal,  $kissing, $caressing, $fondling, $masturbation, $oral, $anal, $vaginal, $none, $other, $intensity))
+                	{
+                    		$response['error'] = false;
+                    		$response['message'] = 'Successfully added daily activity';
+                	}
+                	else
+                	{
+                    		$response['error'] = true;
+                    		$response['message'] = 'Error adding daily activity';
+                	}
+		{
+		else {
+			$response['error'] = true;
+                        $response['message'] = 'Error adding daily activity';
                 }
             }
             else
