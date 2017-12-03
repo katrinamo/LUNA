@@ -157,7 +157,9 @@ Output:
           <ion-label>None</ion-label>
           <ion-toggle [(ngModel)]="none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
         </ion-item>
-        <ion-item>
+        <!-- This is an individual ID so that it can be hidden in the event that a user clicks NONE but intends to answer OTHER.
+        That way the user cannot submit a form where OTHER is not null/undefined but NONE is true. -->
+        <ion-item id="otherActivityQ">
           <ion-label>Other:</ion-label>
           <ion-input type="text"  (ionChange)="ToggleSexualActivity()" [(ngModel)]="other"></ion-input>
         </ion-item>

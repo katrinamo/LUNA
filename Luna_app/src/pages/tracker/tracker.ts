@@ -126,6 +126,18 @@ export class TrackerPage {
         
     }
 
+    //Function used to hide the "other" field for sexual activity
+    public Hide_otherQuestion() {
+        var otherQuestion = document.getElementById('otherActivityQ');
+        otherQuestion.style.display = 'none';
+    }
+
+    //Function used to show the "other" field for sexual activity
+    public Show_otherQuestion() {
+        var otherQuestion = document.getElementById('otherActivityQ');
+        otherQuestion.style.display = 'inline';
+    }
+
 
   
     //Function that allows the climax toggle button to be toggled on and off either showing or hiding the climax question.
@@ -155,6 +167,7 @@ export class TrackerPage {
 
         // If at least one sexual activity is selected, show the next set of questions.
         if ((this.kissing || this.caressing || this.fondling || this.masturbation || this.oral || this.anal || this.vaginal || (this.other != '' && this.other != undefined)) && !this.none) {
+            this.Show_otherQuestion();
             this.toggleSexualActivity = true;
             console.log(this.toggleSexualActivity);
             this.Show_sexualArousalQuestion();
@@ -165,6 +178,7 @@ export class TrackerPage {
         else if (this.none) {
             //if other has an answer and someone toggles none, make it disappear
             if (this.other != '' || this.other != undefined) {
+                this.Hide_otherQuestion();
                 this.other = '';
             }
             this.kissing = false;
@@ -179,22 +193,12 @@ export class TrackerPage {
             this.Hide_sexualArousalQuestion();
         }
 
-        // Ensures if 'other' is filled out that next questions will toggle
-        else if ((this.other != '' && this.other != undefined)) {
-            //If someone toggles none and then types in other, make 'NONE' false because they have activity to report
-            if (this.none) {
-                this.none = false;
-            }
-            this.toggleSexualActivity = true;
-            console.log(this.toggleSexualActivity);
-            this.Show_sexualArousalQuestion();
-        }
-
        // Otherwise, hide the next questions. The validation function will determine if NONE is accidentally selected
-        else{
-             this.toggleSexualActivity = false;
-             console.log(this.toggleSexualActivity);
-             this.Hide_sexualArousalQuestion();
+        else {
+            this.Show_otherQuestion();
+            this.toggleSexualActivity = false;
+            console.log(this.toggleSexualActivity);
+            this.Hide_sexualArousalQuestion();
         }
 
     }
