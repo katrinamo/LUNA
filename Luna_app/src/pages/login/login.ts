@@ -18,7 +18,7 @@ Output:
 */
 
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Http, Headers } from '@angular/http';
 import { Md5 } from 'ts-md5/dist/md5';
@@ -32,7 +32,11 @@ import { OnBoardingPage } from '../onBoarding/onBoarding';
 })
 export class LoginPage {
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, private storage: Storage) {
+    //spinner variables. true when displaying.
+    loading;
+    isLoading: boolean=true;
+
+    constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, private storage: Storage, public loadingCtrl: LoadingController) {
     }
 
     public Login() {
@@ -55,8 +59,9 @@ export class LoginPage {
         var url = "http://myluna.org/api/v1/login.php?username=" + usernameHash + "&pass=" + passwordHash;
         // this line sends to the url above
         var response;
+        this.presentLoadingCustom();
         this.http.get(url).map((response) => {
-
+                this.dismissLoadingCustom();
                 var Obj = response.json();
                 if (Obj.error == false && Obj.message != undefined) {
                         this.storage.set('usernameHash', usernameHash);
@@ -108,5 +113,52 @@ export class LoginPage {
             buttons: ['OK']
         });
         alert.present(alert);
+    }
+
+      // presentLoadingCustom()
+    // Display a custom spinner to indicate that the app is communicating with the server.
+    // preconditions:
+    //   none.
+    // input:
+    //   none.
+    // output:
+    //   none.
+    // postconditions:
+    //   the 'loading' datamember will be set to a new loading control, and will display on the screen with a 10 second timeout.
+    presentLoadingCustom() {
+      this.isLoading=true;
+      this.loading = this.loadingCtrl.create({
+        spinner: 'ios',
+        content: `
+          <div class="custom-spinner-container">
+            <div class="custom-spinner-box">Loading...</div>
+          </div>`
+       });
+
+       setTimeout(() => {
+            if (this.isLoading == true) {
+                this.isLoading=false;
+                this.loading.dismiss();
+                this.customalert('Please ensure you have an internet connection and try again.', 'Timeout: Could not connect to server');
+            }
+       }, 10000);
+
+       this.loading.present();
+
+    } //end presentLoadingCustom
+
+      // dismissLoadingCustom()
+    // Dismiss the custom spinner to indicate that the app is no longer communicating with the server.
+    // preconditions:
+    //   'loading' datamember should be set to a loading control.
+    // input:
+    //   none.
+    // output:
+    //   none.
+    // postconditions:
+    //   the 'loading' datamember will be dismissed.
+    dismissLoadingCustom() {
+        this.loading.dismiss();
+        this.isLoading=false;
     }
 }

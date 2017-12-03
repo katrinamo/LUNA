@@ -40,7 +40,7 @@ Output:
 
 //imports needed for correct initialization.
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 
@@ -83,8 +83,11 @@ export class TrackerPage {
     //Variables used for the Statistics tab
     avgCycleLengthString: string = "You do not currently have any completed Periods on record. Continue using the app to see your average cycle length.";
 
+    //Spinner declaration and boolean
+    isLoading: boolean=true;
+    loading;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, private storage: Storage) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, private storage: Storage, public loadingCtrl: LoadingController) {
     }
 
    //While page is loading, query the server for the user's statistics using their uid.
@@ -365,11 +368,13 @@ export class TrackerPage {
     //   failure: obj.error field set to true by server
     //     alert to user 
     public post_tracker(tracker_data) {
+        this.presentLoadingCustom();
         // Server daily questions handler url (addDaily.php)
         var url = "http://myluna.org/api/v1/addDaily.php"
         console.log("in post tracker")
 
         this.http.get(url, {params:tracker_data}).map((response) => {
+                this.dismissLoadingCustom();
                 var Obj = response.json();
                 console.log(Obj.error);
                 console.log(Obj.message);
@@ -469,12 +474,14 @@ export class TrackerPage {
     //   failure: obj.error field set to true by server
     //     alert to user, ask to report questions.
     public post_period(period_data) {
+        this.presentLoadingCustom();
         // Server daily questions handler url (addDaily.php)
         var url = "http://myluna.org/api/v1/addPeriod.php"
         console.log("in post period")
         
 
         this.http.get(url, {params:period_data}).map((response) => {
+                this.dismissLoadingCustom();
                 var Obj = response.json();
                 console.log(Obj.error);
                 console.log(Obj.message);
@@ -509,12 +516,14 @@ export class TrackerPage {
     //   failure: obj.error field set to true by server
     //     alert to user, ask to report questions.
     public get_statistics(statistics_data) {
+        this.presentLoadingCustom();
         // Server daily questions handler url (addDaily.php)
         var url = "http://myluna.org/api/v1/getUserStats.php"
         console.log("in get statistics")
         
 
         this.http.get(url, {params:statistics_data}).map((response) => {
+                this.dismissLoadingCustom()
                 var Obj = response.json();
                 console.log(Obj.error);
                 console.log(Obj.message);
@@ -532,4 +541,51 @@ export class TrackerPage {
         }).subscribe();
 
     }   // end post_period
+
+      // presentLoadingCustom()
+    // Display a custom spinner to indicate that the app is communicating with the server.
+    // preconditions:
+    //   none.
+    // input:
+    //   none.
+    // output:
+    //   none.
+    // postconditions:
+    //   the 'loading' datamember will be set to a new loading control, and will display on the screen with a 10 second timeout.
+    presentLoadingCustom() {
+      this.isLoading=true;
+      this.loading = this.loadingCtrl.create({
+        spinner: 'ios',
+        content: `
+          <div class="custom-spinner-container">
+            <div class="custom-spinner-box">Loading...</div>
+          </div>`
+       });
+
+       setTimeout(() => {
+            if (this.isLoading == true) {
+                this.isLoading=false;
+                this.loading.dismiss();
+                this.customalert('Please ensure you have an internet connection and try again.', 'Timeout: Could not connect to server');
+            }
+       }, 10000);
+
+       this.loading.present();
+
+    } //end presentLoadingCustom
+
+      // dismissLoadingCustom()
+    // Dismiss the custom spinner to indicate that the app is no longer communicating with the server.
+    // preconditions:
+    //   'loading' datamember should be set to a loading control.
+    // input:
+    //   none.
+    // output:
+    //   none.
+    // postconditions:
+    //   the 'loading' datamember will be dismissed.
+    dismissLoadingCustom() {
+        this.loading.dismiss();
+        this.isLoading=false;
+    }
 }
