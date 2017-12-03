@@ -19,11 +19,12 @@ Output:
 */
 
 import { Component, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController, AlertController } from 'ionic-angular';
 import {Slides} from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
 import {CalendarService} from './calendar.service';
+import { Http, Headers } from '@angular/http';
 
 import moment from 'moment';
 
@@ -35,16 +36,29 @@ const NUM_OF_DAYS = 7;
   templateUrl: 'calendar.html'
 })
 export class CalendarComponent {
+  //Spinner declaration and boolean
+    isLoading: boolean=true;
+    loading;
+
   @ViewChild('mySlider') slider: Slides;
   public weekNames:Array<String>;
   public selectedDate:any;
   public today:any;
   public events:Array<any> = [];
   public months:Array<any> = [];
-  constructor(public navCtrl: NavController, private calendarService:CalendarService, private storage: Storage) {
+  constructor(public navCtrl: NavController, private calendarService:CalendarService, private storage: Storage, public loadingCtrl: LoadingController, private alertCtrl: AlertController, private http: Http) {
     this.weekNames = ['S','M', 'T', 'W', 'T', 'F', 'S'];
     this.today = moment();
-
+    console.log("Tristan Calendar Page loading...");
+        this.storage.get('uid').then((data) => {
+            console.log(data);
+            var uid = data;
+            var form_object = {  // this is the form object sent to the server.
+                    uid: uid,
+            }
+            console.log(uid);
+            this.get_statistics(form_object);
+        });
   }
 
   setTimeToZero(dateLocal) {
@@ -146,5 +160,102 @@ export class CalendarComponent {
   onSlideChanged() {
     this.handleSlideView();
   }
+
+           // get_statistics
+    // send HTTP post request to the server to get statistics for the current user.
+    // preconditions:
+    //   none.
+    // input:
+    //   a form object with uid.
+    // output:
+    //   success: obj.error field set false by server
+    //     user statistics successfully returned.
+    //   failure: obj.error field set to true by server
+    //     alert to user, ask to report questions.
+    public get_statistics(statistics_data) {
+        this.presentLoadingCustom();
+        // Server daily questions handler url (addDaily.php)
+        var url = "http://myluna.org/api/v1/getUserStats.php"
+        console.log("in get statistics")
+        
+
+        this.http.get(url, {params:statistics_data}).map((response) => {
+                this.dismissLoadingCustom()
+                var Obj = response.json();
+                console.log(Obj.error);
+                console.log(Obj.message);
+                if (Obj.error == false) {
+                        // get request success
+                        console.log("get statistics success");
+                        this.storage.set('cycle_length', Obj.average_cycle_length);
+                        this.storage.set('period_length', Obj.average_period_length);
+                        console.log(response);
+                        return true;
+                } else {
+                        // get request failed
+                        console.log("get statistics failure: " + Obj.message);
+                        return false;
+                }
+        }).subscribe();
+
+    }   // end post_period
+
+      // presentLoadingCustom()
+    // Display a custom spinner to indicate that the app is communicating with the server.
+    // preconditions:
+    //   none.
+    // input:
+    //   none.
+    // output:
+    //   none.
+    // postconditions:
+    //   the 'loading' datamember will be set to a new loading control, and will display on the screen with a 10 second timeout.
+    presentLoadingCustom() {
+      this.isLoading=true;
+      this.loading = this.loadingCtrl.create({
+        spinner: 'ios',
+        content: `
+          <div class="custom-spinner-container">
+            <div class="custom-spinner-box">Loading...</div>
+          </div>`
+       });
+
+       setTimeout(() => {
+            if (this.isLoading == true) {
+                this.isLoading=false;
+                this.loading.dismiss();
+                this.customalert('Please ensure you have an internet connection and try again.', 'Timeout: Could not connect to server');
+            }
+       }, 10000);
+
+       this.loading.present();
+
+    } //end presentLoadingCustom
+
+      // dismissLoadingCustom()
+    // Dismiss the custom spinner to indicate that the app is no longer communicating with the server.
+    // preconditions:
+    //   'loading' datamember should be set to a loading control.
+    // input:
+    //   none.
+    // output:
+    //   none.
+    // postconditions:
+    //   the 'loading' datamember will be dismissed.
+    dismissLoadingCustom() {
+        this.loading.dismiss();
+        this.isLoading=false;
+    }
+
+    // a custom alert for ionic 2. 
+    public customalert(s: string, t: string) {
+        console.log("alert: " + s);
+        let alert = this.alertCtrl.create({
+            title: t,
+            subTitle: s,
+            buttons: ['OK']
+        });
+        alert.present(alert);
+    }
 
 }

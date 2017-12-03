@@ -81,7 +81,8 @@ export class TrackerPage {
     toggleClimax: boolean = false;          
 
     //Variables used for the Statistics tab
-    avgCycleLengthString: string = "You do not currently have any completed Periods on record. Continue using the app to see your average cycle length.";
+    avgCycleLengthString: string = "You do not currently have any completed Periods on record. Continue using the app to see your average cycle/period length.";
+    avgPeriodLengthString: string = "";
 
     //Spinner declaration and boolean
     isLoading: boolean=true;
@@ -90,18 +91,18 @@ export class TrackerPage {
     constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, private storage: Storage, public loadingCtrl: LoadingController) {
     }
 
-   //While page is loading, query the server for the user's statistics using their uid.
+
     ionViewDidEnter() {
         console.log("Page loading...");
-        this.storage.get('uid').then((data) => {
-            var uid = data;
-            var form_object = {  // this is the form object sent to the server.
-                    uid: uid,
-            }
-            console.log(uid);
-            this.get_statistics(form_object);
+        this.storage.get('cycle_length').then((cycle_length) => {
+            this.storage.get('period_length').then((period_length) => {
+                console.log(cycle_length + ' ' + period_length);
+                if (cycle_length != null && period_length != null) {
+                    this.avgCycleLengthString = "Average cycle length: " + cycle_length;
+                    this.avgPeriodLengthString = "Average period length: " + period_length;
+                }
+            })
         });
-
     }
 
     //Function used to show the question about sexual arousal during the indicated activities.
@@ -560,43 +561,7 @@ export class TrackerPage {
 
     }   // end post_period
 
-          // get_statistics
-    // send HTTP post request to the server to get statistics for the current user.
-    // preconditions:
-    //   none.
-    // input:
-    //   a form object with uid.
-    // output:
-    //   success: obj.error field set false by server
-    //     user statistics successfully returned.
-    //   failure: obj.error field set to true by server
-    //     alert to user, ask to report questions.
-    public get_statistics(statistics_data) {
-        this.presentLoadingCustom();
-        // Server daily questions handler url (addDaily.php)
-        var url = "http://myluna.org/api/v1/getUserStats.php"
-        console.log("in get statistics")
-        
-
-        this.http.get(url, {params:statistics_data}).map((response) => {
-                this.dismissLoadingCustom()
-                var Obj = response.json();
-                console.log(Obj.error);
-                console.log(Obj.message);
-                if (Obj.error == false) {
-                        // get request success
-                        console.log("get statistics success");
-                        this.avgCycleLengthString = "User's average cycle length: "+Obj.average_cycle_length;
-                        console.log(response);
-                        return true;
-                } else {
-                        // get request failed
-                        console.log("get statistics failure: " + Obj.message);
-                        return false;
-                }
-        }).subscribe();
-
-    }   // end post_period
+   
 
       // presentLoadingCustom()
     // Display a custom spinner to indicate that the app is communicating with the server.

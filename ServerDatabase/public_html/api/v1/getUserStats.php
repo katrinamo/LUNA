@@ -43,12 +43,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             if($db->authenticateUid($uid)) 
             {             
                 // get average cycle length
-                $average = $db->getUserStats($uid);
-                if($average != -1.0)
+                $avg_cycle = $db->getUserCycleAvg($uid);
+                $avg_period = $db->getUserPeriodAvg($uid);
+                if($avg_cycle != -1.0 && $avg_period != -1.0)
                 {
                     $response['error'] = false;
                     $response['message'] = 'Successfully retrieved user stats.';
-                    $response['average_cycle_length'] = $average;
+                    $response['average_cycle_length'] = $avg_cycle;
+                    $response['average_period_length'] = $avg_period;
                 }
                 else
                 {
