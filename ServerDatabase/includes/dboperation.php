@@ -694,7 +694,7 @@ class DbOperation
     } // end of getBirthControlType   
     
     /**
-    * Function to get last period
+    * Function to get last period. This is the last period provided by the user in the onboarding questions.
     *  $username: username
     *  $password: password
     * @return last period: the user's last period
@@ -846,6 +846,28 @@ class DbOperation
 	       return -1.0;
 	    }
     } // end of getOnboardStatus
+
+    /**
+    * Function to get lastPeriodStartDate. This is the last period used by the application to track the user's actual period, via daily questions.
+    *  $username: username
+    *  $password: password
+    * @return date: the user's last period date as set by the application.
+    *    if null, the user hasn't specified that they are currently on their period.
+    */
+    public function getLastPeriodStartDate($username, $password) {
+        $sql = "SELECT lastPeriodStartDate
+            FROM User WHERE username = '" . $username . "' AND password = '" . $password . "'";
+        $result = $this->conn->query($sql);
+
+        // this should only ever return 1 record (for a user)
+        if ($result->num_rows == 1) {
+           $row = $result->fetch_assoc();
+           return $row["lastPeriodStartDate"];
+        }
+        else {
+           return -1.0;
+        }
+    } // end of getBirthControlType  
     
     /**
      * Function to check if emailID exists in user table and is active
@@ -884,6 +906,29 @@ class DbOperation
          // Return if results were found
          return $stmt->num_rows > 0;
      }  // end of areDailyQuestionsSubmitted
+
+     /**
+     * Function to change a user's last period start date.
+     *  $uid (user id): uid of user to change onboard questions 
+     *  $lastPeriodStartDate: start date of the user's current period.
+     * 
+     * returns:  true last period start date successfully changed
+     *           false error changing last period start date
+     */
+    public function changePeriodStartDate($uid, $lastPeriodStartDate)
+    {
+        $stmt = $this->conn->prepare('UPDATE User SET lastPeriodStartDate = ? WHERE uid = ?');
+        $stmt->bind_param('ss', $lastPeriodStartDate, $uid );
+        if ($stmt->execute())
+        {
+            return true;
+        }
+        else
+        {
+            //Error changing data
+            return false;
+        }
+    } // end changePeriodStartDate
 
 }  // end of DbOperation class
 

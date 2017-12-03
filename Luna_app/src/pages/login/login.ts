@@ -63,7 +63,10 @@ export class LoginPage {
         this.http.get(url).map((response) => {
                 this.dismissLoadingCustom();
                 var Obj = response.json();
+                console.log(response.json());
+                console.log('last period start date ' + Obj.lastPeriodStartDate);
                 if (Obj.error == false && Obj.message != undefined) {
+
                         this.storage.set('usernameHash', usernameHash);
 			this.storage.set('passwordHash', passwordHash);
 			this.storage.set('uid', Obj.uid);
@@ -82,6 +85,7 @@ export class LoginPage {
 				this.storage.set('time', Obj.time);
 				this.storage.set('pregnant', Obj.pregnant);
 				this.storage.set('reproductiveDisorder', Obj.reproductiveDisorder);
+                this.storage.set('period_start_date', Obj.lastPeriodStartDate);
 				this.navCtrl.setRoot(TabsPage); // go to tabs page
 			}
 			else {

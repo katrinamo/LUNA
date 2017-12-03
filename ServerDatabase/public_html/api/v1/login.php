@@ -66,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 			    $response['time'] = $db->getTime($username, $password);
 			    $response['pregnant'] = $db->getPregnant($username, $password);
 			    $response['reproductiveDisorder'] = $db->getReproductiveDisorder($username, $password);
+			    $response['lastPeriodStartDate'] = $db->getLastPeriodStartDate($username, $password);
 			}
 
 		}

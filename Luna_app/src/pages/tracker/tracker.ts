@@ -293,11 +293,19 @@ export class TrackerPage {
           
             //try to pull up the user's period start date and end date.
             this.storage.get('period_start_date').then((start_date) => {
+                console.log(start_date);
+                console.log(onPeriod);
                 //if the period isn't set, and they report they are on their period...
-                if (onPeriod == 'Yes' && start_date == undefined) {
+                if (onPeriod == 'Yes' && (start_date == undefined || start_date == null || start_date == '0000-00-00')) {
                     //set the start date for the user's period to today.
                     this.storage.set('period_start_date', date);
-                    console.log('period start date saved.');
+                    var form_object = {  // this  is the form object sent to the server.
+                        uid: uid,
+                        lastPeriodStartDate: date
+                    };
+                    console.log(date);
+                    //update the user's period start date on the server too.
+                    this.change_period_start_date(form_object);
                 //if the period is set, and they report they aren't on their period...
                 } else if (onPeriod == 'No' && start_date != undefined && start_date != date) {
                     //store today as their end date - it looks like they have a period to report.
@@ -382,7 +390,7 @@ export class TrackerPage {
                         // get request success
                         console.log("post tracker success");
                         this.customalert("Your daily questions have been successfully submitted", "Success");
-                        this.customalert("If birth control, relationship status, or any other settings have changed please navigate to the settings tab and update them.", "User Note");
+                        //this.customalert("If birth control, relationship status, or any other settings have changed please navigate to the settings tab and update them.", "User Note");
                         console.log(response);
                         return true;
                 } else {
@@ -416,7 +424,7 @@ export class TrackerPage {
 
         let prompt = this.alertCtrl.create({
           title: "It appears you\'ve finished your period.",
-          message: "Please verify that these fields look correct. They are important to finding your average cycle length.",
+          message: "Please verify that the start and end date for your period look correct. They are important to finding your average cycle length.",
           inputs: [
           {
             name: 'PeriodStartDate',
@@ -493,11 +501,56 @@ export class TrackerPage {
                         this.storage.remove('period_start_date');
                         this.storage.remove('period_end_date');
                         console.log(response);
+                        //change period start date back to null, it's been recorded.
+                        var form_object = {  // this  is the form object sent to the server.
+                            uid: period_data.uid,
+                            lastPeriodStartDate: null
+                        };
+                        this.change_period_start_date(form_object);
                         return true;
                 } else {
                         // get request failed
                         console.log("post tracker failure: " + Obj.message);
                         this.customalert("Failure to submit your period. Please try again.", "Failure");
+                        return false;
+                }
+        }).subscribe();
+
+    }   // end post_period
+
+      // post_period_start_date
+    // send HTTP post request to the server to add 
+    // the period start date for this uid
+    // preconditions:
+    //   user has entered in a daily question that they are on their period for the first time this cycle.
+    // input:
+    //   a form object with mens_start and uid.
+    // output:
+    //   success: obj.error field set false by server
+    //     lastPeriodStartDate updated to mens_start for uid.
+    //   failure: obj.error field set to true by server
+    //     alert to user, ask to report questions.
+    public change_period_start_date(period_data) {
+        
+        // Server daily questions handler url (changePeriodStartDate.php)
+        var url = "http://myluna.org/api/v1/changePeriodStartDate.php"
+        console.log("in change period start date")
+        
+
+        this.http.get(url, {params:period_data}).map((response) => {
+                
+                var Obj = response.json();
+                console.log(Obj.error);
+                console.log(Obj.message);
+                if (Obj.error == false) {
+                        // get request success
+                        console.log("period start date submitted");
+                        //remove the locally stored start and end dates; they'll be stored next time the user reports a period.
+                        console.log(response);
+                        return true;
+                } else {
+                        // get request failed
+                        console.log("post period start date failure: " + Obj.message);
                         return false;
                 }
         }).subscribe();
