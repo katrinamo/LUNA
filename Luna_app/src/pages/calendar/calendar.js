@@ -108,7 +108,8 @@ var CalendarComponent = (function () {
         }
         monthObj.selectedDate = day;
         this.selectedDate = day;
-        //CalendarService.getEvents(day); //Use this to fetch events for the selected day
+        this.events = this.calendarService.getEvents(this.selectedDate);
+        console.log("got the events!");
     };
     CalendarComponent.prototype.handleSlideView = function () {
         var activeIndex = this.slider.getActiveIndex();

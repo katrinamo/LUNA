@@ -20,32 +20,84 @@ Output:
 */
 
 import {Injectable} from '@angular/core';
+import { Http, Headers } from '@angular/http';
 
 
 @Injectable()
 export class CalendarService {
-  constructor() {
+  eventsArray = [];
+  constructor(private http: Http) {
     console.log('CalendarService');
   }
 
-  getEvents(day) {
-    let events = [
-      /* The following can be used to add events to the bottom of the calendar for specific days.
-        {
-        name: 'Plan for weekend'
-      },
-      {
-        name:'Book Tickets for Movie'
-      },
-      {
-        name:'Meeting at 4 pm'
-      },
-      {
-        name:'Dinner Party '
-      }
-      */
-    ]
-
-    return events;
+  getEvents(day, uid) {
+    if (day != undefined) {
+      let dayString = day.format('YYYY-MM-DD');
+      console.log('Selected date: ' + dayString);
+      console.log('Uid: ' + uid);
+      var form_object = {  // this  is the form object sent to the server.
+                            uid: uid,
+                            selected_date: dayString
+                        };
+      let something = this.get_entry(form_object);
+      console.log(something);
+      return this.eventsArray;
+    }
+      return [];
   }
+
+
+  // get_entry
+    // get daily entry for a user for a specified date.
+    // a period for this uid
+    // preconditions:
+    //   user has entered in a daily question that they were on their period, and then they entered that they were not.
+    // input:
+    //   a form object with mens_start, mens_end, and uid
+    // output:
+    //   success: obj.error field set false by server
+    //     period added to Period table.
+    //   failure: obj.error field set to true by server
+    //     alert to user, ask to report questions.
+    public get_entry(entry_data) {
+        // Server daily questions handler url (returnDailyEntry.php)
+        var url = "http://myluna.org/api/v1/returnDailyEntry.php"
+        console.log("in get entry")
+        
+
+        this.http.get(url, {params:entry_data}).map((response) => {
+                var Obj = response.json();
+                console.log(Obj.error);
+                console.log(Obj.message);
+                if (Obj.error == false) {
+                        // get request success
+                        console.log("get entry success");
+                        console.log(response);
+                        //change period start date back to null, it's been recorded.
+                        this.eventsArray = [
+                        { name: 'Sexual interest: '+ Obj.sexualInterest},
+                        { name: 'Sexual attitude: '+ Obj.sexualAttitude},
+                        { name: 'Sexual arousal: '+Obj.sexualArousal},
+                        { name: 'Kissing activity: '+Obj.kissingActivity},
+                        { name: 'Caressing activity: '+Obj.caressingActivity},
+                        { name: 'Fondling activity: '+Obj.fondlingActivity},
+                        { name: 'Masturbation activity: '+Obj.masturbationActivity},
+                        { name: 'Oral Activity: '+Obj.oralActivity},
+                        { name: 'Anal Activity: '+Obj.analActivity},
+                        { name: 'Vaginal Activity: '+Obj.vaginalActivity},
+                        { name: 'No Activity: '+Obj.noActivity},
+                        { name: 'Other Activity: '+Obj.otherActivity},
+                        { name: 'Intensity: '+Obj.intensity}
+                        ]
+                        console.log(this.eventsArray);
+                        return true;
+                } else {
+                        // get request failed
+                        console.log("get entry failure: " + Obj.message);
+                        this.eventsArray=[];
+                        return false;
+                }
+        }).subscribe();
+
+    }   // end post_period
 }

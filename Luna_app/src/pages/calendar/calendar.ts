@@ -40,6 +40,8 @@ export class CalendarComponent {
     isLoading: boolean=true;
     loading;
 
+    globalUid: string;
+
   @ViewChild('mySlider') slider: Slides;
   public weekNames:Array<String>;
   public selectedDate:any;
@@ -52,6 +54,7 @@ export class CalendarComponent {
     console.log("Tristan Calendar Page loading...");
         this.storage.get('uid').then((data) => {
             console.log(data);
+            this.globalUid=data;
             var uid = data;
             var form_object = {  // this is the form object sent to the server.
                     uid: uid,
@@ -105,7 +108,7 @@ export class CalendarComponent {
     startMonth.date(1);
     this.setTimeToZero(startMonth.day(0));
     this.createMonth(monthObj,startMonth);
-    this.events = this.calendarService.getEvents(this.selectedDate);
+    this.events = this.calendarService.getEvents(this.selectedDate, this.globalUid);
   }
 
   init(month){
@@ -138,7 +141,7 @@ export class CalendarComponent {
     }
     monthObj.selectedDate = day;
     this.selectedDate = day;
-    //CalendarService.getEvents(day); //Use this to fetch events for the selected day
+    this.events = this.calendarService.getEvents(day, this.globalUid); //Use this to fetch events for the selected day
   }
 
   handleSlideView() {
