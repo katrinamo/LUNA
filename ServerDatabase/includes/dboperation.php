@@ -542,6 +542,30 @@ class DbOperation
         }
     }   // end of createEntry
 
+    /**
+     * Function to return a daily entry for a given date
+     *  $uid:  user ID
+     *  $selected_date: the date the user has selected
+     * @return row: row in Entry table with the date selected
+     *.        null: no row is returned and error is thrown
+     */
+    public function returnDailyEntry($uid, $selected_date)
+    {
+        $selected_date = date('Y-m-d', strtotime(str_replace('-', '/', $selected_date)));
+        $stmt = "SELECT * FROM Entry WHERE uid = '" . $uid. "' AND entry_date = '" . $selected_date . "'";
+
+        $result = $this->conn->query($stmt);
+
+        // this should only ever return 1 record (for a user)
+        if ($result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            return $row;
+        }
+        else {
+            return null;
+        }
+
+    } // end of returnDailyEntry
 
     /**
      * Function to create a new Period in Period table
