@@ -8,7 +8,7 @@ Purpose: This code asks the user if they would like to logout.
 */
 
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { App, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { LoginPage } from '../login/login';
 
@@ -18,12 +18,13 @@ import { LoginPage } from '../login/login';
 })
 export class LogoutPage {
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private storage: Storage) {
+    constructor(public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private storage: Storage) {
     }
 
     public Logout() {
 	this.storage.clear();
- 	this.navCtrl.setRoot(LoginPage);
+    //this.navCtrl.parent.goToRoot();
+    this.appCtrl.getRootNav().setRoot(LoginPage);
  	console.log("Logout Successful");
     }
 
