@@ -40,9 +40,10 @@ Output:
 
 //imports needed for correct initialization.
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, ModalController } from 'ionic-angular';
 import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
+
 
 @Component({
     selector: 'page-tracker',
@@ -94,7 +95,7 @@ export class TrackerPage {
 
  
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, private storage: Storage, public loadingCtrl: LoadingController) {
+    constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, private storage: Storage, public loadingCtrl: LoadingController) {
     }
 
 
@@ -157,8 +158,6 @@ export class TrackerPage {
         var selfieDesc = document.getElementById('selfieDesc');
         selfieDesc.style.display = 'none';
     }
-
-
     
     //Function to recursively add the questions for each field
     public generateSelfieQ() {
@@ -173,17 +172,17 @@ export class TrackerPage {
         var numSelfies = parseInt(this.numSelfies, 10);
         console.log(numSelfies);
 
+        //Push the selfie onto an array and show the description on how to fill out questions
         if (numSelfies > 0) {
             this.Show_selfieDescription();
             for (var i = 0; i < numSelfies; i++){
-                this.items.push("Photo #" + (i+1));
+                this.items.push({ id: i, name: "Photo #" + (i + 1) });
             }
         }
         else {
             this.Hide_selfieDescription();
         }
     }
-
   
     //Function that allows the climax toggle button to be toggled on and off either showing or hiding the climax question.
     public ToggleClimax() {
@@ -463,6 +462,7 @@ export class TrackerPage {
         });
         alert.present(alert);
     }
+
 
     // an alert with date fields
     public periodAlertForm(uid: string, start_date: string, end_date: string){
