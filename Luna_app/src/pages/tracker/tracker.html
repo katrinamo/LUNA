@@ -65,105 +65,122 @@ Output:
     <ion-list *ngSwitchCase="'dailyQuestions'">
       <div>
         <!--Info for the user listed at the very top of the page that gives info regarding some of the questions.-->
-        <p>Please answer the following questions as honestly as possible. Your responses will be kept completely confidential. Remember that you are answering questions based on (today/yesterday)</p>
+        <p>Please answer the following questions as honestly as possible. Your responses will be kept completely confidential. Remember that you are answering questions based on </p>
 
-        <!--DQ number 0: should appear regardless and the user has to enter an answer for this question before the page can be submitted regardless
-        Uses the select component
-        Variable: onPeriod: string-->
-        <h6>Are you currently on your period?</h6>
-        <ion-list>
-          <ion-item>
-            <ion-label>Yes / No</ion-label>
-            <ion-select [(ngModel)]="onPeriod">
-              <ion-option value="Yes">Yes</ion-option>
-              <ion-option value="No">No</ion-option>
-            </ion-select>
+        <!-- Ask the user how many selfies they have taken today-->
+        <h6>How many selfies did you post on social media today? </h6>
+        <ion-item >
+          <ion-input id="selfie-question" type="number" value="0" (ionChange)=generateSelfieQ() [(ngModel)]="numSelfies"></ion-input>
+        </ion-item>
+
+        <div id="selfieDesc" style="display: none;">
+          <p >We are interested in your feelings about posting photos. Thinking about the photos you posted today, please indicate how much you agree or disagree with each option below for each photo:</p>
+        </div>
+
+          <!--The NEW questions about selfies will be dumped here-->
+          <a class="item item-list-detail">
+            <ion-scroll direction="x">
+              <img ng-repeat="photo in totalPics" class="image-list-thumb" />
+            </ion-scroll>
+          </a>
+
+          <!--DQ number 0: should appear regardless and the user has to enter an answer for this question before the page can be submitted regardless
+    Uses the select component
+    Variable: onPeriod: string-->
+          <h6>Are you currently on your period?</h6>
+          <ion-list>
+            <ion-item>
+              <ion-label>Yes / No</ion-label>
+              <ion-select [(ngModel)]="onPeriod">
+                <ion-option value="Yes">Yes</ion-option>
+                <ion-option value="No">No</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+
+          <!--DQ number 1: should appear regardless and the user has to enter an answer for this question before the page can be submitted regardless
+    Uses the range/slider component.
+    Variable: sexualInterest: string-->
+          <h6>Please rate the intensity of your sexual desire today.?</h6>
+          <i>1: very weak, 2: moderately weak, 3: moderate, 4: moderately intense, 5: very intense</i>
+          <ion-item text-wrap>
+            <ion-range min="1" max="5" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="sexualInterest">
+              <ion-label range-left>1</ion-label>
+              <ion-label range-right>5</ion-label>
+            </ion-range>
           </ion-item>
-        </ion-list>
 
-        <!--DQ number 1: should appear regardless and the user has to enter an answer for this question before the page can be submitted regardless
-        Uses the range/slider component.
-        Variable: sexualInterest: string-->
-        <h6>Please rate the intensity of your sexual desire today.?</h6>
-        <i>1: very weak, 2: moderately weak, 3: moderate, 4: moderately intense, 5: very intense</i>
-        <ion-item text-wrap>
-          <ion-range min="1" max="5" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="sexualInterest">
-            <ion-label range-left>1</ion-label>
-            <ion-label range-right>5</ion-label>
-          </ion-range>
-        </ion-item>
+          <!-- DQ number 2: Appears regardless of what the user indicates for the first toggle question.
+    Uses radio buttons.
+    variable: sexualAttitude-->
+          <h6>Based on how you feel today, which of the following are you most likely to do?</h6>
+          <ion-list radio-group [(ngModel)]="sexualAttitude">
+            <ion-item>
+              <ion-label>Seek sex</ion-label>
+              <ion-radio value="seek"></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>Acquiesce to sex</ion-label>
+              <ion-radio value="acquiesce"></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>Avoid sex</ion-label>
+              <ion-radio value="avoid"></ion-radio>
+            </ion-item>
+          </ion-list>
 
-        <!-- DQ number 2: Appears regardless of what the user indicates for the first toggle question.
-        Uses radio buttons.
-        variable: sexualAttitude-->
-        <h6>Based on how you feel today, which of the following are you most likely to do?</h6>
-        <ion-list radio-group [(ngModel)]="sexualAttitude">
+          <!--DQ multiple toggles. If the user toggles anything but NONE, the next questions will appear.
+    If the button NONE button is toggled then these questions will not appear.
+    Variables: (boolean)  kissing
+                          caressing
+                          fondling
+                          masturbation
+                          oral
+                          anal
+                          vaginal
+                          none
+               (string)   other-->
+
+          <h6>Based on how you feel today, which of the following are you most likely to do?</h6>
           <ion-item>
-            <ion-label>Seek sex</ion-label>
-            <ion-radio value="seek"></ion-radio>
+            <ion-label>Intense kissing</ion-label>
+            <ion-toggle [(ngModel)]="kissing" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
           </ion-item>
           <ion-item>
-            <ion-label>Acquiesce to sex</ion-label>
-            <ion-radio value="acquiesce"></ion-radio>
+            <ion-label>Caressing</ion-label>
+            <ion-toggle [(ngModel)]="caressing" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
           </ion-item>
           <ion-item>
-            <ion-label>Avoid sex</ion-label>
-            <ion-radio value="avoid"></ion-radio>
+            <ion-label>Fondling</ion-label>
+            <ion-toggle [(ngModel)]="fondling" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
           </ion-item>
-        </ion-list>
-
-        <!--DQ multiple toggles. If the user toggles anything but NONE, the next questions will appear.
-        If the button NONE button is toggled then these questions will not appear.
-        Variables: (boolean)  kissing
-                              caressing
-                              fondling
-                              masturbation
-                              oral
-                              anal
-                              vaginal
-                              none
-                   (string)   other-->
-
-        <h6>Based on how you feel today, which of the following are you most likely to do?</h6>
-        <ion-item>
-          <ion-label>Intense kissing</ion-label>
-          <ion-toggle [(ngModel)]="kissing" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
-        </ion-item>
-        <ion-item>
-          <ion-label>Caressing</ion-label>
-          <ion-toggle [(ngModel)]="caressing" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
-        </ion-item>
-        <ion-item>
-          <ion-label>Fondling</ion-label>
-          <ion-toggle [(ngModel)]="fondling" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
-        </ion-item>
-        <ion-item>
-          <ion-label>Masturbation</ion-label>
-          <ion-toggle [(ngModel)]="masturbation" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
-        </ion-item>
-        <ion-item>
-          <ion-label>Oral sex</ion-label>
-          <ion-toggle [(ngModel)]="oral" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
-        </ion-item>
-        <ion-item>
-          <ion-label>Anal sex</ion-label>
-          <ion-toggle [(ngModel)]="anal" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
-        </ion-item>
-        <ion-item>
-          <ion-label>Vaginal sex</ion-label>
-          <ion-toggle [(ngModel)]="vaginal" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
-        </ion-item>
-        <ion-item>
-          <ion-label>None</ion-label>
-          <ion-toggle [(ngModel)]="none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
-        </ion-item>
-        <!-- This is an individual ID so that it can be hidden in the event that a user clicks NONE but intends to answer OTHER.
-        That way the user cannot submit a form where OTHER is not null/undefined but NONE is true. -->
-        <ion-item id="otherActivityQ">
-          <ion-label>Other:</ion-label>
-          <ion-input type="text"  (ionChange)="ToggleSexualActivity()" [(ngModel)]="other"></ion-input>
-        </ion-item>
-      </div>
+          <ion-item>
+            <ion-label>Masturbation</ion-label>
+            <ion-toggle [(ngModel)]="masturbation" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-label>Oral sex</ion-label>
+            <ion-toggle [(ngModel)]="oral" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-label>Anal sex</ion-label>
+            <ion-toggle [(ngModel)]="anal" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-label>Vaginal sex</ion-label>
+            <ion-toggle [(ngModel)]="vaginal" [disabled]="this.none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-label>None</ion-label>
+            <ion-toggle [(ngModel)]="none" (ionChange)="ToggleSexualActivity()" name="sexualActivity"></ion-toggle>
+          </ion-item>
+          <!-- This is an individual ID so that it can be hidden in the event that a user clicks NONE but intends to answer OTHER.
+    That way the user cannot submit a form where OTHER is not null/undefined but NONE is true. -->
+          <ion-item id="otherActivityQ">
+            <ion-label>Other:</ion-label>
+            <ion-input type="text" (ionChange)="ToggleSexualActivity()" [(ngModel)]="other"></ion-input>
+          </ion-item>
+        </div>
 
       <!--DQ number 4: Should only appear if the first toggle button has been set to true.
       Variable: sexualArousal: string-->

@@ -69,6 +69,10 @@ export class TrackerPage {
     vaginal: boolean = false;
     none: boolean = false;
 
+    //Will catch the number of selfies the user posted
+    numSelfies: string;
+    public totalPics: any[] = [];
+
 
     //String input for any other sexual activity
     other: string;
@@ -87,6 +91,8 @@ export class TrackerPage {
     //Spinner declaration and boolean
     isLoading: boolean=true;
     loading;
+
+ 
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, private storage: Storage, public loadingCtrl: LoadingController) {
     }
@@ -142,6 +148,33 @@ export class TrackerPage {
         otherQuestion.style.display = 'inline';
     }
 
+    public Show_selfieDescription() {
+        var selfieDesc = document.getElementById('selfieDesc');
+        selfieDesc.style.display = 'inline';
+    }
+
+    public Hide_selfieDescription(){
+        var selfieDesc = document.getElementById('selfieDesc');
+        selfieDesc.style.display = 'none';
+    }
+
+
+    
+    //Function to recursively add the questions for each field
+    public generateSelfieQ() {
+
+        //You have to cast this because type script will throw an error otherwise
+        //Converts the string to a base10 decimal
+        var numSelfies = parseInt(this.numSelfies, 10);
+        console.log(numSelfies);
+
+        if (numSelfies > 0) {
+            this.Show_selfieDescription();
+        }
+        else {
+            this.Hide_selfieDescription();
+        }
+    }
 
   
     //Function that allows the climax toggle button to be toggled on and off either showing or hiding the climax question.
