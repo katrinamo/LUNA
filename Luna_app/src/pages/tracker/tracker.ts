@@ -71,7 +71,7 @@ export class TrackerPage {
 
     //Will catch the number of selfies the user posted
     numSelfies: string;
-    public totalPics: any[] = [];
+    public items: any[] = [];
 
 
     //String input for any other sexual activity
@@ -163,6 +163,11 @@ export class TrackerPage {
     //Function to recursively add the questions for each field
     public generateSelfieQ() {
 
+        //Clear the array
+        for (var r = this.items.length; r > 0; r--) {
+            this.items.pop();
+        }
+
         //You have to cast this because type script will throw an error otherwise
         //Converts the string to a base10 decimal
         var numSelfies = parseInt(this.numSelfies, 10);
@@ -170,6 +175,9 @@ export class TrackerPage {
 
         if (numSelfies > 0) {
             this.Show_selfieDescription();
+            for (var i = 0; i < numSelfies; i++){
+                this.items.push("Photo #" + (i+1));
+            }
         }
         else {
             this.Hide_selfieDescription();

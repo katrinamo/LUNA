@@ -74,15 +74,16 @@ Output:
         </ion-item>
 
         <div id="selfieDesc" style="display: none;">
-          <p >We are interested in your feelings about posting photos. Thinking about the photos you posted today, please indicate how much you agree or disagree with each option below for each photo:</p>
+          <p >We are interested in your feelings about posting photos. Thinking about the photos you posted today, please indicate how much you agree or disagree with each option below for each photo:
+              (click to see options)</p>
         </div>
 
           <!--The NEW questions about selfies will be dumped here-->
-          <a class="item item-list-detail">
-            <ion-scroll direction="x">
-              <img ng-repeat="photo in totalPics" class="image-list-thumb" />
-            </ion-scroll>
-          </a>
+        <ion-list>
+          <button ion-item *ngFor="let item of items" >
+            {{ item }}
+          </button>
+        </ion-list>
 
           <!--DQ number 0: should appear regardless and the user has to enter an answer for this question before the page can be submitted regardless
     Uses the select component
