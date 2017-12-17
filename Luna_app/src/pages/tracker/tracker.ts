@@ -70,6 +70,9 @@ export class TrackerPage {
     vaginal: boolean = false;
     none: boolean = false;
 
+    //Values for selfie collection
+    descriptions: any[] = [];
+
     //Will catch the number of selfies the user posted
     numSelfies: string;
     public items: any[] = [];
@@ -83,7 +86,7 @@ export class TrackerPage {
     toggleSexualActivity: boolean = false;
 
     //If true, the html will expand to show the climax intesity question
-    toggleClimax: boolean = false;          
+    toggleClimax: boolean = false;
 
     //Variables used for the Statistics tab
     avgCycleLengthString: string = "You do not currently have any completed Periods on record. Continue using the app to see your average cycle/period length.";
@@ -176,14 +179,17 @@ export class TrackerPage {
         if (numSelfies > 0) {
             this.Show_selfieDescription();
             for (var i = 0; i < numSelfies; i++){
-                this.items.push({ id: i, name: "Photo #" + (i + 1) });
+                //This is the structure of a singular selfie.
+                //Each selfie is added to the global array "items"
+                this.items.push({ name: "Photo #" + (i + 1), description: [], otherSelfie: "", boredSelfie: "", documentSelfie: "", reactionSelfie: "",  communicateSelfie: ""});
             }
         }
         else {
             this.Hide_selfieDescription();
         }
     }
-  
+
+    
     //Function that allows the climax toggle button to be toggled on and off either showing or hiding the climax question.
     public ToggleClimax() {
 
@@ -310,6 +316,7 @@ export class TrackerPage {
             var otherActivity = this.other;
             var intensity = this.intensity;
 
+
             // If the user did have sexual activity, put in the post. Otherwise, ignore.
             if (this.toggleSexualActivity == true) {
                 sexualArousal = this.sexualArousal;
@@ -320,6 +327,10 @@ export class TrackerPage {
                 this.toggleClimax = false;
             }
 
+            //Prints all of the selfie responses
+            console.log("ITEMS: ")
+            console.log(this.items)
+            
             // If the user did orgasm, put it's intensity in the post. Otherwise, ignore.
             if (this.toggleClimax == true) {
                 intensity = this.intensity;

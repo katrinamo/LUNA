@@ -91,42 +91,52 @@ Output:
               <p>We are interested in your feelings about posting photos. Thinking about the photos you posted today, please indicate how much you agree or disagree with each option below for each photo: </p>
               <h6>I posted this photo:</h6>
 
+              <!-- Selfie questions 1-4: The responses to these are collected in the current item's boredSelfie, documentSelfie
+                   reactionSelfie, and communicateSelfie fields.-->
               <p> <b>To pass time or be entertained when I’m bored</b> </p>
               <i>1: strongly disagree, 2: disagree, 3: slightly disagree, 4: slightly agree, 5: agree, 6: strongly agree</i>
               <ion-item text-wrap>
-                <ion-range min="1" max="6" step="1" snaps="true" pin="true" color="primary">
+                <ion-range min="1" max="6" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="item.boredSelfie">
                   <ion-label range-left>1</ion-label>
                   <ion-label range-right>6</ion-label>
                 </ion-range>
               </ion-item>
+
               <p> <b>To record my interests and hobbies or document a specific moment</b> </p>
               <i>1: strongly disagree, 2: disagree, 3: slightly disagree, 4: slightly agree, 5: agree, 6: strongly agree</i>
               <ion-item text-wrap>
-                <ion-range min="1" max="6" step="1" snaps="true" pin="true" color="primary">
+                <ion-range min="1" max="6" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="item.documentSelfie">
                   <ion-label range-left>1</ion-label>
                   <ion-label range-right>6</ion-label>
                 </ion-range>
               </ion-item>
+
               <p> <b>To attract attention or elicit a reaction from others</b>  </p>
               <i>1: strongly disagree, 2: disagree, 3: slightly disagree, 4: slightly agree, 5: agree, 6: strongly agree</i>
               <ion-item text-wrap>
-                <ion-range min="1" max="6" step="1" snaps="true" pin="true" color="primary">
+                <ion-range min="1" max="6" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="item.reactionSelfie">
                   <ion-label range-left>1</ion-label>
                   <ion-label range-right>6</ion-label>
                 </ion-range>
               </ion-item>
+
               <p><b> To communicate or keep in touch with others</b> </p>
               <i>1: strongly disagree, 2: disagree, 3: slightly disagree, 4: slightly agree, 5: agree, 6: strongly agree</i>
               <ion-item text-wrap>
-                <ion-range min="1" max="6" step="1" snaps="true" pin="true" color="primary">
+                <ion-range min="1" max="6" step="1" snaps="true" pin="true" color="primary" [(ngModel)]="item.communicateSelfie">
                   <ion-label range-left>1</ion-label>
                   <ion-label range-right>6</ion-label>
                 </ion-range>
               </ion-item>
+
+              <!-- SELFIE CATEGORY: This question appends the categories the user wants to attribute to a selfie to the current
+                   photo. Each category is added to the description array for each item in the items array. The value of
+                   the categories are equal to the text of the option. EX: A user selects FUN, the result in items is
+                   "description": ["Fun"] -->
               <h6> Please select the following words that you would use to describe the selfie (select all that apply, if none apply please fill out "Other") </h6>
               <ion-item>
                 <ion-label>Categories</ion-label>
-                <ion-select [(ngModel)]="descriptions" multiple="true">
+                <ion-select [(ngModel)]="item.description" multiple="true">
                   <ion-option>Fun</ion-option>
                   <ion-option>Engaging</ion-option>
                   <ion-option>Unattractive</ion-option>
@@ -153,110 +163,12 @@ Output:
               </ion-item>
               <ion-item>
                 <ion-label>Other:</ion-label>
-                <ion-input type="text" [(ngModel)]="OtherSelfie"></ion-input>
+                <ion-input type="text" [(ngModel)]="item.otherSelfie"></ion-input>
               </ion-item>
             </div>
           </div>
 
-          <!--UBER UGLY BELOW, keeping in case I figure out a way to use modals
-              <ion-list>
-            <ion-item>
-              <ion-label>Fun</ion-label>
-              <ion-checkbox [(ngModel)]="fun"></ion-checkbox>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>Engaging</ion-label>
-              <ion-checkbox [(ngModel)]="Engaging"></ion-checkbox>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>Unattractive</ion-label>
-              <ion-checkbox [(ngModel)]="Unattractive"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Warm</ion-label>
-              <ion-checkbox [(ngModel)]="Warm"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Cute</ion-label>
-              <ion-checkbox [(ngModel)]="Cute"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Friendly</ion-label>
-              <ion-checkbox [(ngModel)]="Friendly"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Sexy</ion-label>
-              <ion-checkbox [(ngModel)]="Sexy"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Groomed</ion-label>
-              <ion-checkbox [(ngModel)]="Groomed"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Neat</ion-label>
-              <ion-checkbox [(ngModel)]="Neat"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Gorgeous</ion-label>
-              <ion-checkbox [(ngModel)]="Gorgeous"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Approachable</ion-label>
-              <ion-checkbox [(ngModel)]="Approachable"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Smart</ion-label>
-              <ion-checkbox [(ngModel)]="Smart"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Disheveled</ion-label>
-              <ion-checkbox [(ngModel)]="Disheveled"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Polished</ion-label>
-              <ion-checkbox [(ngModel)]="Polished"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Serious</ion-label>
-              <ion-checkbox [(ngModel)]="Serious"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Disturbing</ion-label>
-              <ion-checkbox [(ngModel)]="Disturbing"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Confident</ion-label>
-              <ion-checkbox [(ngModel)]="Confident"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Glamorous</ion-label>
-              <ion-checkbox [(ngModel)]="Glamorous"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Sociable</ion-label>
-              <ion-checkbox [(ngModel)]="Sociable"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Attractive</ion-label>
-              <ion-checkbox [(ngModel)]="Attractive"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Inviting</ion-label>
-              <ion-checkbox [(ngModel)]="Inviting"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Hot</ion-label>
-              <ion-checkbox [(ngModel)]="Hot"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-label>Other:</ion-label>
-              <ion-input type="text" [(ngModel)]="OtherSelfie"></ion-input>
-            </ion-item>
-
-          </ion-list>-->
-
+        
         </ion-list>
 
 
