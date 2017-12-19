@@ -982,5 +982,31 @@ class DbOperation
         }
     } // end changePeriodStartDate
 
+
+    /**
+     * Function to validate that a period does not conflict with a previously entered period.
+     *  $uid:  user ID
+     *  $start_date:  start date of period
+     *  $end_date:  end date of period
+     * @return false: the user has no conflict 
+     *    true: user has a period date conflict
+     *        
+     */
+    public function isPeriodDateConflict($uid, $start_date, $end_date)
+    {
+        $start_date = date('Y-m-d', strtotime(str_replace('-', '/', $start_date)));
+        $end_date = date('Y-m-d', strtotime(str_replace('-', '/', $end_date)));
+         
+         // Check if there is already a daily questions submission for the day
+         $stmt = $this->conn->prepare('SELECT * FROM `Period` WHERE uid = ? AND (cast(? as DATE) <= mens_end AND cast(? as DATE) >= mens_start) OR (cast(? as DATE) <= mens_end AND cast(? as DATE) >= mens_start)');
+         $stmt->bind_param('sssss', $uid, $start_date, $start_date, $end_date, $end_date);
+         $stmt->execute();
+         $stmt->store_result();
+         
+         // Return if results were found
+         return $stmt->num_rows > 0;
+
+    }   // end of getUserPeriodAvg
+
 }  // end of DbOperation class
 

@@ -47,8 +47,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             // Verify that UID exists
             if($db->authenticateUid($uid)) 
             {             
-                // Create new daily questions event
-                if($db->createPeriod($uid, $start_date, $end_date))
+                //verify that there are no conflicting period entries.
+                if ($db->isPeriodDateConflict($uid, $start_date, $end_date)) {
+                    $response['error'] = true;
+                    $response['message'] = 'This period entry conflicts with a previous period entry.';
+                }
+                // Create new daily questions event if the period is validated.
+                else if($db->createPeriod($uid, $start_date, $end_date))
                 {
                     $response['error'] = false;
                     $response['message'] = 'Successfully added period';
