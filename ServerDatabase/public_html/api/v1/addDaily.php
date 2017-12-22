@@ -23,20 +23,15 @@
 //   Apps uses post
 // References:
 //   modified from logIncident.php
-
 // Importing required scripts
 require_once '../../../includes/dboperation.php';
 require_once '../../../includes/funcs.php';
-
 $response = [];
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
 {
-
     header("Access-Control-Allow-Origin: *");
-
     // See if proper parameters were provided
-    if (verifyRequiredParams(['uid', 'date', 'onPeriod','sexualInterest', 'sexualAttitude', 'sexualArousal', 'kissing', 'caressing', 'fondling', 'masturbation', 'oral', 'anal', 'vaginal', 'none', 'other', 'intensity']))
+    if (verifyRequiredParams(['uid', 'date', 'onPeriod','sexualInterest', 'sexualAttitude', 'sexualArousal', 'kissing', 'caressing', 'fondling', 'masturbation', 'oral', 'anal', 'vaginal', 'none', 'other', 'intensity', 'numSelfies']))
     {
         // Get parameter values
         $uid = $_REQUEST['uid'];
@@ -55,7 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
         $none = $_REQUEST['none'];
         $other = $_REQUEST['other'];
         $intensity = $_REQUEST['intensity'];
-
+        $numSelfies = $_REQUEST['numSelfies'];
+        
         // Create db operation object
         $db = new DbOperation();
         if (is_null($db->errMessage))
@@ -63,22 +59,72 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             // Verify that UID exists
             if($db->authenticateUid($uid))
             {
-		if (!($db->areDailyQuestionsSubmitted($uid, $entry_date))) { 
+		        if (!($db->areDailyQuestionsSubmitted($uid, $entry_date))) 
+		        {
                 	// Create new daily questions event
-                	if($db->createEntry($uid, $entry_date, $onPeriod, $sexualInterest, $sexualAttitude, $sexualArousal,  $kissing, $caressing, $fondling, $masturbation, $oral, $anal, $vaginal, $none, $other, $intensity))
-                	{
-                    		$response['error'] = false;
+                	if($db->createEntry($uid, $entry_date, $onPeriod, $sexualInterest, $sexualAttitude, $sexualArousal, $kissing, $caressing, $fondling, $masturbation, $oral, $anal, $vaginal, $none, $other, $intensity))
+                	{ 
+                	    if ($numSelfies > 0) {
+                	        $eid = $db->getEid($uid, $entry_date);
+                	        if ($eid != -1) {
+                	            
+                	            $selfieSuccessFlag = true;
+                	            
+                	            for ($i = 0; $i < $numSelfies; $i++) {
+                	                
+                	                $selfieName = 'selfie' . ($i + 1);
+                	                if (verifyRequiredParams([$selfieName])) {
+                	                    $selfie = $_REQUEST[$selfieName];
+                	                    $selfie = json_decode($selfie, true);
+                	                    
+                	                    $descriptions = "";
+                    	                foreach ($selfie['description'] as $d) {
+                    	                    $descriptions .= $d . ",";
+                    	                }
+                    	                
+                    	                if ($selfie['otherSelfie'] != "") {
+                    	                    $descriptions .= $selfie['otherSelfie'];
+                    	                }
+                    	                
+                    	                if (!$db->createSelfieEntry($eid, $selfie['boredSelfie'], $selfie['documentSelfie'], $selfie['reactionSelfie'], $selfie['communicateSelfie'], $descriptions)) {
+                    	                    $selfieSuccessFlag = false;
+                    	                }
+                    	                
+                	                }
+                	                else {
+                	                    $selfieSuccessFlag = false;
+                	                }
+                	            }
+                	            
+                	            if ($selfieSuccessFlag == true) {
+                	                $response['error'] = false;
+                    		        $response['message'] = 'Successfully added daily activity';
+                	            }
+                	            else {
+                	                $response['error'] = true;
+                    		        $response['message'] = 'Error Adding All Selfies';
+                	            }
+                	            
+                	        }
+                	        else {
+                	            $response['error'] = true;
+                	            $response['message'] = 'Error Finding Entry';
+                	        }
+                	    } 
+                	    else {
+                	        $response['error'] = false;
                     		$response['message'] = 'Successfully added daily activity';
+                	    }  
                 	}
                 	else
                 	{
-                    		$response['error'] = true;
-                    		$response['message'] = 'Error adding daily activity';
+                    	$response['error'] = true;
+                    	$response['message'] = 'Error adding daily activity';
                 	}
-		{
-		else {
-			$response['error'] = true;
-                        $response['message'] = 'Error adding daily activity';
+		        }
+		        else {
+			        $response['error'] = true;
+                    $response['message'] = 'Daily Questions are Already Submitted';
                 }
             }
             else
@@ -91,22 +137,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
         {
             $response['error'] = true;
             $response['message'] = $db->errMessage;
-
         }
-
     }
     else
     {
         $response['error'] = true;
-        $response['message'] = 'Missing data from app';
+        $response['message'] = 'Missing Data from App';
     }
 }
 else
 {
     $response['error'] = true;
-    $response['message'] = 'Invalid request';
+    $response['message'] = 'Invalid Request';
 }
 // Echo json response
 echo json_encode($response);
-
-

@@ -315,7 +315,7 @@ export class TrackerPage {
             var vaginalActivity = this.vaginal ? 1 : 0;
             var otherActivity = this.other;
             var intensity = this.intensity;
-
+	    var numSelfies = Number(this.numSelfies);
 
             // If the user did have sexual activity, put in the post. Otherwise, ignore.
             if (this.toggleSexualActivity == true) {
@@ -327,10 +327,38 @@ export class TrackerPage {
                 this.toggleClimax = false;
             }
 
-            //Prints all of the selfie responses
-            console.log("ITEMS: ")
-            console.log(this.items)
-            
+	    // Create the selfie objects
+	    if (numSelfies >= 1) {
+		var selfie1 = this.items[0];
+	    }
+	    if (numSelfies >= 2) {
+		var selfie2 = this.items[1];
+	    }
+	    if (numSelfies >= 3) {
+                var selfie3 = this.items[2];
+            }
+            if (numSelfies >= 4) {
+                var selfie4 = this.items[3];
+            }
+            if (numSelfies >= 5) {
+                var selfie5 = this.items[4];
+            }
+            if (numSelfies >= 6) {
+                var selfie6 = this.items[5];
+            }
+            if (numSelfies >= 7) {
+                var selfie7 = this.items[6];
+            }
+            if (numSelfies >= 8) {
+                var selfie8 = this.items[7];
+            }
+            if (numSelfies >= 9) {
+                var selfie9 = this.items[8];
+            }
+            if (numSelfies >= 10) {
+                var selfie10 = this.items[9];
+            }
+
             // If the user did orgasm, put it's intensity in the post. Otherwise, ignore.
             if (this.toggleClimax == true) {
                 intensity = this.intensity;
@@ -389,14 +417,28 @@ export class TrackerPage {
                 vaginal: vaginalActivity,
                 none: noActivity,
                 other: otherActivity,
-                intensity: intensity
+                intensity: intensity,
+		numSelfies: numSelfies,
+		selfie1: selfie1,
+		selfie2: selfie2,
+		selfie3: selfie3,
+		selfie4: selfie4,
+		selfie5: selfie5,
+		selfie6: selfie6,
+		selfie7: selfie7,
+		selfie8: selfie8,
+		selfie9: selfie9,
+		selfie10: selfie10
             };
 
             // This is how the page is submitted.
             //Note that if the user leaves out specific fields that need to be filled out then the page will not submit and an error message will be sent to the user.
-            if ((sexualInterest == '' || onPeriod == '' || sexualAttitude == '')
+	    if (numSelfies == undefined) {
+		this.customalert("Please fill out the selfie question(s).", "Cannot Submit");
+	    }
+            else if ((sexualInterest == '' || onPeriod == '' || sexualAttitude == '')
                 || (sexualInterest == undefined || onPeriod == undefined || sexualAttitude == undefined)) {
-                this.customalert("Please go back through the form and fill out the first three questions.", "Cannot Submit");
+                this.customalert("Please go back through the form and fill out the first three non-selfie questions.", "Cannot Submit");
             }
             else {
                 if (this.toggleSexualActivity == true) {
@@ -435,6 +477,7 @@ export class TrackerPage {
         // Server daily questions handler url (addDaily.php)
         var url = "http://myluna.org/api/v1/addDaily.php"
         console.log("in post tracker")
+	console.log(tracker_data);
 
         this.http.get(url, {params:tracker_data}).map((response) => {
                 this.dismissLoadingCustom();
@@ -451,7 +494,7 @@ export class TrackerPage {
                 } else {
                         // get request failed
                         console.log("post tracker failure: " + Obj.message);
-                        this.customalert("Failure to submit your daily questions", "Failure");
+                        this.customalert(Obj.message, "Failure");
                         return false;
                 }
         }).subscribe();

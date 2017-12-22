@@ -900,6 +900,27 @@ class DbOperation
     } // end of getOnboardStatus
 
     /**
+    * Function to get eid for given daily entry
+    *  $uid: The user's uid
+    *  $entry_date: The current date
+    * @return eid: the user entry's eid
+    *    if -1.0, error: user has no entry for given day
+    */
+    public function getEid($uid, $entry_date) {
+	    $sql = "SELECT eid
+		    FROM Entry WHERE uid = '" . $uid . "' AND entry_date = '" . $entry_date . "'";
+	    $result = $this->conn->query($sql);
+	    // this should only ever return 1 record (for a user)
+	    if ($result->num_rows == 1) {
+	       $row = $result->fetch_assoc();
+	       return $row["eid"];
+	    }
+	    else {
+	       return -1.0;
+	    }
+    } // end of getEid
+
+    /**
     * Function to get lastPeriodStartDate. This is the last period used by the application to track the user's actual period, via daily questions.
     *  $username: username
     *  $password: password

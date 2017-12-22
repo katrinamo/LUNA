@@ -70,7 +70,7 @@ Output:
         <!-- Ask the user how many selfies they have taken today-->
         <h6>How many selfies did you post on social media today? </h6>
         <ion-item >
-          <ion-input id="selfie-question" type="number" (ionChange)=generateSelfieQ() [(ngModel)]="numSelfies"></ion-input>
+          <ion-input id="selfie-question" type="number" min="0" max="10" (ionChange)=generateSelfieQ() [(ngModel)]="numSelfies"></ion-input>
         </ion-item>
 
         <div id="selfieDesc" style="display: none;">
