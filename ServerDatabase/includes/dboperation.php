@@ -1029,5 +1029,30 @@ class DbOperation
 
     }   // end of getUserPeriodAvg
 
+    /**
+     * Function to get last logged period start date from user (from Period table)
+     *  $uid:  user ID
+     * @return average: the user's last loggged period start date from Period.
+     *    if -1.0, error: user has no periods entered
+     *        
+     */
+    public function getUserLastPeriodStartDate($uid)
+    {
+        $sql = "SELECT uid, MAX(mens_start) AS last_date
+                FROM Period 
+                GROUP BY uid 
+                HAVING uid = " . $uid;
+        $result = $this->conn->query($sql);
+        
+        //this should only ever return 1 record (for a user)
+        if ($result->num_rows == 1) {
+            //echo "num rows: " . $result->num_rows . "<br>";
+            $row = $result->fetch_assoc();
+            return $row["last_date"];
+        } else {
+            return -1.0;
+        }
+    }   // end of getLastUserPeriodStartDate
+
 }  // end of DbOperation class
 

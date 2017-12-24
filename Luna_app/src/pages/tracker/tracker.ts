@@ -648,8 +648,14 @@ export class TrackerPage {
                         console.log(response);
                         return true;
                 } else {
+                        console.log("post tracker failure: " + Obj.message);
+                        if(Obj.message == 'This period entry conflicts with a previous period entry.') {
+                             this.customalert("You already have a period conflicting with these dates. Please verify your entry and try again.", "Failure");
+                        }
                         // get request failed
-                        console.log("post period start date failure: " + Obj.message);
+                        else {
+                            this.customalert("Failure to submit your period. Please try again.", "Failure");
+                        }
                         return false;
                 }
         }).subscribe();

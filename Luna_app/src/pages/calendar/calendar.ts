@@ -46,6 +46,10 @@ export class CalendarComponent {
   public weekNames:Array<String>;
   public selectedDate:any;
   public today:any;
+  public cycleLength:number;
+  public periodLength:number;
+  public lastPeriodStartDate:any;
+  public periodDates:Array<any> = [];
   public events:Array<any> = [];
   public months:Array<any> = [];
   constructor(public navCtrl: NavController, private calendarService:CalendarService, private storage: Storage, public loadingCtrl: LoadingController, private alertCtrl: AlertController, private http: Http) {
@@ -164,7 +168,7 @@ export class CalendarComponent {
     this.handleSlideView();
   }
 
-           // get_statistics
+            // get_statistics
     // send HTTP post request to the server to get statistics for the current user.
     // preconditions:
     //   none.
@@ -192,7 +196,13 @@ export class CalendarComponent {
                         console.log("get statistics success");
                         this.storage.set('cycle_length', Obj.average_cycle_length);
                         this.storage.set('period_length', Obj.average_period_length);
+                        this.cycleLength = Math.round(Obj.average_cycle_length);
+                        console.log(this.cycleLength);
+                        this.periodLength = Math.round(Obj.average_period_length);
+                        console.log(this.periodLength);
+                        this.lastPeriodStartDate = moment(Obj.last_period_start_date).clone();
                         console.log(response);
+                        this.populatePeriodDateArray();
                         return true;
                 } else {
                         // get request failed
@@ -201,7 +211,7 @@ export class CalendarComponent {
                 }
         }).subscribe();
 
-    }   // end post_period
+    }   // end get_statistics
 
       // presentLoadingCustom()
     // Display a custom spinner to indicate that the app is communicating with the server.
@@ -259,6 +269,39 @@ export class CalendarComponent {
             buttons: ['OK']
         });
         alert.present(alert);
+    }
+
+     // populatePeriodDateArray()
+    // Populate the period date array by using the average period length, starting date, and month.
+    // preconditions:
+    //   starting period date and average period length should have been retrieved from server and stored.
+    // input:
+    //   none.
+    // output:
+    //   none.
+    // postconditions:
+    //   the Period date array will become populated with period dates for the next 3 months.
+    populatePeriodDateArray() {
+      console.log('populating period array...');
+      var i:number;
+      var j:number;
+      //for the next 3 months
+      for (j=0; j<90; j+=this.cycleLength) {
+        console.log("j: ", j);
+        //for each day in the average period length
+        for (i=0; i<=this.periodLength; i++) {
+          console.log("i: ", i);
+          var date=this.lastPeriodStartDate.clone();
+          console.log("date before", date.format());
+          var addedNumber = j+i;
+          date.add(addedNumber, 'd');
+          console.log("date after", date.format());
+          //push back dates onto the periodDates array, adding the current cycle's day offset, then the days for that period.
+          this.periodDates.push(date);
+        }
+      }
+      console.log(this.periodDates);
+
     }
 
 }

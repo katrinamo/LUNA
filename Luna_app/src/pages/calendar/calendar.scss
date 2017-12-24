@@ -27,7 +27,6 @@ calendar {
   $calWeekHeaderBgColor: $calBaseColor;
   $calDayColBgColor: $calMediumColor;
   $calDayCellBgColor: $calBaseColor;
-  $markerBgColor: map-get($colors,royal);
   $dateHolidayBgColor: $calBaseColor;
   $dateWeekendBgColor: $calBaseColor;
   $dateNonCurrentMonthBgColor: $calMediumColor;
@@ -114,7 +113,7 @@ calendar {
       position: absolute;
       width: 4px;
       height: 100%;
-      background-color: $markerBgColor;
+      background-color: #ff5f5f;
       bottom: 0;
       left: 0;
     }

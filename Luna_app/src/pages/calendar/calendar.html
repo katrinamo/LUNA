@@ -47,9 +47,9 @@ Output:
                   >
                   {{day.date()}}
                   <!-- random markers -->
-                  <em class="marker"  *ngIf="day.month() === monthObj.selectedMonth.month() &&
-                                          (day.date() % 12 === 0) &&
-                                          ((day.days() % 6) !== 0)"></em>
+                  <ion-row *ngFor="let periodDay of periodDates; let periodIndex = index" >
+                    <em class="marker"*ngIf="day.isSame(periodDay,'day')"></em>
+                  </ion-row>
 
                 </div>
 
@@ -68,7 +68,7 @@ Output:
   </ion-slides>
 
   <div class="events">
-    <h5 favoritedark class="text-center" > Events On {{selectedDate.format('YYYY-MM-DD')}}</h5>
+    <h5 favoritedark class="text-center" > Entry On {{selectedDate.format('YYYY-MM-DD')}}</h5>
     <div  class="event-box text-center" >
       <ion-list>
         <ion-item *ngFor="let event of events">
